@@ -1,0 +1,21 @@
+/* Panchayat's everyday world: a restrained village-office palette and postmark. */
+.top-note{display:flex;justify-content:center;align-items:center;gap:16px;padding:10px 20px;line-height:1.5}
+.tvf-credit{padding-left:16px;border-left:1px solid #a7af96;letter-spacing:.9px;color:#d5dec6}
+.hero-description{max-width:390px}
+.hero-image-wrap img{object-position:55% center}
+.panchayat-story{background:#c7af7e;color:#352e29;border-block:1px solid #b49b6c;scroll-margin-top:0}
+.panchayat-story-inner{display:grid;grid-template-columns:110px .95fr 1.35fr;align-items:center;gap:52px;padding-block:62px}
+.phulera-postmark{color:#464b35;transform:rotate(-7deg)}
+.phulera-postmark svg{display:block;width:100%;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+.phulera-postmark text{fill:currentColor;stroke:none;font-family:var(--font-sans);font-size:12px;font-weight:500;letter-spacing:2px}
+.panchayat-story .eyebrow{font-size:12px;letter-spacing:1px;color:#4c452f}
+.panchayat-story h2{font-size:clamp(36px,3.2vw,47px);line-height:1.1;margin-top:15px;letter-spacing:-.015em}
+.panchayat-story h2 em{color:#454c33}
+.panchayat-story-copy{font-size:20px;line-height:1.6;max-width:590px}
+.panchayat-story-copy p+p{margin-top:15px}
+.panchayat-story-copy em{font-style:normal}
+.letter-heading svg{color:#4d593d}
+.closing-note p{font-size:36px}
+@media(max-width:1100px){.panchayat-story-inner{grid-template-columns:85px 1fr 1.3fr;gap:30px;padding-block:48px}.panchayat-story-copy{font-size:19px}.site-header nav{gap:23px}.closing-note p{font-size:31px}}
+@media(max-width:760px){.top-note{flex-direction:column;gap:2px;padding:9px 16px;font-size:11px;letter-spacing:.9px}.tvf-credit{border:0;padding:0;font-size:10px;letter-spacing:1.1px}.hero-description{max-width:370px}.panchayat-story-inner{grid-template-columns:70px 1fr;gap:26px;padding-block:39px 43px}.phulera-postmark{width:70px}.panchayat-story-heading{min-width:0}.panchayat-story h2{font-size:36px;margin-top:12px}.panchayat-story .eyebrow{font-size:11px;letter-spacing:.6px}.panchayat-story-copy{grid-column:1/-1;font-size:19px;line-height:1.65}.closing-note p{font-size:29px;max-width:340px}}
+@media(max-width:360px){.panchayat-story-inner{grid-template-columns:54px 1fr;gap:19px}.phulera-postmark{width:54px}.panchayat-story h2{font-size:31px}.panchayat-story .eyebrow{font-size:10px;letter-spacing:.3px}.closing-note p{font-size:27px}}

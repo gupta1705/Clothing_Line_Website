@@ -3,20 +3,20 @@
   const collections = {
     everyday: {
       number: 'Collection 01',
-      title: 'Everyday rituals',
-      description: 'For unhurried mornings and the familiar rhythm of a day. An exploration of everyday shirts and easy layers.',
+      title: 'Phulera days',
+      description: 'Easy shirts and everyday layers, inspired by the unhurried mornings and familiar corners of Phulera.',
       products: ['shirt']
     },
     gathering: {
       number: 'Collection 02',
-      title: 'Days of gathering',
-      description: 'For shared tables, familiar faces and conversations that carry on. An exploration of kurtas and Nehru jackets.',
+      title: 'The gathering edit',
+      description: 'Kurtas and Nehru jackets for the occasions that bring everyone together. A little of Panchayat’s warmth, carried into your own celebrations.',
       products: ['kurta', 'jacket']
     },
     heirloom: {
       number: 'Collection 03',
-      title: 'Threads of memory',
-      description: 'A thoughtful gift can feel like coming home. Explore familiar silhouettes with someone special in mind.',
+      title: 'For our own',
+      description: 'For the people who make a place feel like home. Familiar silhouettes, with a personal note and a little extra thought.',
       products: ['shirt', 'kurta', 'jacket']
     }
   };
