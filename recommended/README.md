@@ -8,7 +8,7 @@ The homepage contains philosophy, craft, collection themes and gifting stories. 
 
 - Deep olive hero, parchment philosophy, pale clay craft section, espresso collection gallery and a muted clay gifting section. Updated 1 November 2026 after feedback that the original ivory-dominant version felt too plain.
 - Uses the approved tagline “Every thread has a village.” and name-led homepage philosophy from the project brief.
-- Georgia and Arial system font stacks; no font download.
+- Alegreya for headings, wordmark and sentence-case navigation; Alegreya Sans for body and utility text. Local Latin WOFF2 subsets (about 132 KiB total), with `font-display: swap` and a preload for the main serif. No third-party font requests. Font sources: [Alegreya](https://github.com/huertatipografica/Alegreya) and [Alegreya Sans](https://github.com/huertatipografica/Alegreya-Sans); both SIL Open Font License texts are included in `assets/fonts/`. Updated 1 November 2026 after feedback on the generic navigation type.
 - A small correspondence detail in the gifting section retains a connection to the earlier letter concept.
 - Responsive WebP images and lazy loading below the hero.
 - No frameworks, video, animation libraries or third-party services. Light CSS interactions respect reduced motion.
@@ -17,7 +17,7 @@ The homepage contains philosophy, craft, collection themes and gifting stories. 
 
 Serve the repository root with `python -m http.server 4176 --bind 127.0.0.1`, then open `/recommended/`.
 
-Reviewed at desktop width 1280 and phone widths 390 and 320. Verified collection links, mobile menu, required size selection, gifting selections, gift message summary, Escape closing and focus restoration. Local references and JavaScript syntax checked. These checks do not constitute a Lighthouse performance score or a production checkout test.
+Typography reviewed at desktop width 1280, tablet width 768 and phone widths 390 and 320, including the expanded mobile menu and collection dialog. No horizontal overflow at those widths. Verified collection links, mobile menu, required size selection, gifting selections, gift message summary, Escape closing and focus restoration. Local references and JavaScript syntax checked. These checks do not constitute a Lighthouse performance score or a production checkout test.
 
 ## Image provenance
 
