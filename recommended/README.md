@@ -6,7 +6,8 @@ The homepage contains philosophy, craft, collection themes and gifting stories. 
 
 ## Design
 
-- Warm ivory, espresso brown and muted olive.
+- Deep olive hero, parchment philosophy, pale clay craft section, espresso collection gallery and a muted clay gifting section. Updated 1 November 2026 after feedback that the original ivory-dominant version felt too plain.
+- Uses the approved tagline “Every thread has a village.” and name-led homepage philosophy from the project brief.
 - Georgia and Arial system font stacks; no font download.
 - A small correspondence detail in the gifting section retains a connection to the earlier letter concept.
 - Responsive WebP images and lazy loading below the hero.

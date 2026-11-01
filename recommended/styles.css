@@ -7,4 +7,75 @@
 .hero>*{min-width:0}
 @media(max-width:360px){h1{font-size:50px;letter-spacing:-2.3px}}
 @media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.hero-image-wrap{aspect-ratio:auto}.hero-figure figcaption{flex-wrap:wrap;gap:6px 15px}}
+/* Earth, leaf and ink: distinct materials through the story. */
+:root{--paper:#e8dfcf;--ink:#352e29;--olive:#50583f;--muted:#5d554c;--line:#bfb29d;--wash:#d8bfa7;--white:#f4eddf}
+.top-note{background:#30382b;color:#f4eddf;font-size:11px;letter-spacing:2px}
+.site-header{background:var(--paper);border:0;min-height:106px}
+.site-header nav a{font-size:15px}
+.hero-band{--ink:#f4eddf;--olive:#c3caaa;--muted:#e1dacb;background:#404a37;color:var(--ink)}
+.hero{width:100%;max-width:1600px;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:0;padding:0;min-height:620px}
+.hero-copy{padding:68px clamp(32px,4.4vw,72px) 62px}
+.hero-copy .eyebrow{font-size:11px;line-height:1.7;letter-spacing:1.3px}
+h1{font-size:clamp(60px,6.3vw,100px);letter-spacing:-3.4px;line-height:1.06;margin-top:33px}
+.hero h1 em{color:#c3caaa}
+.hero-description{font-size:18px;margin-top:30px;line-height:1.7}
+.hero .button-dark{background:#f0e7d7;color:#303b29;border-color:#f0e7d7;font-size:15px;min-height:56px;margin-top:34px}
+.hero .button-dark:hover{background:#d9dfc6;border-color:#d9dfc6}
+.hero .quiet-link{color:#ece5d6;font-size:14px;margin-top:10px;min-height:48px}
+.hero-figure{position:relative;min-height:620px;overflow:hidden;display:block}
+.hero-image-wrap{position:absolute;inset:0;min-height:0;max-height:none;height:100%;background:#554b3a}
+.hero-figure img{object-position:65% center}
+.hero-figure figcaption{position:absolute;bottom:0;inset-inline:0;padding:20px 26px;background:#30382beb;color:#f4eddf;z-index:1;gap:12px}
+.hero-figure figcaption span:first-child{font-size:10px;letter-spacing:1.2px}
+.hero-figure figcaption span:last-child{color:#e2ddcc;font-size:15px}
+.philosophy{border-top:0;padding-top:85px;padding-bottom:85px}
+.philosophy-main h2{font-size:clamp(44px,4.7vw,70px)}
+.section-label .eyebrow{font-size:12px}
+.section-number{border-color:currentColor}
+.philosophy-copy{font-size:18px}
+.values{margin-top:48px;border-top:1px solid #b1a48f;gap:44px}
+.values>div>span{font-size:11px;color:#65533f}
+.values h3{font-size:25px}
+.values p{font-size:16px}
+.craft-section{--muted:#594d42;--olive:#414b35;background:#d8bfa7;padding:88px 0}
+.craft-figure{position:relative;padding:18px 0 0 18px}
+.craft-figure::before{content:"";position:absolute;inset:0 23px 49px 0;border:1px solid #78634e;pointer-events:none}
+.craft-figure img{position:relative;height:490px}
+.craft-figure figcaption{position:relative;font-size:15px}
+.craft-copy>.eyebrow{font-size:12px}
+.craft-copy>p:not(.eyebrow){font-size:18px}
+.craft-detail{border-color:#89745e}
+.craft-detail summary{font-size:16px}
+.collections-band{--ink:#f4eddf;--olive:#c3caaa;--muted:#d4c7b8;--line:#8b7c69;background:#342d28;color:var(--ink)}
+.collections{padding-top:82px;padding-bottom:94px}
+.collections .section-heading>p{font-size:17px}
+.collection-grid{gap:32px}
+.collection-card:nth-child(2){padding-top:44px}
+.collection-image{border:1px solid #8c7964}
+.image-index{background:#ceb69b;color:#342d28;width:40px;height:40px}
+.collection-card>.eyebrow{font-size:10px;letter-spacing:1.4px;color:#d4c7b8}
+.collection-card h3{font-size:32px}
+.collection-card>p:not(.eyebrow){font-size:16px}
+.collection-card>.text-link{border-color:#8b7c69;font-size:16px}
+.gifting-band{--ink:#2f2823;--olive:#303b29;--muted:#2f2823;background:#b58c73;color:var(--ink)}
+.gifting{background:transparent;border:0;padding:83px 4%;gap:11%}
+.gifting-copy>.eyebrow{font-size:11px;letter-spacing:1.4px}
+.gifting-copy h2{font-size:clamp(38px,3.7vw,55px)}
+.gifting-copy>p:not(.eyebrow){font-size:18px}
+.gifting .text-link{font-size:16px}
+.letter{background:#f4eddf;border:1px solid #e6d9c4;box-shadow:8px 10px 0 #83624d55;transform:rotate(3deg)}
+.letter-heading>span{font-size:10px;letter-spacing:1px}
+.closing-band{--olive:#c3caaa;--muted:#e1dacb;background:#404a37;color:#f4eddf}
+.closing-note{padding:60px 0 43px;gap:16px}
+.closing-symbol{font-size:34px}
+.closing-note p{font-size:38px}
+.closing-note a{font-size:14px}
+.site-footer{background:#30382b;color:#f4eddf;--olive:#c3caaa}
+.footer-main{padding:43px 0}
+.footer-main>p{color:#ded9c9}
+.footer-bottom{border-color:#67715c;color:#ded9c9;font-size:11px}
+@media(min-width:1600px){.hero{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}.hero-image-wrap{height:100%}}
+@media(max-width:1100px){.hero-copy{padding:57px 32px}.hero{min-height:590px}.hero-figure{min-height:590px}h1{font-size:clamp(52px,6.1vw,70px);letter-spacing:-2.4px}.hero-copy .eyebrow{font-size:10px}.hero-description{font-size:17px}.hero-figure figcaption{flex-wrap:wrap;padding:16px 20px}.hero-figure figcaption span:first-child{font-size:9px}.hero-figure figcaption span:last-child{font-size:14px}.craft-figure img{height:470px}.collection-grid{gap:23px}.collection-card h3{font-size:28px}.collection-card>.eyebrow{font-size:10px;letter-spacing:.7px}.gifting{padding-inline:2%;gap:8%}}
+@media(max-width:760px){.top-note{font-size:9px;letter-spacing:1.3px}.site-header{min-height:91px}.site-header nav a{font-size:17px}.hero{grid-template-columns:minmax(0,1fr);min-height:0}.hero-copy{padding:43px 24px 38px}.hero-copy .eyebrow{font-size:10px;letter-spacing:1px}.hero-copy .little-line{width:22px}h1{font-size:clamp(48px,11.7vw,83px);letter-spacing:-2px;margin-top:26px;line-height:1.07}.hero-description{font-size:18px;margin-top:24px}.hero .button-dark{font-size:15px;margin-top:25px;min-height:55px;padding:16px 21px}.hero .quiet-link{font-size:14px;margin-top:7px}.hero-figure{min-height:390px}.hero-image-wrap{height:100%;aspect-ratio:auto}.hero-figure figcaption{padding:16px 20px;gap:5px 15px}.hero-figure figcaption span:first-child{font-size:9px}.hero-figure figcaption span:last-child{font-size:13px}.philosophy{padding-top:53px;padding-bottom:55px}.philosophy-main h2{font-size:44px}.section-label{margin-bottom:28px}.section-label .eyebrow{font-size:11px}.philosophy-copy{font-size:18px}.values{margin-top:35px;gap:25px}.values h3{font-size:26px}.values>div+div{border-color:#b1a48f}.craft-section{padding:45px 0 48px}.craft-figure{padding:12px 0 0 12px}.craft-figure::before{inset:0 15px 45px 0}.craft-figure img{height:340px}.craft-figure figcaption{font-size:14px}.craft-copy>.eyebrow{font-size:11px}.craft-copy h2{font-size:40px}.craft-copy>p:not(.eyebrow){font-size:18px}.collections{padding-top:53px;padding-bottom:56px}.collections .section-heading>p{font-size:17px}.collection-grid{gap:38px}.collection-card:nth-child(2){padding-top:0}.collection-card h3{font-size:31px}.collection-card>.eyebrow{font-size:10px;letter-spacing:1px}.collection-card>.text-link{margin-top:13px}.gifting{padding:48px 4px 52px;gap:38px}.gifting-copy>.eyebrow{font-size:10px}.gifting-copy h2{font-size:36px}.gifting-copy>p:not(.eyebrow){font-size:18px}.gifting .text-link{font-size:16px;gap:20px}.letter{max-width:300px;width:calc(100% - 18px);padding:23px}.letter>p:not(.salutation):not(.letter-signoff){font-size:25px}.closing-note{padding:42px 0 28px}.closing-note p{font-size:29px}.closing-note a{font-size:14px}.footer-main{padding:34px 0 28px}.footer-bottom{font-size:11px}}
+@media(max-width:360px){.hero-copy{padding-inline:20px}h1{font-size:44px;letter-spacing:-1.8px}.hero-copy .eyebrow{font-size:9px;letter-spacing:.8px}.hero-figure{min-height:340px}.hero .button-dark{gap:20px;padding-inline:18px;font-size:14px}.hero-figure figcaption{padding-inline:16px}.hero-figure figcaption span:first-child{font-size:8px}.craft-copy h2{font-size:36px}.gifting-copy h2{font-size:32px}.letter{padding:20px}.letter>p:not(.salutation):not(.letter-signoff){font-size:23px}.gifting .text-link{font-size:15px;gap:16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
