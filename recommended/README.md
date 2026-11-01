@@ -8,6 +8,7 @@ The homepage contains philosophy, craft, collection themes and gifting stories. 
 
 ## Design
 
+- The homepage begins directly with the brand and navigation. Removed the top announcement strip after user feedback on 1 November 2026.
 - Panchayat direction: a Phulera-inspired office hero, muted mustard story band, original water-tank postmark, TVF credit and collection names Phulera days / The gathering edit / For our own. Alegreya typography retained after positive feedback.
 - Deep olive hero, parchment philosophy, pale clay craft section, espresso collection gallery and a muted clay gifting section. Updated 1 November 2026 after feedback that the original ivory-dominant version felt too plain.
 - Uses the approved tagline “Every thread has a village.” and name-led homepage philosophy from the project brief.
