@@ -2,84 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f6f1e7">
-  <meta name="description" content="A letter from Pradhan by Panchayat. Discover a philosophy rooted in village craft, human connection and the exchange of ideas.">
-  <title>Pradhan by Panchayat — A letter from our village</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#404a37">
+  <meta name="description" content="Pradhan by Panchayat. A clothing line from the world of TVF’s Panchayat, inspired by Phulera and rooted in village craft. Every thread has a village.">
+  <title>Pradhan by Panchayat — From the world of TVF’s Panchayat</title>
+  <link rel="preload" href="assets/fonts/alegreya-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts.css?v=20261101-fonts">
+  <link rel="stylesheet" href="styles.css?v=20261101-clean-header">
+  <link rel="stylesheet" href="panchayat.css?v=20261101-clean-header">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#letter">Skip to our letter</a>
-  <div class="page-shell">
-    <header class="site-header">
-      <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">PRADHAN<span>by Panchayat</span></a>
-      <nav aria-label="Main navigation"><a href="#letter">Our philosophy</a><a href="#collections">Collections</a><a href="#gathering">The gathering</a></nav>
-      <a class="header-note" href="#collections">A little closer to our roots <span aria-hidden="true">↗</span></a>
-    </header>
-    <main>
-      <section class="letter-section" id="letter" aria-labelledby="letter-heading">
-        <div class="letter-meta"><span>LETTERS FROM PANCHAYAT</span><span>THE FIRST CORRESPONDENCE · No. 01</span></div>
-        <div class="letter-layout">
-          <div class="letter-content">
-            <p class="salutation">Dear friend,</p>
-            <h1 id="letter-heading">From our village,<br>to <em>your world.</em></h1>
-            <div class="letter-copy">
-              <p>Some of the most meaningful things begin with people coming together. A conversation under a tree. An idea passed from one hand to another.</p>
-              <p>Pradhan by Panchayat begins with that same belief. We bring village craft to a wider world, and the people behind it a little closer to you.</p>
-              <p>Through clothing, we hope to keep that exchange alive.</p>
-            </div>
-            <div class="signature"><span>With warmth,</span><span class="signed-name">Pradhan</span><span class="signature-sub">BY PANCHAYAT</span></div>
-            <a class="text-link hero-link" href="#collections">Explore our collections <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="letter-art">
-            <div class="postmark" aria-hidden="true"><span>FROM THE VILLAGE</span><b>WITH<br>CARE</b><span>TO YOUR WORLD</span></div>
-            <figure class="hero-stamp perforated">
-              <div class="stamp-topline"><span>PANCHAYAT</span><span>INDIA</span></div>
-              <img class="gathering-art" src="assets/banyan-gathering.webp" width="1400" height="934" alt="An original woodcut-style illustration of people exchanging ideas beneath a spreading banyan tree." fetchpriority="high">
-              <figcaption><span>A place for every voice.</span><small>AN EXCHANGE OF IDEAS</small></figcaption>
-            </figure>
-            <p class="art-note">A shared shade. A shared beginning.</p>
-            <span class="postal-lines" aria-hidden="true"></span>
-          </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">pradhan<span>BY PANCHAYAT</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">☰</span></button>
+    <nav id="main-nav" aria-label="Main navigation">
+      <a href="#panchayat">Our Panchayat</a>
+      <a href="#craft">The craft</a>
+      <a href="#collections">Collections</a>
+      <a href="#gifting">Gifting</a>
+    </nav>
+    <a class="header-explore" href="#collections">Explore <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <div class="hero-band">
+    <section class="hero section-width" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="little-line" aria-hidden="true"></span> A LITTLE BIT OF PHULERA</p>
+        <h1 id="hero-title">Every thread<br>has a <em>village.</em></h1>
+        <p class="hero-description">The warmth of Phulera. The work of village artisans. Clothing for the everyday stories we call our own.</p>
+        <a class="button button-dark" href="#collections">Explore our collections <span aria-hidden="true">↗</span></a>
+        <a class="quiet-link" href="#panchayat">Step into our story <span aria-hidden="true">↓</span></a>
+      </div>
+      <figure class="hero-figure">
+        <div class="hero-image-wrap"><img src="assets/phulera-courtyard.webp" srcset="assets/phulera-courtyard-small.webp 640w, assets/phulera-courtyard.webp 1200w" sizes="(max-width: 760px) 100vw, 54vw" width="1200" height="800" alt="Concept image inspired by Phulera: a pale-yellow village office with green doors, a bicycle and a water tank." fetchpriority="high"></div>
+        <figcaption><span>THE WORLD OF PHULERA</span><span>A little closer to home.</span></figcaption>
+      </figure>
+    </section>
+    </div>
+
+    <section id="panchayat" class="panchayat-story" aria-labelledby="panchayat-title">
+      <div class="panchayat-story-inner section-width">
+        <div class="phulera-postmark" aria-hidden="true">
+          <svg viewBox="0 0 120 142" fill="none"><circle cx="60" cy="63" r="53"/><circle cx="60" cy="63" r="47"/><path d="M41 34c0-5 38-5 38 0v18c0 6-38 6-38 0ZM41 34c0 6 38 6 38 0M38 57h44M44 57v41M76 57v41M44 61l32 31M76 61 44 92M40 99h40M83 45v54M80 65h6M80 76h6M80 87h6"/><text x="60" y="133" text-anchor="middle">PHULERA</text></svg>
         </div>
-        <div class="letter-foot"><span>ROOTED IN VILLAGE CRAFT</span><span>MADE FOR HUMAN CONNECTION</span><span class="down-note">CONTINUE THE LETTER <span aria-hidden="true">↓</span></span></div>
-      </section>
-      <section class="collections-section" id="collections" aria-labelledby="collections-heading">
-        <div class="section-heading"><div><p class="eyebrow">ENCLOSED WITH THIS LETTER</p><h2 id="collections-heading">A collection of <em>connections.</em></h2></div><p>Little chapters of everyday life.<br>Choose one to explore.</p></div>
-        <div class="collection-grid">
-          <article class="collection-card">
-            <a class="collection-stamp perforated" href="collection.html?collection=everyday" aria-label="Explore Everyday rituals collection">
-              <div class="stamp-topline"><span>THE EVERYDAY EDIT</span><span>01</span></div>
-              <div class="vignette-frame"><img src="assets/craft-vignettes.webp" class="vignette vignette-left" width="1400" height="700" alt="Woodcut illustration of a sunlit village veranda and woven charpai." loading="lazy"></div>
-              <span class="stamp-caption">The beauty in the ordinary.</span>
-            </a>
-            <div class="collection-info"><p class="eyebrow">SHIRTS & EVERYDAY LAYERS</p><h3>Everyday rituals</h3><p>For slow mornings and the familiar rhythm of a day.</p><a class="text-link" href="collection.html?collection=everyday">Explore collection <span aria-hidden="true">↗</span></a></div>
-          </article>
-          <article class="collection-card">
-            <a class="collection-stamp perforated" href="collection.html?collection=gathering" aria-label="Explore Days of gathering collection">
-              <div class="stamp-topline"><span>THE GATHERING EDIT</span><span>02</span></div>
-              <div class="vignette-frame tree-frame"><img src="assets/banyan-gathering.webp" width="1400" height="934" alt="A village gathering beneath a banyan tree." loading="lazy"></div>
-              <span class="stamp-caption">Good things happen together.</span>
-            </a>
-            <div class="collection-info"><p class="eyebrow">KURTAS & NEHRU JACKETS</p><h3>Days of gathering</h3><p>For familiar faces, long conversations, and coming home.</p><a class="text-link" href="collection.html?collection=gathering">Explore collection <span aria-hidden="true">↗</span></a></div>
-          </article>
-          <article class="collection-card">
-            <a class="collection-stamp perforated" href="collection.html?collection=heirloom" aria-label="Explore Threads of memory collection">
-              <div class="stamp-topline"><span>THE CRAFT EDIT</span><span>03</span></div>
-              <div class="vignette-frame"><img src="assets/craft-vignettes.webp" class="vignette vignette-right" width="1400" height="700" alt="Woodcut illustration of artisan hands working at a wooden loom." loading="lazy"></div>
-              <span class="stamp-caption">A little of where we come from.</span>
-            </a>
-            <div class="collection-info"><p class="eyebrow">CRAFT & THOUGHTFUL GIFTING</p><h3>Threads of memory</h3><p>For the people, places, and gestures we hold close.</p><a class="text-link" href="collection.html?collection=heirloom">Explore collection <span aria-hidden="true">↗</span></a></div>
-          </article>
-        </div>
-      </section>
-      <section class="gathering-section" id="gathering" aria-labelledby="gathering-heading">
-        <div class="gathering-number" aria-hidden="true">P.S.</div>
-        <div class="gathering-copy"><p class="eyebrow">THE IDEA THAT BRINGS US TOGETHER</p><h2 id="gathering-heading">There is always room<br><em>under the tree.</em></h2><p>For us, the Panchayat is an image of connection: people sitting together, listening, and giving an idea somewhere to grow.</p><p>Our letter, our stamps, and our collections all begin here—with the wish to carry something of village life into your everyday.</p></div>
-        <aside class="envelope-note"><span class="eyebrow">A NOTE ON OUR PHILOSOPHY</span><p>Behind every craft,<br>there are hands.<br>Behind every hand,<br><em>a story.</em></p><span class="note-signoff">We look forward to sharing them.</span></aside>
-      </section>
-    </main>
-    <footer class="site-footer"><a class="wordmark" href="index.html">PRADHAN<span>by Panchayat</span></a><p>From one conversation<br>to many connections.</p><div><a href="#letter">Back to the letter ↑</a><small>Design study · Illustrations and collection names are provisional.</small></div></footer>
-  </div>
+        <div class="panchayat-story-heading"><p class="eyebrow">FROM SCREEN TO EVERYDAY</p><h2 id="panchayat-title">Some places<br><em>stay with you.</em></h2></div>
+        <div class="panchayat-story-copy"><p>A village office. A cup of tea. Conversations that turn into friendships. TVF’s <em>Panchayat</em> made Phulera feel like a place we knew.</p><p>Pradhan carries that feeling into clothing: the ease, the warmth, the sense of belonging. Rooted in village craft. Ready for your everyday.</p></div>
+      </div>
+    </section>
+
+    <section id="philosophy" class="philosophy section-width section-space" aria-labelledby="philosophy-title">
+      <div class="section-label"><span class="section-number">01</span><p class="eyebrow">OUR PHILOSOPHY</p></div>
+      <div class="philosophy-main">
+        <h2 id="philosophy-title">Our name is<br>our <em>promise.</em></h2>
+        <div class="philosophy-copy"><p>Every village has its pradhan: the one people trust, who stands up for the community.</p><p>We took the name because that is the role we want to play for India's village artisans. We carry their craft to people who will value it, and bring a fair living back home.</p><p class="philosophy-signoff">Rooted in where we come from.<br>Made for where life takes us.</p></div>
+      </div>
+      <div class="values">
+        <div><span>01 / PEOPLE</span><h3>The hands matter.</h3><p>Our story starts with village artisans and the skills they carry forward.</p></div>
+        <div><span>02 / ROOTS</span><h3>Tradition, in the everyday.</h3><p>A familiar sensibility, finding a place in the way we live today.</p></div>
+        <div><span>03 / CONNECTION</span><h3>Something to hold close.</h3><p>Clothing for ordinary days, shared occasions and meaningful gestures.</p></div>
+      </div>
+    </section>
+
+    <section id="craft" class="craft-section" aria-labelledby="craft-title">
+      <div class="craft-layout section-width">
+        <figure class="craft-figure"><img src="assets/loom-hands.webp" srcset="assets/loom-hands-small.webp 640w, assets/loom-hands.webp 1200w" sizes="(max-width: 760px) 90vw, 45vw" width="1200" height="800" alt="Illustrative photograph of an artisan guiding cotton threads on a wooden handloom." loading="lazy"><figcaption>Behind every thread, a pair of hands.</figcaption></figure>
+        <div class="craft-copy"><p class="eyebrow">THE HANDS BEHIND</p><h2 id="craft-title">Before it becomes<br>yours, it begins<br><em>with someone.</em></h2><p>A thread guided into place. A detail considered. A skill passed from one pair of hands to another.</p><p>We want to make room for these stories—the people, their villages and the craft that connects us.</p><details class="craft-detail"><summary>Why we begin with craft <span aria-hidden="true">+</span></summary><p>Our purpose is to support village artisans by bringing their work to a broader market. Their knowledge and creativity are the starting point for Pradhan by Panchayat.</p></details></div>
+      </div>
+    </section>
+
+    <div class="collections-band">
+    <section id="collections" class="collections section-width section-space" aria-labelledby="collections-title">
+      <div class="section-label"><span class="section-number">02</span><p class="eyebrow">THE PHULERA STATE OF MIND</p></div>
+      <div class="section-heading"><h2 id="collections-title">A familiar world.<br><em>Made your own.</em></h2><p>Everyday ease. Reasons to gather.<br>Something for the people who matter.</p></div>
+      <div class="collection-grid">
+        <article class="collection-card"><a class="collection-image" href="collection.html?collection=everyday" aria-label="Explore Phulera days"><img src="assets/courtyard.webp" srcset="assets/courtyard-small.webp 600w, assets/courtyard.webp 1000w" sizes="(max-width: 760px) 90vw, 30vw" width="1000" height="667" alt="Illustrative sunlit Indian courtyard with a charpai and old wooden doorway." loading="lazy"><span class="image-index">I</span></a><p class="eyebrow">SHIRTS & EVERYDAY LAYERS</p><h3>Phulera days</h3><p>Easy mornings. Familiar corners. A little Phulera.</p><a class="text-link" href="collection.html?collection=everyday">Explore collection <span aria-hidden="true">↗</span></a></article>
+        <article class="collection-card"><a class="collection-image gathering-image" href="collection.html?collection=gathering" aria-label="Explore The gathering edit"><img src="assets/textiles.webp" srcset="assets/textiles-small.webp 600w, assets/textiles.webp 1000w" sizes="(max-width: 760px) 90vw, 30vw" width="1000" height="667" alt="Illustrative folds of natural woven textiles in cream and olive." loading="lazy"><span class="image-index">II</span></a><p class="eyebrow">KURTAS & NEHRU JACKETS</p><h3>The gathering edit</h3><p>For the days that bring everyone together.</p><a class="text-link" href="collection.html?collection=gathering">Explore collection <span aria-hidden="true">↗</span></a></article>
+        <article class="collection-card"><a class="collection-image" href="collection.html?collection=heirloom" aria-label="Explore For our own"><img src="assets/gift.webp" srcset="assets/gift-small.webp 600w, assets/gift.webp 1000w" sizes="(max-width: 760px) 90vw, 30vw" width="1000" height="667" alt="Illustrative paper-wrapped gift tied with cotton thread, beside a blank note." loading="lazy"><span class="image-index">III</span></a><p class="eyebrow">CRAFT & THOUGHTFUL GIFTING</p><h3>For our own</h3><p>Something thoughtful, for your favourite people.</p><a class="text-link" href="collection.html?collection=heirloom">Explore collection <span aria-hidden="true">↗</span></a></article>
+      </div>
+    </section>
+    </div>
+
+    <div class="gifting-band">
+    <section id="gifting" class="gifting section-width" aria-labelledby="gifting-title">
+      <div class="gifting-copy"><p class="eyebrow">FOR YOUR OWN LITTLE PANCHAYAT</p><h2 id="gifting-title">Sometimes, a gift says<br><em>“I know you.”</em></h2><p>For the parent who never misses an episode. The friend who feels like family. Something thoughtfully chosen, with a few words only you could write.</p><a class="text-link" href="collection.html?collection=heirloom">Explore thoughtful gifting <span aria-hidden="true">↗</span></a></div>
+      <div class="letter"><div class="letter-heading"><span>A NOTE FROM PRADHAN</span><svg viewBox="0 0 64 72" width="48" height="54" aria-hidden="true"><path d="M7 2h50v68H7z" fill="none" stroke="currentColor" stroke-dasharray="3 3"/><path d="M22 15c0-3 20-3 20 0v11c0 4-20 4-20 0ZM22 15c0 3 20 3 20 0M20 31h24M24 31v22M40 31v22M24 35l16 14M40 35 24 49M21 54h22" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="32" y="64" text-anchor="middle" font-family="Alegreya,Georgia,serif" font-size="6">PHULERA</text></svg></div><p class="salutation">Dear one of our own,</p><p>A little piece of home.<br>Just for you.</p><p class="letter-signoff">With warmth,<br><span>Pradhan</span></p><span class="letter-rule" aria-hidden="true"></span></div>
+    </section>
+    </div>
+    <div class="closing-band">
+    <div class="closing-note section-width"><span class="closing-symbol" aria-hidden="true">✳</span><p>Carry a little of <em>Phulera with you.</em></p><a href="#main">Back to the beginning ↑</a></div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="footer-main section-width"><a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">pradhan<span>BY PANCHAYAT</span></a><p>From the world of Panchayat.<br>A clothing line by TVF.</p><nav aria-label="Footer navigation"><a href="#panchayat">Our Panchayat</a><a href="#philosophy">Our philosophy</a><a href="#craft">The hands behind</a><a href="#collections">Collections</a></nav></div><div class="footer-bottom section-width"><span>© 2026 Pradhan by Panchayat</span><span>Design preview · Concept imagery, not show stills · Sample collections</span></div></footer>
 </body>
 </html>
