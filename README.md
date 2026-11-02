@@ -21,7 +21,7 @@ The homepage contains philosophy, craft, collection themes and gifting stories. 
 
 Panchayat update checked at 1280, 768, 390 and 320 px: new story/menu anchor, concept-image crop, horizontal overflow, renamed collection navigation and loaded collection images. The three collection links resolve to their matching titles and sample counts. No new application behavior or third-party dependencies were introduced.
 
-Serve the repository root with `python -m http.server 4176 --bind 127.0.0.1`, then open `/recommended/`.
+Serve the repository root with `python -m http.server 4176 --bind 127.0.0.1`, then open `/`.
 
 Typography reviewed at desktop width 1280, tablet width 768 and phone widths 390 and 320, including the expanded mobile menu and collection dialog. No horizontal overflow at those widths. Verified collection links, mobile menu, required size selection, gifting selections, gift message summary, Escape closing and focus restoration. Local references and JavaScript syntax checked. These checks do not constitute a Lighthouse performance score or a production checkout test.
 
