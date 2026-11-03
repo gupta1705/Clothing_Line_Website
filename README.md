@@ -1,44 +1,39 @@
 # Pradhan by Panchayat — Storefront preview
 
-A clothing line by TVF, derived from Panchayat. The current preview retains the earthy palette, Alegreya typography, approved “Every thread has a village.” tagline and name-led artisan philosophy.
+A clothing line by TVF, derived from Panchayat. The earthy palette, local Alegreya typography, approved “Every thread has a village.” tagline and artisan philosophy remain.
 
 Live preview: https://gupta1705.github.io/Clothing_Line_Website/
+Collection: https://gupta1705.github.io/Clothing_Line_Website/collection.html?collection=all
 
-## Current design — 3 November 2026
+## Current storefront — 3 November 2026
 
-- Shopping navigation, clear category links, collection calls to action and a bag on every page.
-- Authentic Panchayat stills replace all generated imagery on the homepage. The ensemble introduces the brand; Sachiv Ji and Pradhan Ji introduce collection edits; Manju Devi and Pradhan Ji support gifting.
-- Removed numbered philosophy cards, decorative postmarks, repeated italic slogans, the mock letter and generated artisan-story section. The approved philosophy remains in a compact section.
-- The homepage remains collection-led, with individual garments and prices on collection pages as requested in the earlier brief.
-- All four official stills total approximately 204 KB; a smaller responsive hero is also included. Two local font families, no frameworks or third-party client dependencies.
+- Shared header: Shop, Collections, Gifting and Our story, with wishlist and bag controls. Clothing categories live in the shop sidebar and mobile filter panel, rather than being repeated in the main header.
+- Collection pages have six real clothing photographs, alternate views, clear names/colours/prices, search, category and price filters, sorting and product details with required size selection.
+- A browser-local wishlist supports saving/removing products, header counts, product deep links and syncing between open tabs. Heart controls work on cards and product details.
+- The bag uses the shared catalogue for current names, prices and thumbnails, retains earlier saved product IDs, and supports quantity changes, removal, gift wrap, notes and a price-free invoice.
+- The collection-led homepage retains authentic Panchayat stills. Individual products and prices remain on collection pages.
 
-## Shopping behaviour and limits
+## Product photography and commerce status
 
-Collection pages support all, shirts, kurtas, Nehru jackets and gifts; previous everyday/gathering/heirloom links continue to work. Filters support browser Back, and products can be sorted by sample price.
+The product photographs are genuine retailer photographs from Nicobar and Fabindia, used as styling references. They are not photographs of confirmed Pradhan inventory. Full source product names, image URLs, dimensions, credits and provenance are in assets/products/sources.json. Every product has a matching alternate image. Six front images total about 187 KB; all twelve images total about 390 KB. Only proportional resizing and WebP conversion were applied.
 
-Existing garment illustrations remain placeholders because final product photography and specifications have not been supplied. Prices (₹1,490 shirt, ₹2,490 kurta, ₹3,990 jacket) are illustrative and visibly labelled. These are not garments claimed to have been worn by the cast.
+Names and prices are proposed for the design; final Pradhan products, photography, specifications and measurements have not been supplied. The photo/reference distinction appears in product details and the footer. No per-card “design sample” labels or sketches remain.
 
-Choose a required size, optional gift wrap, price-free invoice and personal note, then add to a browser-local preview bag. The bag supports quantity changes, removal and a calculated sample subtotal. Storage failure falls back to the current page. Gift messages are rendered as text.
+This static store does not take orders or payments. Razorpay, inventory, shipping calculation and order storage are not connected. The bag clearly says checkout is not available yet and never claims that an order has been placed. Wishlist, sizes and gift choices are stored only in the browser; gift notes are rendered as text. Storage failure falls back to the current page.
 
-This static preview takes no orders or payments and sends no information to a server. Razorpay, inventory, delivery calculation, order storage and actual checkout are not connected. “Review bag” explains this; it never reports a completed order.
+## Panchayat image sources
 
-## Image sources
-
-Authentic official stills, resized and converted to WebP only:
-
-- [About Amazon India: Panchayat Season 3, Neena Gupta interview](https://www.aboutamazon.in/news/entertainment/panchayat-season-3-interview-with-neena-gupta) — ensemble, Sachiv Ji on motorcycle, Pradhan Ji and Manju Devi.
+- [About Amazon India: Panchayat Season 3, Neena Gupta interview](https://www.aboutamazon.in/news/entertainment/panchayat-season-3-interview-with-neena-gupta) — ensemble, Sachiv Ji, Pradhan Ji and Manju Devi.
 - [About Amazon India: Panchayat Season 4 review](https://www.aboutamazon.in/news/entertainment/panchayat-season-4-review) — Manju Devi and Pradhan Ji at the office.
 
-Full image URLs, dimensions, descriptions and crop notes: assets/panchayat/sources.json. Credit: Panchayat / TVF / Prime Video. Original downloads are outside the public repository in preview-review/panchayat-source-images.
-
-The old generated assets are retained in assets for provenance, but are not referenced by the current homepage.
+Full details: assets/panchayat/sources.json. Credit: Panchayat / TVF / Prime Video. These are actual show stills, resized and converted to WebP.
 
 ## Preview and verification
 
 Serve this directory with Python's static HTTP server on port 4176 and open http://127.0.0.1:4176/.
 
-Verified responsive homepage at 320, 390, 768 and 1280 pixels, image loading, mobile menu, collection navigation, filters, sorting and browser Back. Verified required size validation, gift message and invoice selection, adding to bag, quantity/subtotal updates, persistence between pages, removal and focus restoration. JavaScript syntax and local asset references checked.
+Verified desktop and mobile layouts at 320, 390, 768, 1280 and 1440 pixels, with no horizontal page overflow. Checked all twelve product images, mobile navigation/filter controls, search, price filtering, empty-state recovery, sorting, wishlist save/remove/pressed states, persistence and cross-tab synchronisation, wishlist product deep links, alternate views, required sizes, gift options, bag thumbnails and quantity/subtotal updates. Local references, unique IDs and JavaScript syntax checked.
 
-These checks do not constitute a production checkout test, a Lighthouse score or testing on a physical low-end Android device.
+These checks are not a production checkout test, a Lighthouse score or physical low-end Android testing.
 
-Fonts: Alegreya and Alegreya Sans, locally hosted Latin WOFF2 subsets with font-display: swap. SIL Open Font License texts are included in assets/fonts/.
+No framework or third-party client library. Two locally hosted font families with font-display: swap; font licences are in assets/fonts/.

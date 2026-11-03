@@ -9,23 +9,29 @@
   <link rel="preload" href="assets/fonts/alegreya-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="fonts.css">
   <link rel="stylesheet" href="styles.css?v=20261103">
-  <link rel="stylesheet" href="commerce.css?v=20261103">
-  <script src="commerce.js?v=20261103" defer></script>
+  <link rel="stylesheet" href="commerce.css?v=20261103-catalogue">
+  <link rel="stylesheet" href="store-header.css?v=20261103-catalogue">
+  <script src="catalog.js?v=20261103-catalogue" defer></script>
+  <script src="commerce.js?v=20261103-catalogue" defer></script>
   <script src="script.js?v=20261103" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">pradhan<span>BY PANCHAYAT</span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
-    <nav id="main-nav" aria-label="Main navigation">
-      <a href="collection.html?collection=all">Shop all</a>
-      <a href="collection.html?category=shirts">Shirts</a>
-      <a href="collection.html?collection=gathering">Kurtas &amp; jackets</a>
-      <a href="#gifting">Gifting</a>
-      <a href="#our-story">Our story</a>
-    </nav>
-    <button class="bag-button" type="button" data-open-bag aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7Z M8 8V6a4 4 0 0 1 8 0v2"/></svg><span>Bag (<span data-bag-count>0</span>)</span></button>
+    <div class="header-inner">
+      <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">pradhan<span>BY PANCHAYAT</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+      <nav id="main-nav" class="header-nav" aria-label="Main navigation">
+        <a href="collection.html?collection=all" data-shop-nav>Shop</a>
+        <a href="index.html#collections">Collections</a>
+        <a href="collection.html?category=gifts">Gifting</a>
+        <a href="index.html#our-story">Our story</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-action" type="button" data-open-wishlist aria-label="Open wishlist" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.7a5.6 5.6 0 0 0-8 .1L12 5.6l-.8-.8a5.6 5.6 0 0 0-8 7.9L12 22l8.8-9.3a5.6 5.6 0 0 0 0-8Z"/></svg><span class="action-label">Wishlist</span><span class="action-count" data-wishlist-count>0</span></button>
+        <button class="header-action" type="button" data-open-bag aria-label="Open shopping bag" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7Z M8 8V6a4 4 0 0 1 8 0v2"/></svg><span class="action-label">Bag</span><span class="action-count" data-bag-count>0</span></button>
+      </div>
+    </div>
   </header>
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
