@@ -4,108 +4,114 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#404a37">
-  <meta name="description" content="Pradhan by Panchayat — a clothing line from the world of TVF’s Panchayat.">
-  <title>Phulera days — Pradhan by Panchayat</title>
+  <meta name="description" content="Explore shirts, kurtas and Nehru jackets from Pradhan by Panchayat. A clothing line from the world of TVF’s Panchayat.">
+  <title>Shop the collection — Pradhan by Panchayat</title>
   <link rel="preload" href="assets/fonts/alegreya-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="fonts.css?v=20261101-fonts">
-  <link rel="stylesheet" href="collection.css?v=20261101-fonts">
-  <script src="collection.js?v=20261101-panchayat" defer></script>
+  <link rel="stylesheet" href="collection.css?v=20261103-shop">
+  <link rel="stylesheet" href="commerce.css?v=20261103-shop">
+  <script src="commerce.js?v=20261103-shop" defer></script>
+  <script src="collection.js?v=20261103-shop" defer></script>
+  <script src="script.js?v=20261103" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to collection</a>
   <header class="site-header">
     <div class="header-inner page-width">
-      <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat — home">pradhan<span>BY PANCHAYAT</span></a>
-      <a class="back-link" href="index.html#collections"><span aria-hidden="true">←</span> All collections</a>
+      <a class="wordmark" href="index.html" aria-label="Pradhan by Panchayat home">pradhan<span>BY PANCHAYAT</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+      <nav id="main-nav" class="header-nav" aria-label="Main navigation">
+        <a href="collection.html?collection=all" aria-current="page">Shop all</a>
+        <a href="collection.html?category=shirts">Shirts</a>
+        <a href="collection.html?collection=gathering">Kurtas &amp; jackets</a>
+        <a href="collection.html?category=gifts">Gifting</a>
+        <a href="index.html#our-story">Our story</a>
+      </nav>
+      <button class="header-bag" type="button" data-open-bag>Bag (<span data-bag-count>0</span>)</button>
     </div>
   </header>
   <main id="main" class="page-width">
+    <p class="breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span id="breadcrumb-title">Shop all</span></p>
     <section class="collection-intro" aria-labelledby="collection-title">
-      <p class="eyebrow" id="chapter-number">Collection 01</p>
-      <h1 id="collection-title">Phulera days</h1>
-      <p id="collection-description" class="intro-copy">Easy shirts and everyday layers, inspired by the unhurried mornings and familiar corners of Phulera.</p>
+      <div><p class="eyebrow">PRADHAN BY PANCHAYAT</p><h1 id="collection-title">The Phulera wardrobe</h1></div>
+      <p id="collection-description" class="intro-copy">Shirts for the everyday. Kurtas for getting together. Familiar clothes, with a little of Phulera in them.</p>
     </section>
-    <nav class="collection-nav" aria-label="Choose a collection">
-      <a href="collection.html?collection=everyday" data-collection="everyday" aria-current="page">Phulera days</a>
-      <a href="collection.html?collection=gathering" data-collection="gathering">The gathering edit</a>
-      <a href="collection.html?collection=heirloom" data-collection="heirloom">For our own</a>
+    <nav class="collection-nav" aria-label="Filter garments">
+      <a href="collection.html?collection=all" data-category="all" aria-current="page">Shop all</a>
+      <a href="collection.html?category=shirts" data-category="shirts">Shirts</a>
+      <a href="collection.html?category=kurtas" data-category="kurtas">Kurtas</a>
+      <a href="collection.html?category=jackets" data-category="jackets">Nehru jackets</a>
+      <a href="collection.html?category=gifts" data-category="gifts">Gifts</a>
     </nav>
-    <div class="catalogue-heading"><p>Silhouette studies</p><span id="study-count">1 sample</span></div>
-    <p class="preview-intro">These drawings illustrate the collection direction. Final garments, photographs, sizes and prices are still to come.</p>
-    <noscript><p class="no-script-note">JavaScript is needed to change this collection and open the interactive sample preview. These are illustrative drawings; ordering is not available.</p></noscript>
-    <section class="product-grid" aria-label="Sample garment silhouettes">
-      <article class="product" data-item="shirt">
-        <button class="product-button" type="button" data-product="shirt" aria-haspopup="dialog" aria-controls="product-dialog">
-          <span class="garment-frame frame-shirt">
-            <span class="sample-label">Sample silhouette · 01</span>
-            <svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
+    <div class="catalogue-heading"><p id="study-count" aria-live="polite">3 styles</p><label class="sort-label">Sort by <select id="product-sort"><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label></div>
+    <p class="preview-intro">Collection preview · Illustrative garments and sample prices. Final product photography and measurements are coming.</p>
+    <noscript><p class="no-script-note">Enable JavaScript to filter garments, choose sizes and use the preview bag. Ordering is not available yet.</p></noscript>
+    <section class="product-grid" aria-label="Garments">
+<article class="product" data-item="shirt">
+      <button class="product-button" type="button" data-product="shirt" aria-haspopup="dialog" aria-controls="product-dialog">
+        <span class="garment-frame frame-shirt"><span class="sample-label">Design sample</span><svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
               <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
                 <path fill="#f9f7f0" d="M111 62 74 78 39 127 69 150 87 129 82 274Q150 287 218 274L213 129 231 150 261 127 226 78 189 62 171 54 129 54Z"/>
                 <path d="M129 54 150 83 171 54M111 62 127 99 150 83 173 99 189 62M150 83v196M87 129 89 99M213 129 211 99M43 122l30 23M227 145l30-23M86 266q65 14 128 0M100 118h30v33h-30z"/>
                 <path d="M111 62q-2 13 3 20M189 62q2 13-3 20M101 178l-4 64M199 178l4 64" opacity=".4"/>
                 <g fill="currentColor" stroke="none"><circle cx="154" cy="110" r="1.6"/><circle cx="154" cy="139" r="1.6"/><circle cx="154" cy="168" r="1.6"/><circle cx="154" cy="197" r="1.6"/><circle cx="154" cy="226" r="1.6"/><circle cx="154" cy="255" r="1.6"/></g>
               </g>
-            </svg>
-          </span>
-          <span class="product-title">Everyday shirt</span>
-          <span class="product-description">An easy, familiar shape.</span>
-          <span class="product-action">Explore sample <span aria-hidden="true">↗</span></span>
-        </button>
-      </article>
-      <article class="product" data-item="kurta" hidden>
-        <button class="product-button" type="button" data-product="kurta" aria-haspopup="dialog" aria-controls="product-dialog">
-          <span class="garment-frame frame-kurta">
-            <span class="sample-label">Sample silhouette · 02</span>
-            <svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
+            </svg></span>
+        <span class="product-meta"><span>Ivory</span><span>Sample price</span></span>
+        <span class="product-heading"><span class="product-title">Everyday shirt</span><span class="product-price">₹1,490</span></span>
+        <span class="product-description">Easy through the working week.</span>
+        <span class="product-action">Choose size <span aria-hidden="true">+</span></span>
+      </button>
+    </article>
+<article class="product" data-item="kurta">
+      <button class="product-button" type="button" data-product="kurta" aria-haspopup="dialog" aria-controls="product-dialog">
+        <span class="garment-frame frame-kurta"><span class="sample-label">Design sample</span><svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
               <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
                 <path fill="#f8f5ee" d="M127 43h46l11 15 37 16 32 145-29 7-23-101 10 173H89l10-173-23 101-29-7L79 74l37-16Z"/>
                 <path d="M127 43v21q23 12 46 0V43M150 68v92h9V68M117 58l10 7M173 65l11-7M98 125 101 85M202 125l-3-40M51 208l28 6M221 214l29-6M91 285h118M96 255v43M204 255v43M173 104h23v31q-12 7-23 0z"/>
                 <path d="m115 169-7 92M185 169l7 92" opacity=".4"/>
                 <g fill="currentColor" stroke="none"><circle cx="154.5" cy="87" r="1.6"/><circle cx="154.5" cy="111" r="1.6"/><circle cx="154.5" cy="135" r="1.6"/></g>
               </g>
-            </svg>
-          </span>
-          <span class="product-title">Classic kurta</span>
-          <span class="product-description">A shape for days together.</span>
-          <span class="product-action">Explore sample <span aria-hidden="true">↗</span></span>
-        </button>
-      </article>
-      <article class="product" data-item="jacket" hidden>
-        <button class="product-button" type="button" data-product="jacket" aria-haspopup="dialog" aria-controls="product-dialog">
-          <span class="garment-frame frame-jacket">
-            <span class="sample-label">Sample silhouette · 03</span>
-            <svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
+            </svg></span>
+        <span class="product-meta"><span>Natural</span><span>Sample price</span></span>
+        <span class="product-heading"><span class="product-title">Classic kurta</span><span class="product-price">₹2,490</span></span>
+        <span class="product-description">For family lunches and festival evenings.</span>
+        <span class="product-action">Choose size <span aria-hidden="true">+</span></span>
+      </button>
+    </article>
+<article class="product" data-item="jacket">
+      <button class="product-button" type="button" data-product="jacket" aria-haspopup="dialog" aria-controls="product-dialog">
+        <span class="garment-frame frame-jacket"><span class="sample-label">Design sample</span><svg viewBox="0 0 300 340" class="garment" aria-hidden="true" focusable="false">
               <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
                 <path fill="#d8d8ca" d="M130 55h40l10 20 35 12q-10 37 7 64l-5 121-57 7-10-8-10 8-57-7-5-121q17-27 7-64l35-12Z"/>
                 <path d="M130 55v23q20 9 40 0V55M150 82v189M91 89q8 35-9 64M209 89q-8 35 9 64M95 125h30v7H95zM94 204h36v8H94zM170 204h36v8h-36zM88 265l51 7M161 272l51-7"/>
                 <path d="m111 151-5 35M189 151l5 35" opacity=".4"/>
                 <g fill="currentColor" stroke="none"><circle cx="155" cy="106" r="2"/><circle cx="155" cy="136" r="2"/><circle cx="155" cy="166" r="2"/><circle cx="155" cy="196" r="2"/><circle cx="155" cy="226" r="2"/><circle cx="155" cy="256" r="2"/></g>
               </g>
-            </svg>
-          </span>
-          <span class="product-title">Nehru jacket</span>
-          <span class="product-description">A considered finishing layer.</span>
-          <span class="product-action">Explore sample <span aria-hidden="true">↗</span></span>
-        </button>
-      </article>
+            </svg></span>
+        <span class="product-meta"><span>Olive</span><span>Sample price</span></span>
+        <span class="product-heading"><span class="product-title">Nehru jacket</span><span class="product-price">₹3,990</span></span>
+        <span class="product-description">An extra layer for an occasion.</span>
+        <span class="product-action">Choose size <span aria-hidden="true">+</span></span>
+      </button>
+    </article>
     </section>
     <aside class="gifting-note">
-      <p class="eyebrow">A thoughtful gesture</p>
-      <h2>For the people we call our own.</h2>
-      <p>Explore gift wrap, a personal note and an invoice without prices—small gestures for someone who means a lot.</p>
-      <p class="small-note">Design preview only. Ordering is not available.</p>
+      <div><p class="eyebrow">FOR YOUR OWN PANCHAYAT</p><h2>For the one who got you<br>watching Panchayat.</h2></div>
+      <div><p>A shirt for Papa. A kurta for a family get-together. Add gift wrap, a personal note and an invoice with the price tucked away.</p><a href="collection.html?category=gifts" data-category="gifts">Choose a gift <span aria-hidden="true">→</span></a></div>
     </aside>
   </main>
-  <footer class="site-footer page-width"><a href="index.html">Back to our story <span aria-hidden="true">↗</span></a><span>From the world of TVF’s Panchayat · Design preview</span></footer>
+  <footer class="site-footer page-width"><a href="index.html">Pradhan by Panchayat</a><span>A clothing line by TVF · Store design preview</span></footer>
   <dialog id="product-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
     <div class="dialog-shell">
-      <button class="close-button" type="button" aria-label="Close sample preview">Close <span aria-hidden="true">×</span></button>
-      <p class="eyebrow">Sample preview</p>
+      <button class="close-button" type="button" aria-label="Close product details">Close <span aria-hidden="true">×</span></button>
+      <p class="eyebrow">PRADHAN BY PANCHAYAT</p>
       <h2 id="dialog-title" tabindex="-1">Everyday shirt</h2>
-      <p id="dialog-description">An illustrative silhouette. Try the sample options below; nothing is sent or saved, and ordering is not available.</p>
+      <p class="dialog-price"><span id="dialog-price">₹1,490</span><span>Sample price</span></p>
+      <p id="dialog-description">An easy shirt for everyday wear.</p>
       <form id="sample-form">
         <fieldset class="size-fieldset">
-          <legend>Select a sample size <span class="required-label">(required)</span></legend>
+          <legend>Select size <span class="required-label">(required)</span></legend>
           <div class="size-options">
             <label><input type="radio" name="size" value="S" required><span>S</span></label>
             <label><input type="radio" name="size" value="M"><span>M</span></label>
@@ -113,29 +119,19 @@
             <label><input type="radio" name="size" value="XL"><span>XL</span></label>
             <label><input type="radio" name="size" value="XXL"><span>XXL</span></label>
           </div>
-          <p class="field-note">Sample sizes only. Measurements will accompany the final garments.</p>
+          <details class="size-guide"><summary>Help with sizing</summary><p>These are sample size options. The final size guide will include garment measurements and fit advice before ordering opens.</p></details>
         </fieldset>
         <fieldset class="gift-fieldset">
-          <legend>Make it a gift <span class="required-label">(optional)</span></legend>
+          <legend>Sending it to someone? <span class="required-label">(optional)</span></legend>
           <label class="check-option"><input type="checkbox" name="giftWrap"><span>Add gift wrap</span></label>
           <label class="check-option"><input type="checkbox" name="hidePrices"><span>Hide prices on the gift invoice</span></label>
-          <label class="message-label" for="gift-message">Sample gift message</label>
-          <textarea id="gift-message" name="giftMessage" rows="3" maxlength="240" placeholder="For all the little things you do. With love." aria-describedby="message-help"></textarea>
-          <p class="field-note" id="message-help">Up to 240 characters. This message stays in this preview.</p>
+          <label class="message-label" for="gift-message">Your note</label>
+          <textarea id="gift-message" name="giftMessage" rows="2" maxlength="240" placeholder="Papa, this one’s for you." aria-describedby="message-help"></textarea>
+          <p class="field-note" id="message-help">Up to 240 characters. Saved only in this browser.</p>
         </fieldset>
-        <button class="primary-button" type="submit">Preview order details <span aria-hidden="true">→</span></button>
+        <button class="primary-button" type="submit">Add to bag <span aria-hidden="true">+</span></button>
+        <p class="field-note preview-note">Design sample. No order or payment is taken in this preview.</p>
       </form>
-      <section id="summary-panel" aria-label="Sample order details" hidden>
-        <dl class="order-summary">
-          <div><dt>Sample silhouette</dt><dd id="summary-product"></dd></div>
-          <div><dt>Sample size</dt><dd id="summary-size"></dd></div>
-          <div><dt>Gift wrap</dt><dd id="summary-wrap"></dd></div>
-          <div><dt>Gift invoice</dt><dd id="summary-invoice"></dd></div>
-        </dl>
-        <div class="message-preview"><h3>Gift message</h3><p id="summary-message"></p></div>
-        <p class="preview-notice">This is a layout preview, not an order. Ordering will become available after the products and store are ready.</p>
-        <button class="secondary-button" type="button" id="edit-options"><span aria-hidden="true">←</span> Edit sample options</button>
-      </section>
     </div>
   </dialog>
 </body>
