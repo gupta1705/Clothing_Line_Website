@@ -41,8 +41,8 @@ def head(title, desc, preload=''):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23000'/%3E%3Ctext x='20' y='28' text-anchor='middle' font-family='Arial' font-weight='700' font-size='22' fill='%23fff'%3EP%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#f6efe2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%233a2618'/%3E%3Ctext x='20' y='28' text-anchor='middle' font-family='Arial' font-weight='700' font-size='22' fill='%23f6efe2'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;700&display=swap">

@@ -13,7 +13,7 @@ window.PBP_VERSIONS = [
     id: 'v2',
     name: 'Snitch layout',
     date: '4 Nov 2026',
-    note: 'Minimal black-and-white menswear store modelled on snitch.com: two-up hero, shop by category, edit tiles, Trending grid with quick add.',
+    note: 'Minimal menswear store modelled on snitch.com, in our rustic cream palette: two-up hero, shop by category, edit tiles, Trending grid with quick add.',
     thumb: 'versions/v2.webp'
   }
 ];
