@@ -33,7 +33,7 @@ SHAPES = {
     'chai': '<path d="M46 34H154L137 170Q100 186 63 170Z" stroke="currentColor" stroke-width="14" stroke-linejoin="round"/>',
     'bubble': '<rect x="14" y="40" width="172" height="110" rx="55"/><path d="M50 136 38 186 98 144Z"/>',
     'marigold': marigold(),
-    'envelope': '<rect x="22" y="50" width="156" height="104" rx="16"/><path d="M28 60 100 114 172 60" fill="none" stroke="#f0f0f0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>',
+    'envelope': '<rect x="22" y="50" width="156" height="104" rx="16"/><path d="M28 60 100 114 172 60" fill="none" stroke="#f3ebdc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>',
     'specs': '<g transform="rotate(-14 100 100)"><path d="M14 74h172v12c-6 0-8 4-9 9-4 30-22 48-50 44-20-3-26-24-27-40h0c-1 16-7 37-27 40-28 4-46-14-50-44-1-5-3-9-9-9Z"/></g>',
     'stack': '<rect x="40" y="26" width="120" height="44" rx="22"/><rect x="40" y="78" width="120" height="44" rx="22"/><rect x="40" y="130" width="120" height="44" rx="22"/>',
     'capsule': '<rect x="56" y="10" width="88" height="180" rx="44" transform="rotate(-40 100 100)"/>',
@@ -45,14 +45,14 @@ def shape(name, color):
 
 
 def charkha(cls='charkha'):
-    cols = ['#f7a3b8', '#f6b93b', '#f3e7c9', '#c98bb9', '#a8c256', '#b81d3a', '#f2d24b', '#f4c7a6', '#9bb14a', '#e86a5a']
-    parts = ['<circle cx="200" cy="200" r="22" fill="#f6efe6"/>']
+    cols = ['#8b3a1e', '#2e3b57', '#f3e3bf', '#6b2213', '#9fa36a', '#c0703a', '#3a2618', '#e3c49a', '#5d6b8c', '#a9512d']
+    parts = ['<circle cx="200" cy="200" r="22" fill="#3a2618"/>']
     for i, c in enumerate(cols):
         a = i * 2 * math.pi / len(cols) - math.pi / 2
         x, y = 200 + 150 * math.cos(a), 200 + 150 * math.sin(a)
-        parts.append(f'<line x1="200" y1="200" x2="{x:.1f}" y2="{y:.1f}" stroke="#f6efe6" stroke-width="7" stroke-linecap="round"/>')
+        parts.append(f'<line x1="200" y1="200" x2="{x:.1f}" y2="{y:.1f}" stroke="#3a2618" stroke-width="6" stroke-linecap="round"/>')
         parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="34" fill="{c}"/><circle cx="{x:.1f}" cy="{y:.1f}" r="22" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3"/><circle cx="{x:.1f}" cy="{y:.1f}" r="11" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3"/>')
-    parts.append('<circle cx="200" cy="200" r="10" fill="#c98bb9"/>')
+    parts.append('<circle cx="200" cy="200" r="10" fill="#d9a441"/>')
     return f'<svg class="{cls}" viewBox="0 0 400 400" aria-hidden="true">{"".join(parts)}</svg>'
 
 
@@ -77,12 +77,11 @@ def head(title, desc, preload=''):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#820263">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23820263'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='Arial' font-weight='700' font-size='24' fill='%23f1c1db'%3EP%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#8b3a1e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%238b3a1e'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='Georgia' font-weight='700' font-size='24' fill='%23f3e3bf'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yellowtail&text=by%20Panchayat&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..500&family=Geist:wght@400;500&display=swap">
 {preload}<link rel="stylesheet" href="assets/css/site.css?v={ver('assets/css/site.css')}">
 </head>
 '''
