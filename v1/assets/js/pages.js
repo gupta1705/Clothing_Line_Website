@@ -28,7 +28,7 @@
     $('#fbtn').addEventListener('click', () => $('#fpanel').classList.toggle('open'));
     $('#sort').addEventListener('change', (e) => { st.sort = e.target.value; render(); });
 
-    const promoA = `<a class="promo" href="collection.html?c=nehru-jackets"><img src="${img('l-festive')}" alt="" loading="lazy" width="440" height="675"><span class="t">The Festive<br>Edit</span><span class="pill light">Shop Now</span></a>`;
+    const promoA = `<a class="promo" href="collection.html?c=nehru-jackets"><img src="${img('l-festive')}" alt="" loading="lazy" width="600" height="920"><span class="t">The Festive<br>Edit</span><span class="pill light">Shop Now</span></a>`;
     const promoB = `<a class="promo rust" href="index.html#gifting"><small>Diwali gifting</small><span class="t">Free</span><span style="font-size:22px;margin:4px 0 14px">gift wrap</span><span class="pill light">On every order</span></a>`;
 
     function render() {
@@ -66,7 +66,7 @@
         <div class="a"><span class="badge">${p.tag}</span><img src="${img(p.img)}" alt="${p.name}" width="480" height="640"></div>
         <div class="b"><img src="${img(pick(1).img)}" alt="Styled with ${pick(1).name}" width="480" height="640" loading="lazy"></div>
         <div class="c"><img src="${img(p.img)}" alt="" width="480" height="640" loading="lazy" style="object-position:50% 80%;transform:scale(1.35)"></div>
-        <div class="d"><img src="${img(p.cat === 'kurtas' || p.cat === 'pajamas' ? 'g-loom' : 'g-office')}" alt="" width="720" height="405" loading="lazy"></div>
+        <div class="d"><img src="${img(p.cat === 'kurtas' || p.cat === 'pajamas' ? 'g-prahlad' : 'g-office')}" alt="" width="720" height="405" loading="lazy"></div>
       </div>
       <div class="info">
         <div class="crumb"><a href="collection.html">Shop All</a> / <a href="collection.html?c=${cat.id}">${cat.name}</a></div>

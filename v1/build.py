@@ -46,7 +46,7 @@ MOTIF = {
     'charkha': charkha(100).replace('width="100" height="100" ', ''),
 }
 
-NAV_CATS = [('kurtas', 'Kurtas', 'p-cotton-kurta'), ('shirts', 'Shirts', 'p-check-shirt'), ('nehru-jackets', 'Nehru Jackets', 'p-nehru-olive'),
+NAV_CATS = [('kurtas', 'Kurtas', 'p-cotton-kurta'), ('shirts', 'Shirts', 'p-check-shirt'), ('nehru-jackets', 'Nehru Jackets', 'p-nehru-jacket'),
             ('sweaters', 'Half Sweaters', 'p-half-sweater'), ('pajamas', 'Pajamas', 'p-pajama'), ('gifts', 'Gift Sets', 'p-gift-box')]
 
 LOGO = '<span class="logo" aria-label="Pradhan by Panchayat"><span class="dv" aria-hidden="true">प्रधान</span><span class="en" aria-hidden="true">by Panchayat</span></span>'
@@ -108,7 +108,7 @@ def header(active, solid):
 
 
 def footer():
-    pol = [('g-office', -8, 0), ('people-sachiv', 5, 14), ('g-textiles', -3, 28), ('people-pradhan', 7, 42), ('g-gift', -6, 56), ('h-loom-sm', 4, 70)]
+    pol = [('g-office', -8, 0), ('people-sachiv', 5, 14), ('g-manju-desk', -3, 28), ('people-pradhan', 7, 42), ('g-garland', -6, 56), ('h-festive-sm', 4, 70)]
     polas = ''.join(f'<img src="assets/img/{n}.webp" alt="" loading="lazy" width="600" height="400" style="left:{x}%;transform:rotate({r}deg)">' for n, r, x in pol)
     return f'''<section class="gram" aria-label="Instagram">
   <div class="gram-top">
@@ -180,14 +180,14 @@ def row(id_, title, sub, ids, see, squiggle=False):
 SLIDES = [
     ('h-ensemble', 'The', 'Phulera', 'Collection', 'Every thread has a village.', 'Diwali gifting · Free wrap', 'collection.html', 'Shop Now'),
     ('h-office', 'Straight out of', 'Panchayat', 'Office', 'Half sweaters, checks and kurtas', 'The Pradhan Office Edit', 'collection.html?edit=Pradhan%20Office%20Edit', 'Shop the Edit'),
-    ('h-loom', 'Handmade by', 'Village', 'Artisans', 'Woven, knitted and stitched by hand', 'Loom Fresh', 'collection.html?edit=Loom%20Fresh', 'Shop Now'),
+    ('h-festive', 'The', 'Festive', 'Edit', 'Nehru jackets for the shaadi season', 'Diwali & weddings', 'collection.html?edit=Festive%20Edit', 'Shop Now'),
 ]
 
 
 def slides():
     out = []
     for k, (im, a, b, c, d, pill, href, cta) in enumerate(SLIDES):
-        src = f'src="assets/img/{im}.webp" srcset="assets/img/{im}-sm.webp 720w, assets/img/{im}.webp 1200w"' if k == 0 else f'data-src="assets/img/{im}.webp" data-srcset="assets/img/{im}-sm.webp 720w, assets/img/{im}.webp 1200w"'
+        src = f'src="assets/img/{im}.webp" srcset="assets/img/{im}-sm.webp 800w, assets/img/{im}.webp 1600w"' if k == 0 else f'data-src="assets/img/{im}.webp" data-srcset="assets/img/{im}-sm.webp 800w, assets/img/{im}.webp 1600w"'
         pri = ' fetchpriority="high"' if k == 0 else ' loading="lazy"'
         out.append(f'''<div class="slide{' on' if k == 0 else ''}"{'' if k == 0 else ' aria-hidden="true"'}>
       <img {src} sizes="100vw" alt="" width="1200" height="675"{pri}>
@@ -202,7 +202,7 @@ QUOTES = [
     ('people-prahlad', '28% 30%', 'prahlad-cotton-kurta', 'Cloth is only good when a village’s hands have made it. The rest is just show.', 'Prahlad Cha', 'Up-Pradhan, Phulera'),
 ]
 
-MASON = [('big', 'h-ensemble'), ('', 'people-sachiv'), ('motif', 'tank'), ('', 'g-gift'), ('', 'g-courtyard'), ('', 'g-textiles'), ('big', 'g-loom'), ('motif pink', 'lauki'),
+MASON = [('big', 'h-ensemble'), ('', 'people-sachiv'), ('motif', 'tank'), ('', 'g-garland'), ('', 'g-bikes'), ('', 'g-manju-desk'), ('big', 'g-sachiv-sweater'), ('motif pink', 'lauki'),
          ('', 'people-pradhan'), ('motif', 'chai'), ('', 'g-office'), ('motif pink', 'charkha')]
 
 
@@ -237,9 +237,9 @@ HOME = f'''<main id="main">
     <svg class="leafmark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 0C30 20 30 45 50 60 70 45 70 20 50 0ZM0 50c20-20 45-20 60 0-15 20-40 20-60 0Zm100 0c-20-20-45-20-60 0 15 20 40 20 60 0Z"/></svg>
     <h2><span class="serif">Crafted</span> for every role in Phulera.</h2>
     <div class="life-grid">
-      <a class="lc" href="collection.html?edit=Pradhan%20Office%20Edit"><img src="assets/img/l-office.webp" alt="The Phulera panchayat office and water tank" width="520" height="800" loading="lazy"><span class="cap">For long days at the panchayat office, and the tea breaks in between.<span class="pill light">Office Wear {I['arrow']}</span></span></a>
-      <a class="lc" href="collection.html?edit=Festive%20Edit"><img src="assets/img/l-festive.webp" alt="The people of Phulera gathered together" width="440" height="675" loading="lazy"><span class="cap">For the shaadi, the pooja and every family photo in between.<span class="pill light">Festive Wear {I['arrow']}</span></span></a>
-      <a class="lc" href="collection.html?edit=Loom%20Fresh"><img src="assets/img/l-loom.webp" alt="An artisan's hands at a handloom" width="520" height="800" loading="lazy"><span class="cap">For evenings at home, in cloth that’s still warm from the loom.<span class="pill light">Loom Fresh {I['arrow']}</span></span></a>
+      <a class="lc" href="collection.html?edit=Pradhan%20Office%20Edit"><img src="assets/img/l-office.webp" alt="Manju Devi at her desk in the panchayat office" width="600" height="920" loading="lazy"><span class="cap">For long days at the panchayat office, and the tea breaks in between.<span class="pill light">Office Wear {I['arrow']}</span></span></a>
+      <a class="lc" href="collection.html?edit=Festive%20Edit"><img src="assets/img/l-festive.webp" alt="Pradhan ji garlanded in a Nehru jacket" width="600" height="920" loading="lazy"><span class="cap">For the shaadi, the pooja and every family photo in between.<span class="pill light">Festive Wear {I['arrow']}</span></span></a>
+      <a class="lc" href="collection.html?edit=Phulera%20Everyday"><img src="assets/img/l-everyday.webp" alt="Sachiv ji and Vikas on their bikes in Phulera" width="600" height="920" loading="lazy"><span class="cap">For bike rides to Phulera and long chaupal evenings.<span class="pill light">Everyday Wear {I['arrow']}</span></span></a>
     </div>
   </section>
 
@@ -261,7 +261,7 @@ HOME = f'''<main id="main">
     </div>
   </section>
 
-  <div class="banner"><img src="assets/img/banner.webp" alt="The Phulera panchayat office under the neem tree, with the water tank behind" width="1200" height="800" loading="lazy"><a class="pill solid" href="about.html">About Pradhan</a></div>
+  <div class="banner"><img src="assets/img/banner.webp" alt="Sachiv ji, Vikas and the women of Phulera on a village street" width="1600" height="900" loading="lazy"><a class="pill solid" href="about.html">About Pradhan</a></div>
   <div class="creed" id="philosophy">
     <p>Every village has its pradhan: the one people trust, who stands up for the community. We took the name because that is the role we want to play for India’s village artisans. We carry their craft to people who will value it, and bring a fair living back home.</p>
     <p><strong>Every thread has a village.</strong></p>
@@ -313,7 +313,7 @@ PRODUCT = f'''<main id="main" style="padding-top:8px">
 '''
 
 ABOUT = f'''<main id="main">
-  <section class="ahero"><img src="assets/img/banner.webp" alt="The Phulera panchayat office and water tank" width="1200" height="800" fetchpriority="high"><h1>Every thread<em>has a village.</em></h1></section>
+  <section class="ahero"><img src="assets/img/banner.webp" alt="Sachiv ji, Vikas and the women of Phulera on a village street" width="1600" height="900" fetchpriority="high"><h1>Every thread<em>has a village.</em></h1></section>
   <div class="acard">
     <p>Every village has its pradhan: the one people trust, who stands up for the community and carries its voice further than it could travel alone.</p>
     <p><strong>Village craft, everyday dignity.</strong></p>
@@ -326,12 +326,12 @@ ABOUT = f'''<main id="main">
       <div class="tx"><small>2020</small><h3>Phulera arrives on screen</h3><p>TVF’s Panchayat introduced India to Phulera: a sleepy village office, a water tank, and people who look after each other.</p></div>
       <div class="tx"><small>The wardrobe</small><h3>Viewers kept asking</h3><p>Pradhan ji’s half sweater. Sachiv ji’s checks. Prahlad Cha’s gamchha. Phulera’s clothes became as loved as its people.</p></div>
       <div class="ph"><img src="assets/img/people-pradhan.webp" alt="Pradhan ji and Manju Devi" loading="lazy" width="720" height="405"><img src="assets/img/g-office.webp" alt="Pradhan ji and Manju Devi at the panchayat office" loading="lazy" width="720" height="405"></div>
-      <div class="ph"><img src="assets/img/g-loom.webp" alt="An artisan at a handloom" loading="lazy" width="600" height="400"><img src="assets/img/g-textiles.webp" alt="Handloom khadi and a spool of thread" loading="lazy" width="600" height="400"></div>
+      <div class="ph"><img src="assets/img/g-sachiv-sweater.webp" alt="Sachiv ji in a half sweater" loading="lazy" width="900" height="600"><img src="assets/img/g-manju-desk.webp" alt="Manju Devi at the panchayat office" loading="lazy" width="900" height="600"></div>
       <div class="tx"><small>2026</small><h3>Pradhan by Panchayat</h3><p>We took the name because that is the role we want to play for India’s village artisans. Weavers in Chanderi, block printers in Kutch, women stitching Kantha in Bengal: their skills have been passed down for generations, yet too few people ever get to wear what they make.</p></div>
     </div>
   </section>
   <section class="artisans" id="enquire">
-    <img src="assets/img/g-loom.webp" alt="An artisan's hands at a handloom" loading="lazy" width="600" height="400">
+    <img src="assets/img/g-prahlad.webp" alt="Prahlad Cha in a cotton kurta" loading="lazy" width="900" height="600">
     <div>
       <h2>Not only skilled,<br>but proud hands behind.</h2>
       <p>Pradhan by Panchayat brings their work to a wider market, in clothes designed for comfort, dignity and everyday wear. We work directly with artisan families, pay fairly and on time, and make in small batches. Every piece carries a village in its threads.</p>
@@ -343,7 +343,7 @@ ABOUT = f'''<main id="main">
 '''
 
 if __name__ == '__main__':
-    pre = '<link rel="preload" as="image" href="assets/img/h-ensemble.webp" imagesrcset="assets/img/h-ensemble-sm.webp 720w, assets/img/h-ensemble.webp 1200w" imagesizes="100vw">\n'
+    pre = '<link rel="preload" as="image" href="assets/img/h-ensemble.webp" imagesrcset="assets/img/h-ensemble-sm.webp 800w, assets/img/h-ensemble.webp 1600w" imagesizes="100vw">\n'
     page('index.html', 'Pradhan by Panchayat | Handmade clothing from Phulera', 'Kurtas, Nehru jackets, half sweaters and everyday shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, preload=pre)
     page('collection.html', 'Shop All | Pradhan by Panchayat', 'Shop handmade kurtas, shirts, Nehru jackets, half sweaters, pajamas and gift sets.', 'shop', COLLECTION)
     page('product.html', 'Product | Pradhan by Panchayat', 'Handmade by village artisans.', 'shop', PRODUCT, solid=True)

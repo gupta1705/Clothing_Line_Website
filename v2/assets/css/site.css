@@ -45,11 +45,11 @@ svg.i { width: 24px; height: 24px; flex: none; }
 .ib .ct[data-n="0"], .ib .ct:empty { display: none; }
 
 /* Left menu drawer */
-.menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(420px, 100%); z-index: 90; background: var(--paper); transform: translateX(-100%); visibility: hidden; transition: transform .45s var(--ease), visibility .45s; padding: 22px 28px 40px; overflow: auto; }
+.menu { position: fixed; top: 0; left: 0; bottom: 0; width: min(420px, 100%); z-index: 90; background: var(--paper); transform: translateX(-100%); visibility: hidden; transition: transform .45s var(--ease), visibility .45s; padding: 20px 28px 30px; overflow-y: auto; overscroll-behavior: contain; }
 .menu.open { transform: none; visibility: visible; }
-.menu .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-.menu h4 { margin: 26px 0 10px; font-size: 13px; letter-spacing: .12em; color: var(--muted); font-weight: 400; }
-.menu a { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--line); text-transform: uppercase; font-size: 15px; }
+.menu .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.menu h4 { margin: 18px 0 6px; font-size: 13px; letter-spacing: .12em; color: var(--muted); font-weight: 400; }
+.menu a { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); text-transform: uppercase; font-size: 15px; }
 .menu .tag { font-size: 10px; background: var(--brick); color: var(--cream-text); padding: 2px 6px; }
 .menu .soon { color: var(--muted); }
 
@@ -295,6 +295,11 @@ svg.i { width: 24px; height: 24px; flex: none; }
   .ab { grid-template-columns: 1fr; }
   .ab img { aspect-ratio: 4 / 3; }
 }
+
+/* Hide visible scrollbars on scrollable panels (still scrollable) */
+.menu, .mnav, .drawer .items, .dd-menu, .tabs, .ctabs, .track, .strip, .ctiles { scrollbar-width: none; -ms-overflow-style: none; }
+.menu::-webkit-scrollbar, .mnav::-webkit-scrollbar, .drawer .items::-webkit-scrollbar, .dd-menu::-webkit-scrollbar, .tabs::-webkit-scrollbar, .ctabs::-webkit-scrollbar, .track::-webkit-scrollbar, .strip::-webkit-scrollbar, .ctiles::-webkit-scrollbar { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }

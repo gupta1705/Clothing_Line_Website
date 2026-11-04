@@ -498,6 +498,11 @@ svg.i { width: 22px; height: 22px; flex: none; }
   .acard { margin: -30px 12px 0; padding: 24px 18px; }
 }
 
+
+/* Hide visible scrollbars on scrollable panels (still scrollable) */
+.menu, .mnav, .drawer .items, .dd-menu, .tabs, .ctabs, .track, .strip, .ctiles { scrollbar-width: none; -ms-overflow-style: none; }
+.menu::-webkit-scrollbar, .mnav::-webkit-scrollbar, .drawer .items::-webkit-scrollbar, .dd-menu::-webkit-scrollbar, .tabs::-webkit-scrollbar, .ctabs::-webkit-scrollbar, .track::-webkit-scrollbar, .strip::-webkit-scrollbar, .ctiles::-webkit-scrollbar { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

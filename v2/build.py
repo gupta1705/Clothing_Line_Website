@@ -27,7 +27,7 @@ I = {
     'prev': svg('<path d="m15 6-6 6 6 6"/>', '1.8'),
 }
 
-CATS = [('kurtas', 'Kurtas', 'p-cotton-kurta'), ('shirts', 'Shirts', 'p-check-shirt'), ('nehru-jackets', 'Nehru Jackets', 'p-nehru-olive'),
+CATS = [('kurtas', 'Kurtas', 'p-cotton-kurta'), ('shirts', 'Shirts', 'p-check-shirt'), ('nehru-jackets', 'Nehru Jackets', 'p-nehru-jacket'),
         ('sweaters', 'Half Sweaters', 'p-half-sweater'), ('pajamas', 'Pajamas', 'p-pajama'), ('gifts', 'Gift Sets', 'p-gift-box')]
 
 LOGO = '<span class="logo" aria-label="Pradhan by Panchayat"><span class="w" aria-hidden="true">PRADHAN</span><span class="s" aria-hidden="true">BY PANCHAYAT</span></span>'
@@ -143,7 +143,7 @@ HERO = [
     ('s-hero-pradhan', 'The <b>Half</b> <b>Sweater</b> Edit', 'lite', ''),
     ('s-hero-office', 'Every <b>thread</b> has a <b>village.</b>', 'w', 'fade'),
     ('s-hero-sachiv', 'The <b>Phulera</b> Drop', 'lite', ''),
-    ('s-hero-loom', 'Made <b>by hand</b>', 'w', 'fade'),
+    ('s-hero-nehru', 'The <b>Shaadi</b> Edit', 'w', 'fade'),
 ]
 
 
@@ -161,7 +161,7 @@ EDITS = [('p-half-sweater', 'Half Sweater Season', 'Pradhan ji approved', 'shop.
          ('l-festive', 'The Nehru Jacket Edit', 'For the shaadi season', 'shop.html?c=nehru-jackets'),
          ('p-check-shirt', 'Office Shirts', 'For days at the panchayat', 'shop.html?c=shirts')]
 PROMOS = [('p-gift-box', 'Gift sets', 'from ₹1,099', 'shop.html?c=gifts'), ('p-cotton-kurta', 'Kurtas', 'from ₹2,199', 'shop.html?c=kurtas'),
-          ('p-vikas-tee', 'Shirts &amp; tees', 'from ₹1,299', 'shop.html?c=shirts'), ('p-nehru-olive', 'Nehru jackets', '₹4,999', 'shop.html?c=nehru-jackets')]
+          ('p-vikas-tee', 'Shirts &amp; tees', 'from ₹1,299', 'shop.html?c=shirts'), ('p-nehru-jacket', 'Nehru jackets', '₹4,999', 'shop.html?c=nehru-jackets')]
 
 HOME = f'''<main id="main">
   <h1 class="sr-only">Pradhan by Panchayat: handmade menswear from Phulera</h1>
@@ -188,7 +188,7 @@ HOME = f'''<main id="main">
 '''
 
 STRIP = [('l-festive', 'New in', 'shop.html?edit=Phulera%20Everyday'), ('s-hero-pradhan', 'Office edit', 'shop.html?edit=Pradhan%20Office%20Edit'), ('h-ensemble', 'Festive edit', 'shop.html?edit=Festive%20Edit'),
-         ('l-loom', 'Loom fresh', 'shop.html?edit=Loom%20Fresh'), ('g-gift', 'Diwali gifting', 'shop.html?edit=Gifting')]
+         ('l-everyday', 'Everyday', 'shop.html?edit=Phulera%20Everyday'), ('g-garland', 'Diwali gifting', 'shop.html?edit=Gifting')]
 
 SHOP = f'''<main id="main">
   <div class="strip">{''.join(f'<a href="{h}"><img src="assets/img/{im}.webp" alt="" width="720" height="400" loading="lazy"><span>{t}</span></a>' for im, t, h in STRIP)}</div>
@@ -210,7 +210,7 @@ PRODUCT = '''<main id="main">
 
 ABOUT = '''<main id="main">
   <section class="ab">
-    <img src="assets/img/banner.webp" alt="The Phulera panchayat office and water tank" width="1200" height="800">
+    <img src="assets/img/banner.webp" alt="Sachiv ji, Vikas and the women of Phulera on a village street" width="1600" height="900">
     <div>
       <h1>Every thread <b>has a village.</b></h1>
       <p>Every village has its pradhan: the one people trust, who stands up for the community and carries its voice further than it could travel alone.</p>
