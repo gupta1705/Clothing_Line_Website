@@ -3,179 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pradhan by Panchayat | Handmade clothing from Phulera</title>
-<meta name="description" content="Kurtas, Nehru jackets, half sweaters and everyday shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.">
-<meta name="theme-color" content="#7f1d2d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%231f2417'/%3E%3Ctext x='20' y='28' text-anchor='middle' font-family='Georgia' font-size='22' fill='%23ccd8b7'%3EP%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Onest:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&text=%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%A7%E0%A4%BE%E0%A4%A8&display=swap">
-<link rel="preload" as="image" href="assets/img/h-ensemble.webp" imagesrcset="assets/img/h-ensemble-sm.webp 720w, assets/img/h-ensemble.webp 1200w" imagesizes="100vw">
-<link rel="stylesheet" href="assets/css/site.css?v=f8f1345a">
+<title>Pradhan by Panchayat | Website versions</title>
+<meta name="description" content="Design iterations of the Pradhan by Panchayat website.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23111'/%3E%3Ctext x='20' y='28' text-anchor='middle' font-family='Georgia' font-size='22' fill='%23fff'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+  :root { --ink: #141414; --muted: #6b6b66; --line: #e6e4de; --bg: #f6f5f1; --card: #fff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.5 system-ui, 'Segoe UI', Arial, sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 56px 20px 80px; }
+  h1 { font: 600 clamp(30px, 4vw, 44px)/1.1 Georgia, 'Times New Roman', serif; margin: 0 0 10px; }
+  .lead { color: var(--muted); margin: 0 0 36px; max-width: 640px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; }
+  .v { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: inherit; text-decoration: none; display: grid; transition: transform .25s, box-shadow .25s; }
+  .v:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0, 0, 0, .08); }
+  .v img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; background: #e9e7e1; }
+  .v div { padding: 16px 18px 20px; display: grid; gap: 6px; }
+  .v .t { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .v b { font-size: 19px; font-weight: 600; }
+  .v .id { background: var(--ink); color: #fff; border-radius: 999px; padding: 2px 10px; font-size: 13px; margin-right: 8px; }
+  .v small { color: var(--muted); font-size: 14px; white-space: nowrap; }
+  .v p { margin: 0; color: #4a4a45; font-size: 15px; }
+  .v .latest { color: #3f5c09; font-weight: 600; font-size: 13px; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 14px; }
+  @media (prefers-reduced-motion: reduce) { .v { transition: none; } }
+</style>
 </head>
 <body>
-<a class="sr-only" href="#main">Skip to content</a>
-<div class="ann"><a href="collection.html?edit=Gifting">Diwali Gifting | <b>Free gift wrap</b> | Price-free invoice <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-<header class="hdr">
-  <a href="index.html" aria-label="Pradhan by Panchayat home"><span class="logo" aria-label="Pradhan by Panchayat"><span class="dv" aria-hidden="true">प्रधान</span><span class="en" aria-hidden="true">by Panchayat</span></span></a>
-  <nav class="nav" aria-label="Main">
-    <div class="dd"><a href="collection.html">Men <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a><div class="dd-menu"><a href="collection.html?c=kurtas"><img src="assets/img/p-cotton-kurta.webp" alt="" width="480" height="640" loading="lazy">Kurtas</a><a href="collection.html?c=shirts"><img src="assets/img/p-check-shirt.webp" alt="" width="480" height="640" loading="lazy">Shirts</a><a href="collection.html?c=nehru-jackets"><img src="assets/img/p-nehru-olive.webp" alt="" width="480" height="640" loading="lazy">Nehru Jackets</a><a href="collection.html?c=sweaters"><img src="assets/img/p-half-sweater.webp" alt="" width="480" height="640" loading="lazy">Half Sweaters</a><a href="collection.html?c=pajamas"><img src="assets/img/p-pajama.webp" alt="" width="480" height="640" loading="lazy">Pajamas</a><a href="collection.html?c=gifts"><img src="assets/img/p-gift-box.webp" alt="" width="480" height="640" loading="lazy">Gift Sets</a></div></div>
-    <div class="dd"><a href="#" data-soon="Women’s wear is coming after Diwali">Women <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a><div class="dd-menu" style="width:420px;grid-template-columns:1fr"><div class="soon"><img src="assets/img/p-manju-saree.webp" alt="" width="480" height="640" loading="lazy" style="aspect-ratio:3/4"><span><b style="color:var(--ink);font-weight:500">Women’s wear is on its way.</b><br>Sarees and dupattas inspired by Manju Devi, coming after Diwali.</span></div></div></div>
-    <a class="diwali" href="collection.html?edit=Gifting">Diwali Gifting</a>
-    <a class="drops" href="collection.html?edit=Phulera%20Everyday">Phulera Drops</a>
-    <a href="about.html">About Us</a>
-  </nav>
-  <div class="icons">
-    <button class="ib srch" data-search aria-label="Search"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-    <button class="ib" data-wishlist aria-label="Wishlist"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-9A4.9 4.9 0 0 1 12 6.2 4.9 4.9 0 0 1 21.2 11C19 15.6 12 20 12 20Z"/></svg><span class="ct" data-wcount></span></button>
-    <button class="ib" data-open-cart aria-label="Bag"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 8.5h15l-1.3 11.2a1.5 1.5 0 0 1-1.5 1.3H7.3a1.5 1.5 0 0 1-1.5-1.3Z"/><path d="M8.5 8.5V7a3.5 3.5 0 0 1 7 0v1.5"/></svg><span class="ct" data-count></span></button>
-    <button class="ib acct" data-soon="Accounts open at launch. Guest checkout needs none." aria-label="Account"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
-    <button class="ib burger" data-menu aria-label="Menu"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<main>
+  <h1>Pradhan by Panchayat</h1>
+  <p class="lead">Website design iterations. Open any version, and switch between them with the “Version” button in the bottom-left corner of every page.</p>
+  <div class="grid" id="versions">
+    <noscript><a class="v" href="v1/"><div><b>v1 · KSHM layout</b></div></a></noscript>
   </div>
-</header>
-<nav class="mnav" id="mnav" aria-label="Mobile">
-  <button class="ib x" data-menu aria-label="Close menu"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-  <a href="index.html">Home</a><a href="collection.html">Shop Men</a><a class="sub" href="collection.html?c=kurtas">Kurtas</a><a class="sub" href="collection.html?c=shirts">Shirts</a><a class="sub" href="collection.html?c=nehru-jackets">Nehru Jackets</a><a class="sub" href="collection.html?c=sweaters">Half Sweaters</a><a class="sub" href="collection.html?c=pajamas">Pajamas</a><a class="sub" href="collection.html?c=gifts">Gift Sets</a>
-  <a href="collection.html?edit=Gifting" style="color:var(--rust-2)">Diwali Gifting</a><a href="collection.html?edit=Phulera%20Everyday" style="color:var(--green)">Phulera Drops</a>
-  <a href="about.html">About Us</a><a href="#" data-search>Search</a>
-</nav>
-<div class="search" id="search"><form action="collection.html" role="search"><input id="search-q" name="q" type="search" placeholder="Search kurtas, jackets, shirts…" aria-label="Search products"><button class="btn dark" type="submit">Search</button><button class="ib" type="button" data-close aria-label="Close search"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
-<main id="main">
-  <h1 class="sr-only">Pradhan by Panchayat: handmade clothing from Phulera</h1>
-  <section class="hero" aria-roledescription="carousel" aria-label="Featured collections">
-    <div class="slide on">
-      <img src="assets/img/h-ensemble.webp" srcset="assets/img/h-ensemble-sm.webp 720w, assets/img/h-ensemble.webp 1200w" sizes="100vw" alt="" width="1200" height="675" fetchpriority="high">
-      <div class="copy"><span class="k1">The</span><span class="k2">Phulera</span><span class="k1">Collection</span><span class="k3">Every thread has a village.</span><span class="tagpill">Diwali gifting · Free wrap</span><a class="pill light" href="collection.html">Shop Now</a></div>
-    </div>
-    <div class="slide" aria-hidden="true">
-      <img data-src="assets/img/h-office.webp" data-srcset="assets/img/h-office-sm.webp 720w, assets/img/h-office.webp 1200w" sizes="100vw" alt="" width="1200" height="675" loading="lazy">
-      <div class="copy"><span class="k1">Straight out of</span><span class="k2">Panchayat</span><span class="k1">Office</span><span class="k3">Half sweaters, checks and kurtas</span><span class="tagpill">The Pradhan Office Edit</span><a class="pill light" href="collection.html?edit=Pradhan%20Office%20Edit">Shop the Edit</a></div>
-    </div>
-    <div class="slide" aria-hidden="true">
-      <img data-src="assets/img/h-loom.webp" data-srcset="assets/img/h-loom-sm.webp 720w, assets/img/h-loom.webp 1200w" sizes="100vw" alt="" width="1200" height="675" loading="lazy">
-      <div class="copy"><span class="k1">Handmade by</span><span class="k2">Village</span><span class="k1">Artisans</span><span class="k3">Woven, knitted and stitched by hand</span><span class="tagpill">Loom Fresh</span><a class="pill light" href="collection.html?edit=Loom%20Fresh">Shop Now</a></div>
-    </div>
-    <div class="dots"></div>
-  </section>
-
-  <section class="row" id="fresh">
-    <div class="row-head" style="position:relative"><h2><span class="serif">Phulera</span> <br>Drops</h2><p>New in from the village. Same old warmth.</p><a class="pill" href="collection.html?edit=Phulera%20Everyday">See All <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-    <div class="track-wrap"><button class="arrow prev" aria-label="Previous"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><div class="track" data-row="pradhan-half-sweater,sachiv-check-shirt,prahlad-cotton-kurta,vikas-everyday-tee,sachiv-bike-ride-shirt,pradhan-linen-shirt"></div><button class="arrow next" aria-label="Next"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
-    <div class="see-m" hidden><a class="pill" href="collection.html?edit=Phulera%20Everyday">See All <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </section>
-
-  <section class="life" id="lifestyles">
-    <span class="ghost" aria-hidden="true">Find Your Role</span>
-    <svg class="leafmark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 0C30 20 30 45 50 60 70 45 70 20 50 0ZM0 50c20-20 45-20 60 0-15 20-40 20-60 0Zm100 0c-20-20-45-20-60 0 15 20 40 20 60 0Z"/></svg>
-    <h2><span class="serif">Crafted</span> for every role in Phulera.</h2>
-    <div class="life-grid">
-      <a class="lc" href="collection.html?edit=Pradhan%20Office%20Edit"><img src="assets/img/l-office.webp" alt="The Phulera panchayat office and water tank" width="520" height="800" loading="lazy"><span class="cap">For long days at the panchayat office, and the tea breaks in between.<span class="pill light">Office Wear <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-      <a class="lc" href="collection.html?edit=Festive%20Edit"><img src="assets/img/l-festive.webp" alt="The people of Phulera gathered together" width="440" height="675" loading="lazy"><span class="cap">For the shaadi, the pooja and every family photo in between.<span class="pill light">Festive Wear <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-      <a class="lc" href="collection.html?edit=Loom%20Fresh"><img src="assets/img/l-loom.webp" alt="An artisan's hands at a handloom" width="520" height="800" loading="lazy"><span class="cap">For evenings at home, in cloth that’s still warm from the loom.<span class="pill light">Loom Fresh <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-    </div>
-  </section>
-
-  <section class="row" id="loved">
-    <div class="row-head" style="position:relative"><h2>Most <br><span class="serif">Loved</span> <br>Designs</h2><p>High chance someone in Phulera already owns one.</p><a class="pill" href="collection.html">See All <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><svg class="squiggle" viewBox="0 0 230 160" fill="none" stroke="#c9c9c2" stroke-width="1.6" stroke-dasharray="7 7" aria-hidden="true"><path d="M2 150c40-10 60-40 90-30s10 40-20 30-10-70 40-80 60 10 116-60"/></svg></div>
-    <div class="track-wrap"><button class="arrow prev" aria-label="Previous"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><div class="track" data-row="olive-nehru-jacket,handloom-khadi-kurta,loom-cotton-pajama,phulera-gamchha-stole,pradhan-gift-box,prahlad-cotton-kurta"></div><button class="arrow next" aria-label="Next"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
-    <div class="see-m" hidden><a class="pill" href="collection.html">See All <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </section>
-
-  <section class="people" id="people">
-    <div class="people-in">
-      <div class="pq">
-        <h2>People<br>of <b>Phulera</b></h2>
-        <div>
-          <div class="quote on" data-product="pradhan-half-sweater"><blockquote>“Panchayat meeting or my daughter’s wedding, this half sweater has never once let me down.”</blockquote><div class="who">Pradhan ji</div><div class="role">Pradhan-pati, Phulera Gram Panchayat</div></div><div class="quote" data-product="sachiv-bike-ride-shirt"><blockquote>“I came to Phulera for one year. Now I wouldn’t trade these shirts for any city job.”</blockquote><div class="who">Sachiv ji</div><div class="role">Panchayat Secretary, Phulera</div></div><div class="quote" data-product="prahlad-cotton-kurta"><blockquote>“Cloth is only good when a village’s hands have made it. The rest is just show.”</blockquote><div class="who">Prahlad Cha</div><div class="role">Up-Pradhan, Phulera</div></div>
-          <div class="pdots"></div>
-        </div>
-      </div>
-      <div class="pimg"><div class="fr">
-        <img class="on" src="assets/img/people-pradhan.webp" alt="" loading="lazy" width="720" height="405" style="object-position:50% 30%"><img class="" src="assets/img/people-sachiv.webp" alt="" loading="lazy" width="720" height="405" style="object-position:45% 40%"><img class="" src="assets/img/people-prahlad.webp" alt="" loading="lazy" width="720" height="405" style="object-position:28% 30%">
-        <a class="pchip" href="#"><img alt="" width="48" height="56"><span><span class="n"></span><br><span class="p"></span></span></a>
-      </div></div>
-    </div>
-  </section>
-
-  <div class="banner"><img src="assets/img/banner.webp" alt="The Phulera panchayat office under the neem tree, with the water tank behind" width="1200" height="800" loading="lazy"><a class="pill solid" href="about.html">About Pradhan</a></div>
-  <div class="creed" id="philosophy">
-    <p>Every village has its pradhan: the one people trust, who stands up for the community. We took the name because that is the role we want to play for India’s village artisans. We carry their craft to people who will value it, and bring a fair living back home.</p>
-    <p><strong>Every thread has a village.</strong></p>
-  </div>
-
-  <section class="colours" id="colours">
-    <div class="ctabs" role="tablist" aria-label="Colours of Phulera"></div>
-    <span class="ghost" aria-hidden="true">Colours of Phulera</span>
-    <div class="cpanel">
-      <div class="cinfo"><span class="ic"></span><h3></h3><p></p><a class="pill" href="collection.html"><span>Shop</span> <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><div class="sw" role="tablist" aria-label="Pick a colour"></div></div>
-      <div class="cprods"></div>
-    </div>
-  </section>
-
-  <div class="marq" aria-label="Handmade by village artisans. Free gift wrap this Diwali. Straight out of Phulera. Easy size exchange."><div class="marq-track" aria-hidden="true"><span>Handmade by village artisans <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Free gift wrap this Diwali <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Straight out of Phulera <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Easy size exchange <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Handmade by village artisans <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Free gift wrap this Diwali <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Straight out of Phulera <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Easy size exchange <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Handmade by village artisans <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Free gift wrap this Diwali <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Straight out of Phulera <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Easy size exchange <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Handmade by village artisans <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Free gift wrap this Diwali <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Straight out of Phulera <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span><span>Easy size exchange <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 3l6 4.2L14 3v10l-6-4.2L2 13Z"/></svg></span></div></div>
-
-  <section class="real">
-    <h2>Real Phulera. <span class="serif">Real people.</span></h2>
-    <p>Wear it to the chaupal. Tag <b>@pradhanbypanchayat</b> and get featured here.</p>
-    <div class="mason" style="grid-auto-flow:dense"><div class="big"><img src="assets/img/h-ensemble.webp" alt="" loading="lazy" width="600" height="400"></div><div class=""><img src="assets/img/people-sachiv.webp" alt="" loading="lazy" width="600" height="400"></div><div class="motif" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M22 40Q50 12 78 40Z"/><rect x="20" y="38" width="60" height="28" rx="4"/><path d="M30 66v24M70 66v24M50 66v24M30 80h40M32 52h36"/></svg></div><div class=""><img src="assets/img/g-gift.webp" alt="" loading="lazy" width="600" height="400"></div><div class=""><img src="assets/img/g-courtyard.webp" alt="" loading="lazy" width="600" height="400"></div><div class=""><img src="assets/img/g-textiles.webp" alt="" loading="lazy" width="600" height="400"></div><div class="big"><img src="assets/img/g-loom.webp" alt="" loading="lazy" width="600" height="400"></div><div class="motif pink" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2"><g transform="rotate(-25 50 50)"><path d="M50 8v12"/><circle cx="50" cy="32" r="13"/><ellipse cx="50" cy="66" rx="24" ry="26"/></g></svg></div><div class=""><img src="assets/img/people-pradhan.webp" alt="" loading="lazy" width="600" height="400"></div><div class="motif" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M28 28h44l-7 58H35Z"/><path d="M31 46h38M40 18c0-4 4-4 4-8M52 18c0-4 4-4 4-8"/></svg></div><div class=""><img src="assets/img/g-office.webp" alt="" loading="lazy" width="600" height="400"></div><div class="motif pink" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="7"/><path d="M50 50L90.0 50.0"/><path d="M50 50L84.6 70.0"/><path d="M50 50L70.0 84.6"/><path d="M50 50L50.0 90.0"/><path d="M50 50L30.0 84.6"/><path d="M50 50L15.4 70.0"/><path d="M50 50L10.0 50.0"/><path d="M50 50L15.4 30.0"/><path d="M50 50L30.0 15.4"/><path d="M50 50L50.0 10.0"/><path d="M50 50L70.0 15.4"/><path d="M50 50L84.6 30.0"/></svg></div></div>
-  </section>
-
-  <section class="gbanner" id="gifting">
-    <div><div class="big">Free <small>Gift Wrap</small></div><p>This Diwali, on every order. With a price-free invoice.</p><a class="pill light" href="collection.html?edit=Gifting">Gift a Pradhan <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-    <svg class="art" viewBox="0 0 210 170" fill="none" stroke="#f6e3c8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M70 60h80l10 100H60Z" fill="#f6e3c8" fill-opacity=".95" stroke="none"/><path d="M92 60c0-22 36-22 36 0" stroke="#f6e3c8" stroke-width="3"/>
-  <text x="110" y="112" text-anchor="middle" font-family="Tiro Devanagari Hindi, serif" font-size="30" fill="#994418" stroke="none">प्र</text>
-  <path d="M98 140c4-10 20-10 24 0Z" fill="#994418" stroke="none"/><path d="M110 128c-3 4 0 7 0 7s3-3 0-7Z" fill="#f3a64a" stroke="none"/>
-  <path d="M40 30l4 8M170 26l-4 9M30 70h9M178 72h-9M52 14l2 9M156 12l-2 9"/><circle cx="48" cy="120" r="14" fill="#e8835a" stroke="none"/><path d="M42 126l12-12M43 115h1M53 125h1" stroke="#fff" stroke-width="2"/>
-</svg>
-  </section>
+  <footer>A TVF brand · Previews use sample products and prices.</footer>
 </main>
-<section class="gram" aria-label="Instagram">
-  <div class="gram-top">
-    <div><h2>We’re on the Gram</h2><p>Let’s celebrate village life, together.</p><a class="pill" href="#" data-soon="Our Instagram goes live at launch">Follow Us</a></div>
-    <div class="polas" aria-hidden="true"><img src="assets/img/g-office.webp" alt="" loading="lazy" width="600" height="400" style="left:0%;transform:rotate(-8deg)"><img src="assets/img/people-sachiv.webp" alt="" loading="lazy" width="600" height="400" style="left:14%;transform:rotate(5deg)"><img src="assets/img/g-textiles.webp" alt="" loading="lazy" width="600" height="400" style="left:28%;transform:rotate(-3deg)"><img src="assets/img/people-pradhan.webp" alt="" loading="lazy" width="600" height="400" style="left:42%;transform:rotate(7deg)"><img src="assets/img/g-gift.webp" alt="" loading="lazy" width="600" height="400" style="left:56%;transform:rotate(-6deg)"><img src="assets/img/h-loom-sm.webp" alt="" loading="lazy" width="600" height="400" style="left:70%;transform:rotate(4deg)"></div>
-  </div>
-  <footer class="foot">
-    <div class="foot-grid">
-      <div>
-        <a href="index.html"><span class="logo" aria-label="Pradhan by Panchayat"><span class="dv" aria-hidden="true">प्रधान</span><span class="en" aria-hidden="true">by Panchayat</span></span></a>
-        <p class="lead">Join us so you don’t miss a new drop from Phulera, or a story from the artisans who made it.</p>
-        <form class="news"><input type="email" placeholder="Your Email Address" aria-label="Email address" required><button type="submit">Subscribe</button></form>
-        <div class="soc"><h4>Socials</h4><div><a href="#" data-soon="Socials go live at launch" aria-label="Instagram"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".5" fill="currentColor"/></svg></a><a href="#" data-soon="Socials go live at launch" aria-label="YouTube"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9.5 5 2.5-5 2.5Z" fill="currentColor"/></svg></a><a href="#" data-soon="Socials go live at launch" aria-label="Facebook"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 21v-8h3l.5-3.5H14V7.6c0-1 .3-1.6 1.7-1.6H17.6V3a24 24 0 0 0-2.8-.2C12 2.8 10.5 4.4 10.5 7.2v2.3H7.5V13h3v8"/></svg></a><a href="#" data-soon="Socials go live at launch" aria-label="WhatsApp"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8.5 8.5 0 1 1 8.3 19Z"/><path d="M9 9.5c.4 2 2.5 4.3 5 5l1.2-1.3-1.8-1-1 .8a5 5 0 0 1-2-2l.8-1-1-1.8Z"/></svg></a></div></div>
-      </div>
-      <div>
-        <div class="fcols">
-          <div><h4>Catalogue</h4><ul><li><a href="about.html">About Us</a></li><li><a href="collection.html">Shop All</a></li><li><a href="collection.html?edit=Phulera%20Everyday">Phulera Drops</a></li><li><a href="collection.html?edit=Gifting">Diwali Gifting</a></li></ul></div>
-          <div><h4>Get in touch</h4><ul><li><a href="about.html#enquire">Contact Us</a></li><li><a href="about.html#enquire">Bulk &amp; Office Gifting</a></li><li>A TVF brand</li></ul></div>
-          <div><h4>Help</h4><ul><li><a href="product.html#size-guide">Size Guide</a></li><li><a href="#" data-soon="Delivery details at launch">Shipping &amp; Delivery</a></li><li><a href="#" data-soon="Size exchange within 15 days">Returns &amp; Exchange</a></li><li><a href="#" data-soon="FAQs at launch">FAQs</a></li></ul></div>
-        </div>
-        <div class="legal"><span>© 2026 Pradhan by Panchayat · A TVF brand · Preview: sample products and prices</span><span>Privacy Policy &nbsp;|&nbsp; Terms &amp; Conditions</span></div>
-      </div>
-    </div>
-    <div class="roots" aria-hidden="true"><svg viewBox="0 0 100 100" width="90" height="90" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="7"/><path d="M50 50L90.0 50.0"/><path d="M50 50L84.6 70.0"/><path d="M50 50L70.0 84.6"/><path d="M50 50L50.0 90.0"/><path d="M50 50L30.0 84.6"/><path d="M50 50L15.4 70.0"/><path d="M50 50L10.0 50.0"/><path d="M50 50L15.4 30.0"/><path d="M50 50L30.0 15.4"/><path d="M50 50L50.0 10.0"/><path d="M50 50L70.0 15.4"/><path d="M50 50L84.6 30.0"/></svg><span>Every thread has a village.</span><svg viewBox="0 0 100 100" width="90" height="90" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="50" cy="50" r="44"/><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="7"/><path d="M50 50L90.0 50.0"/><path d="M50 50L84.6 70.0"/><path d="M50 50L70.0 84.6"/><path d="M50 50L50.0 90.0"/><path d="M50 50L30.0 84.6"/><path d="M50 50L15.4 70.0"/><path d="M50 50L10.0 50.0"/><path d="M50 50L15.4 30.0"/><path d="M50 50L30.0 15.4"/><path d="M50 50L50.0 10.0"/><path d="M50 50L70.0 15.4"/><path d="M50 50L84.6 30.0"/></svg></div>
-  </footer>
-</section>
-<div class="scrim" id="scrim" data-close></div>
-<aside class="drawer" id="drawer" aria-label="Your bag">
-  <header>Your Bag <button class="ib" data-close aria-label="Close bag"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
-  <div class="items" id="cart-items"></div>
-  <footer>
-    <div class="gift-opts">
-      <b>Sending this as a gift?</b>
-      <label><input type="checkbox" data-gift="wrap"> Free gift wrap in handmade paper</label>
-      <label><input type="checkbox" data-gift="hide"> Hide prices on the invoice</label>
-      <label><input type="checkbox" data-gift="note"> Add a handwritten note</label>
-      <div id="gift-msg-wrap" hidden><textarea data-gift="msg" aria-label="Gift message" placeholder="Papa, ab aap bhi Pradhan ji lagoge…"></textarea></div>
-    </div>
-    <div class="subtotal"><span>Subtotal</span><span id="cart-sub">₹0</span></div>
-    <button class="btn dark" data-checkout>Checkout</button>
-    <p class="note">Free delivery across India. Secure payment with Razorpay.</p>
-  </footer>
-</aside>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="assets/js/data.js?v=71b187b8"></script>
-<script src="assets/js/site.js?v=0853a06e"></script>
-<script src="assets/js/pages.js?v=baf20dc7"></script>
+<script src="versions.js"></script>
+<script>
+  (function () {
+    var list = window.PBP_VERSIONS || [];
+    var latest = list.length ? list[list.length - 1].id : '';
+    document.getElementById('versions').innerHTML = list.slice().reverse().map(function (v) {
+      return '<a class="v" href="' + v.id + '/">' +
+        '<img src="' + v.thumb + '" alt="' + v.id + ' homepage" width="960" height="600" loading="lazy">' +
+        '<div><span class="t"><b><span class="id">' + v.id + '</span>' + v.name + '</b><small>' + v.date + '</small></span>' +
+        (v.id === latest ? '<span class="latest">Latest</span>' : '') +
+        '<p>' + v.note + '</p></div></a>';
+    }).join('');
+  })();
+</script>
 </body>
 </html>

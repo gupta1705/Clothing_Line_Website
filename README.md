@@ -1,8 +1,12 @@
 # Pradhan by Panchayat
 
-Static storefront preview, modelled on shopkshm.com (KSHM).
+Design iterations of the storefront, each in its own folder:
 
-- Pages: `index.html`, `collection.html`, `product.html?id=…`, `about.html`
-- Shared header, footer and cart drawer live in `build.py`. After editing it or anything in `assets/`, run `python build.py` to regenerate the pages (CSS and JS are cache-busted automatically).
-- Product data: `assets/js/data.js` (sample products and prices).
-- Local preview: `python -m http.server 5173`, then open http://localhost:5173
+- `v1/`: KSHM layout (shopkshm.com)
+- `v2/`: Snitch layout (snitch.com)
+
+The root `index.html` is the version picker. `versions.js` is the single list of versions; it also adds the floating "Version" switcher to every page inside a version folder. To add a version, create `vN/`, include `../versions.js` in its pages, add an entry to `versions.js` and a 960x600 thumbnail at `versions/vN.webp`.
+
+Inside each version, shared header, footer and cart live in `build.py`. After editing it or anything in `assets/`, run `python build.py` in that folder.
+
+Local preview: `python -m http.server 5173`, then open http://localhost:5173

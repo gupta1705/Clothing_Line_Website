@@ -156,6 +156,7 @@ def footer():
 <script src="assets/js/data.js?v={ver('assets/js/data.js')}"></script>
 <script src="assets/js/site.js?v={ver('assets/js/site.js')}"></script>
 <script src="assets/js/pages.js?v={ver('assets/js/pages.js')}"></script>
+<script src="../versions.js?v={ver('../versions.js')}"></script>
 </body>
 </html>
 '''
