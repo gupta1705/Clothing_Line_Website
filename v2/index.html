@@ -10,10 +10,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;700&display=swap">
+<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var w=innerWidth<=900?'-sm':'';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/intro-'+x+w+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
+<link rel="stylesheet" href="assets/css/intro.css?v=3e35516b">
+<script src="assets/js/intro.js?v=8618266a" defer></script>
 <link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
 <link rel="stylesheet" href="assets/css/site.css?v=0f22a3d2">
 </head>
 <body>
+<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat">
+  <div class="intro-stage">
+    <div class="intro-contours" aria-hidden="true"></div>
+    <div class="intro-figure" aria-hidden="true"><canvas id="intro-canvas"></canvas></div>
+    <div class="intro-top"><span class="logo" aria-label="Pradhan by Panchayat"><span class="w" aria-hidden="true">PRADHAN</span><span class="s" aria-hidden="true">BY PANCHAYAT</span></span><span class="intro-mark" aria-hidden="true">प्रधान</span><button class="intro-store" type="button" data-intro-open><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 13H6Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Store</button></div>
+    <p class="intro-line l"><span><i>Every</i></span><span><i><b>Thread</b></i></span></p>
+    <p class="intro-line r"><span><i>has a</i></span><span><i><b>Village.</b></i></span></p>
+    <a class="intro-wear" href="product.html?id=pradhan-linen-shirt" data-a="pradhan-linen-shirt" data-b="pradhan-half-sweater"><small>Pradhan ji is wearing</small><b>Pradhan ji Linen Shirt</b><em></em></a>
+    <p class="intro-credit">A clothing line from TVF’s Panchayat</p>
+    <div class="intro-bottom"><div class="intro-hint"><span class="m">Hover over Pradhan ji’s face</span><span class="t">Touch Pradhan ji’s face</span></div><button class="intro-enter" type="button" data-intro-open>Enter the store <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div>
+  </div>
+  <div class="intro-curtain" aria-hidden="true"><span class="logo" aria-label="Pradhan by Panchayat"><span class="w" aria-hidden="true">PRADHAN</span><span class="s" aria-hidden="true">BY PANCHAYAT</span></span><span class="intro-bar"><i></i></span></div>
+</div>
 <a class="sr-only" href="#main">Skip to content</a>
 <header class="hdr">
   <div class="l"><button class="ib" data-menu aria-label="Menu"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
@@ -46,8 +62,6 @@
   <a class="band" href="shop.html?edit=Gifting"><span class="a">Diwali<br>gifting<br>is here</span><img src="assets/img/s-band.webp" alt="Pradhan ji in a check shirt" width="260" height="385" loading="lazy"><span class="b">Free<br>gift wrap</span></a>
 
   <section class="edits"><a class="edit" href="shop.html?c=sweaters"><img src="assets/img/p-half-sweater.webp" alt="" width="480" height="640" loading="lazy"><span class="t">Half Sweater Season</span><span class="s">Pradhan ji approved</span></a><a class="edit" href="shop.html?c=nehru-jackets"><img src="assets/img/l-festive.webp" alt="" width="480" height="640" loading="lazy"><span class="t">The Nehru Jacket Edit</span><span class="s">For the shaadi season</span></a><a class="edit" href="shop.html?c=shirts"><img src="assets/img/p-check-shirt.webp" alt="" width="480" height="640" loading="lazy"><span class="t">Office Shirts</span><span class="s">For days at the panchayat</span></a></section>
-
-  <section class="promos"><a class="promo" href="shop.html?c=gifts"><img src="assets/img/p-gift-box.webp" alt="" width="480" height="640" loading="lazy"><span>Gift sets<b>from ₹1,099</b></span></a><a class="promo" href="shop.html?c=kurtas"><img src="assets/img/p-cotton-kurta.webp" alt="" width="480" height="640" loading="lazy"><span>Kurtas<b>from ₹2,199</b></span></a><a class="promo" href="shop.html?c=shirts"><img src="assets/img/p-vikas-tee.webp" alt="" width="480" height="640" loading="lazy"><span>Shirts &amp; tees<b>from ₹1,299</b></span></a><a class="promo" href="shop.html?c=nehru-jackets"><img src="assets/img/p-nehru-jacket.webp" alt="" width="480" height="640" loading="lazy"><span>Nehru jackets<b>₹4,999</b></span></a></section>
 
   <section class="sec trend">
     <h2>Trending</h2>
@@ -92,6 +106,6 @@
 <script src="assets/js/data.js?v=2fa4a8f3"></script>
 <script src="assets/js/site.js?v=6dafbf55"></script>
 <script src="assets/js/pages.js?v=6b15e51c"></script>
-<script src="../versions.js?v=a4f2818d"></script>
+<script src="../versions.js?v=0569d617"></script>
 </body>
 </html>

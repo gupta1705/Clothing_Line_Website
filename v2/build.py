@@ -132,8 +132,29 @@ def footer(active):
 '''
 
 
+# Opening screen (home only). Hidden unless the head script opts in: skipped for reduced motion, data saver,
+# back/forward, deep links and navigation inside v2; plays on a fresh visit or reload.
+INTRO_HEAD = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var w=innerWidth<=900?'-sm':'';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/intro-'+x+w+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
+'''
+
+INTRO = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat">
+  <div class="intro-stage">
+    <div class="intro-contours" aria-hidden="true"></div>
+    <div class="intro-figure" aria-hidden="true"><canvas id="intro-canvas"></canvas></div>
+    <div class="intro-top">{LOGO}<span class="intro-mark" aria-hidden="true">प्रधान</span><button class="intro-store" type="button" data-intro-open>{I['bag']}Store</button></div>
+    <p class="intro-line l"><span><i>Every</i></span><span><i><b>Thread</b></i></span></p>
+    <p class="intro-line r"><span><i>has a</i></span><span><i><b>Village.</b></i></span></p>
+    <a class="intro-wear" href="product.html?id=pradhan-linen-shirt" data-a="pradhan-linen-shirt" data-b="pradhan-half-sweater"><small>Pradhan ji is wearing</small><b>Pradhan ji Linen Shirt</b><em></em></a>
+    <p class="intro-credit">A clothing line from TVF’s Panchayat</p>
+    <div class="intro-bottom"><div class="intro-hint"><span class="m">Hover over Pradhan ji’s face</span><span class="t">Touch Pradhan ji’s face</span></div><button class="intro-enter" type="button" data-intro-open>Enter the store {I['next']}</button></div>
+  </div>
+  <div class="intro-curtain" aria-hidden="true">{LOGO}<span class="intro-bar"><i></i></span></div>
+</div>
+'''
+
+
 def page(fname, title, desc, active, body, preload=''):
-    html = head(title, desc, preload) + '<body>\n' + header(active) + body + footer(active)
+    html = head(title, desc, preload) + '<body>\n' + (INTRO if active == 'home' else '') + header(active) + body + footer(active)
     (ROOT / fname).write_text(html, encoding='utf-8')
     print('built', fname, len(html.encode()) // 1024, 'KB')
 
@@ -160,8 +181,6 @@ def hero():
 EDITS = [('p-half-sweater', 'Half Sweater Season', 'Pradhan ji approved', 'shop.html?c=sweaters'),
          ('l-festive', 'The Nehru Jacket Edit', 'For the shaadi season', 'shop.html?c=nehru-jackets'),
          ('p-check-shirt', 'Office Shirts', 'For days at the panchayat', 'shop.html?c=shirts')]
-PROMOS = [('p-gift-box', 'Gift sets', 'from ₹1,099', 'shop.html?c=gifts'), ('p-cotton-kurta', 'Kurtas', 'from ₹2,199', 'shop.html?c=kurtas'),
-          ('p-vikas-tee', 'Shirts &amp; tees', 'from ₹1,299', 'shop.html?c=shirts'), ('p-nehru-jacket', 'Nehru jackets', '₹4,999', 'shop.html?c=nehru-jackets')]
 
 HOME = f'''<main id="main">
   <h1 class="sr-only">Pradhan by Panchayat: handmade menswear from Phulera</h1>
@@ -176,8 +195,6 @@ HOME = f'''<main id="main">
   <a class="band" href="shop.html?edit=Gifting"><span class="a">Diwali<br>gifting<br>is here</span><img src="assets/img/s-band.webp" alt="Pradhan ji in a check shirt" width="260" height="385" loading="lazy"><span class="b">Free<br>gift wrap</span></a>
 
   <section class="edits">{''.join(f'<a class="edit" href="{h}"><img src="assets/img/{im}.webp" alt="" width="480" height="640" loading="lazy"><span class="t">{t}</span><span class="s">{s}</span></a>' for im, t, s, h in EDITS)}</section>
-
-  <section class="promos">{''.join(f'<a class="promo" href="{h}"><img src="assets/img/{im}.webp" alt="" width="480" height="640" loading="lazy"><span>{a}<b>{b}</b></span></a>' for im, a, b, h in PROMOS)}</section>
 
   <section class="sec trend">
     <h2>Trending</h2>
@@ -224,7 +241,10 @@ ABOUT = '''<main id="main">
 '''
 
 if __name__ == '__main__':
-    pre = '<link rel="preload" as="image" href="assets/img/s-hero-festive.webp">\n'
+    pre = INTRO_HEAD + f'''<link rel="stylesheet" href="assets/css/intro.css?v={ver('assets/css/intro.css')}">
+<script src="assets/js/intro.js?v={ver('assets/js/intro.js')}" defer></script>
+<link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
+'''
     page('index.html', 'Pradhan by Panchayat | Handmade menswear from Phulera', 'Kurtas, Nehru jackets, half sweaters and shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, pre)
     page('shop.html', 'Shop All | Pradhan by Panchayat', 'Shop handmade kurtas, shirts, Nehru jackets, half sweaters, pajamas and gift sets.', 'new', SHOP)
     page('product.html', 'Product | Pradhan by Panchayat', 'Handmade by village artisans.', '', PRODUCT)

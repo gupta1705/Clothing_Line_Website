@@ -1,0 +1,96 @@
+/* v2 opening screen: hover reveal, modelled on the landonorris.com hero. Hidden unless the head script opts in. */
+#intro { display: none; }
+html.intro-lock { overflow: hidden; }
+html.intro-on #intro { display: block; position: fixed; inset: 0; z-index: 300; transition: transform 1.05s cubic-bezier(.76, 0, .24, 1); }
+#intro.is-lifting { transform: translateY(-118%); }
+
+.intro-stage { position: absolute; inset: 0; overflow: hidden; background: var(--paper) url("../img/grain.png"); color: var(--ink); touch-action: none; user-select: none; -webkit-user-select: none; }
+#intro.is-covered .intro-stage { visibility: hidden; }
+.intro-contours { position: absolute; inset: -24px; background: url("../img/intro-contours.svg") center / cover no-repeat; }
+
+/* Figure: enters on the wrapper, parallax runs on the canvas */
+.intro-figure { position: absolute; inset: 0; opacity: 0; transform: translate3d(0, 46px, 0) scale(1.03); transform-origin: 50% 60%; transition: opacity .8s ease .2s, transform 1.35s var(--ease) .1s; }
+#intro.is-ready .intro-figure { opacity: 1; transform: none; }
+#intro-canvas { position: absolute; left: -24px; top: -24px; width: calc(100% + 48px); height: calc(100% + 48px); display: block; }
+
+/* Top bar */
+.intro-top { position: absolute; z-index: 3; top: 0; left: 0; right: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 22px var(--pad); }
+.intro-top .logo { justify-self: start; }
+.intro-mark { font: 400 24px/1 var(--deva); color: var(--ink); }
+.intro-store { justify-self: end; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border: 0; background: var(--brick); color: var(--cream-text); font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: background .2s, transform .25s var(--ease); }
+.intro-store:hover { background: var(--ink); transform: translateY(-1px); }
+.intro-store svg.i { width: 18px; height: 18px; }
+
+/* Tagline flanks the head */
+.intro-line { position: absolute; z-index: 2; top: 31%; margin: 0; font: 300 clamp(40px, 5.5vw, 92px)/.94 var(--sans); letter-spacing: -.035em; text-transform: uppercase; pointer-events: none; }
+.intro-line.l { left: var(--pad); }
+.intro-line.r { right: var(--pad); text-align: right; }
+.intro-line span { display: block; overflow: hidden; padding-bottom: .05em; }
+.intro-line i { display: block; font-style: normal; transform: translateY(112%); transition: transform 1.05s var(--ease) .35s; }
+.intro-line span + span i { transition-delay: .45s; }
+.intro-line b { font-weight: 700; }
+#intro.is-ready .intro-line i { transform: none; }
+
+/* "Now wearing" tile, the reference's next-race card */
+.intro-wear { position: absolute; z-index: 3; left: var(--pad); bottom: 26px; width: 188px; padding: 12px 14px 13px; display: grid; gap: 3px; background: rgba(246, 239, 226, .86); border: 1px solid #b39c80; font-size: 14px; line-height: 1.25; color: var(--ink); transition: background .2s, border-color .2s; }
+.intro-wear:hover { background: var(--paper); border-color: var(--ink); }
+.intro-wear small { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.intro-wear b { font-weight: 700; }
+.intro-wear em { font-style: normal; }
+.intro-credit { position: absolute; z-index: 3; right: var(--pad); bottom: 28px; margin: 0; max-width: 200px; text-align: right; font-size: 13px; line-height: 1.35; color: var(--muted); }
+
+/* Hint + way in */
+.intro-bottom { position: absolute; z-index: 3; left: 50%; bottom: 26px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; }
+.intro-hint { padding: 7px 14px; background: var(--ink); color: var(--cream-text); font-size: 14px; white-space: nowrap; transition: opacity .5s, transform .5s; }
+#intro.hint-done .intro-hint { opacity: 0; transform: translateY(6px); }
+.intro-hint .t { display: none; }
+@media (hover: none) { .intro-hint .t { display: inline; } .intro-hint .m { display: none; } }
+.intro-enter { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); font-size: 15px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; transition: background .2s, color .2s; }
+.intro-enter:hover { background: var(--ink); color: var(--cream-text); }
+.intro-enter svg.i { width: 18px; height: 18px; transform: rotate(90deg); animation: introNudge 1.6s ease-in-out infinite; }
+@keyframes introNudge { 50% { transform: rotate(90deg) translateX(4px); } }
+
+/* UI fades in with the figure, leaves first */
+.intro-top, .intro-wear, .intro-credit, .intro-bottom { opacity: 0; transition: opacity .7s ease .75s; }
+#intro.is-ready .intro-top, #intro.is-ready .intro-wear, #intro.is-ready .intro-credit, #intro.is-ready .intro-bottom { opacity: 1; }
+#intro.is-leaving .intro-top, #intro.is-leaving .intro-wear, #intro.is-leaving .intro-credit, #intro.is-leaving .intro-bottom, #intro.is-leaving .intro-line { opacity: 0; transition: opacity .22s; }
+.intro-line { transition: opacity .22s; }
+
+/* Curtain: loader, then the page lift, with a curved trailing edge */
+.intro-curtain { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; align-content: center; gap: 22px; background: var(--brick); color: var(--cream-text); transition: transform 1.05s cubic-bezier(.76, 0, .24, 1); }
+.intro-curtain::after { content: ''; position: absolute; left: -12%; right: -12%; top: calc(100% - 1px); height: 13vh; background: inherit; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+#intro.is-ready .intro-curtain { transform: translateY(-118%); }
+#intro.is-covered .intro-curtain { transition: none; transform: none; }
+.intro-curtain .logo .w { font-size: clamp(30px, 5vw, 54px); }
+.intro-curtain .logo .s { font-size: clamp(10px, 1vw, 13px); color: var(--cream-text); opacity: .75; }
+.intro-bar { display: block; width: 150px; height: 2px; background: rgba(251, 245, 234, .25); overflow: hidden; }
+.intro-bar i { display: block; height: 100%; background: var(--cream-text); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+#intro.is-covered .intro-bar { visibility: hidden; }
+
+/* The site rises in behind the lift */
+body.site-enter main { animation: introSiteUp 1.15s var(--ease) both; }
+@keyframes introSiteUp { from { transform: translate3d(0, 110px, 0); } }
+
+@media (max-width: 1100px) {
+  .intro-credit { display: none; }
+  .intro-line { font-size: clamp(36px, 5.2vw, 60px); }
+}
+@media (max-aspect-ratio: 85/100) {
+  .intro-top { padding: 14px 16px; }
+  .intro-top .logo .w { font-size: 20px; }
+  .intro-top .logo .s { font-size: 8px; }
+  .intro-mark { display: none; }
+  .intro-top { grid-template-columns: 1fr auto; }
+  .intro-store { min-height: 42px; padding: 0 13px; font-size: 13px; }
+  .intro-line { font-size: clamp(30px, 9.4vw, 54px); top: 78px; text-align: left; line-height: .95; }
+  .intro-line.l { left: 16px; }
+  .intro-line.r { left: auto; right: 16px; text-align: right; top: calc(78px + 1.05em); }
+  .intro-line span { display: inline-block; vertical-align: top; }
+  .intro-line span + span { margin-left: .22em; }
+  .intro-wear { display: none; }
+  .intro-bottom { left: 14px; right: 14px; bottom: 16px; transform: none; justify-items: stretch; }
+  .intro-hint { justify-self: center; }
+  .intro-enter { background: var(--ink); color: var(--cream-text); min-height: 56px; }
+}
+@media (max-height: 500px) { .intro-mark { visibility: hidden; } .intro-credit { display: none; } }
+@media (prefers-reduced-motion: reduce) { html.intro-on #intro { display: none; } html.intro-lock { overflow: auto; } }

@@ -14,6 +14,8 @@ All photographs on v1 and v2 are official Panchayat stills (credit: Panchayat / 
 | panchayat-season-4-image-2.jpg (Sachiv ji and Vikas on bikes) | 2000×1125 | same |
 | panchayat-season-4-image-3.jpg (Sachiv ji in a half sweater) | 3000×1688 | same |
 
+The v2 opening screen (`v2/assets/img/intro-a*.webp`, `intro-b*.webp`) uses two of these stills: 66a4383-cc.jpg (aviators, linen shirt) and panchayat-season-4-image-1.jpg (half sweater). Their backgrounds were removed with classical image segmentation (OpenCV GrabCut, no generative AI), and the two were scaled to line up at the eyes and lightly colour-matched. The people and clothing are unaltered.
+
 Not photographs:
 - `p-gift-box.webp`: a drawn kraft-paper placeholder tile (shapes and text), used until a real gift-box photo exists.
 - `grain.png`: a procedurally generated noise texture.
