@@ -1,4 +1,4 @@
-/* Pradhan by Panchayat v2 (Snitch layout): small, dependency-free site script */
+/* Pradhan by Panchayat: small, dependency-free site script */
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -114,8 +114,6 @@
     const slides = $$('.hs', tr); let i = 0, timer;
     const per = () => (innerWidth > 900 ? 2 : 1);
     const go = (k) => { const max = slides.length - per(); i = k > max ? 0 : k < 0 ? max : k; tr.style.transform = `translateX(${-i * (100 / per())}%)`; };
-    $('.hero .next')?.addEventListener('click', () => { go(i + 1); play(); });
-    $('.hero .prev')?.addEventListener('click', () => { go(i - 1); play(); });
     const play = () => { if (reduce) return; clearInterval(timer); timer = setInterval(() => go(i + 1), 5000); };
     addEventListener('resize', () => go(i)); play();
   }

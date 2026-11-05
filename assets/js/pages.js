@@ -1,4 +1,4 @@
-/* v2 page scripts: shop listing and product page */
+/* Page scripts: shop listing and product page */
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];

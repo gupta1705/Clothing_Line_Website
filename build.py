@@ -1,4 +1,4 @@
-"""v2 (Snitch layout): builds the static pages from shared partials. Run: python build.py"""
+"""Pradhan by Panchayat: builds the static pages from shared partials. Run: python build.py"""
 import hashlib
 from pathlib import Path
 from urllib.parse import quote
@@ -24,7 +24,6 @@ I = {
     'home': svg('<path d="M4 11 12 4l8 7v9h-5v-6H9v6H4Z"/>'),
     'new': svg('<path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5Z"/>'),
     'next': svg('<path d="m9 6 6 6-6 6"/>', '1.8'),
-    'prev': svg('<path d="m15 6-6 6 6 6"/>', '1.8'),
 }
 
 CATS = [('kurtas', 'Kurtas', 'p-cotton-kurta'), ('shirts', 'Shirts', 'p-check-shirt'), ('nehru-jackets', 'Nehru Jackets', 'p-nehru-jacket'),
@@ -126,14 +125,13 @@ def footer(active):
 <script src="assets/js/data.js?v={ver('assets/js/data.js')}"></script>
 <script src="assets/js/site.js?v={ver('assets/js/site.js')}"></script>
 <script src="assets/js/pages.js?v={ver('assets/js/pages.js')}"></script>
-<script src="../versions.js?v={ver('../versions.js')}"></script>
 </body>
 </html>
 '''
 
 
 # Opening screen (home only). Hidden unless the head script opts in: skipped for reduced motion, data saver,
-# back/forward, deep links and navigation inside v2; plays on a fresh visit or reload.
+# back/forward, deep links and navigation inside the site; plays on a fresh visit or reload.
 INTRO_HEAD = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var w=innerWidth<=900?'-sm':'';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/intro-'+x+w+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
 '''
 
@@ -141,7 +139,7 @@ INTRO = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panc
   <div class="intro-stage">
     <div class="intro-contours" aria-hidden="true"></div>
     <div class="intro-figure" aria-hidden="true"><canvas id="intro-canvas"></canvas></div>
-    <div class="intro-top">{LOGO}<span class="intro-mark" aria-hidden="true">प्रधान</span><button class="intro-store" type="button" data-intro-open>{I['bag']}Store</button></div>
+    <div class="intro-top">{LOGO}<button class="intro-store" type="button" data-intro-open>{I['bag']}Store</button></div>
     <p class="intro-line l"><span><i>Every</i></span><span><i><b>Thread</b></i></span></p>
     <p class="intro-line r"><span><i>has a</i></span><span><i><b>Village.</b></i></span></p>
     <a class="intro-wear" href="product.html?id=pradhan-linen-shirt" data-a="pradhan-linen-shirt" data-b="pradhan-half-sweater"><small>Pradhan ji is wearing</small><b>Pradhan ji Linen Shirt</b><em></em></a>
@@ -184,7 +182,7 @@ EDITS = [('p-half-sweater', 'Half Sweater Season', 'Pradhan ji approved', 'shop.
 
 HOME = f'''<main id="main">
   <h1 class="sr-only">Pradhan by Panchayat: handmade menswear from Phulera</h1>
-  <section class="hero" aria-label="Featured edits"><div class="hero-track">{hero()}</div><div class="nav"><button class="prev" aria-label="Previous">{I['prev']}</button><button class="next" aria-label="Next">{I['next']}</button></div></section>
+  <section class="hero" aria-label="Featured edits"><div class="hero-track">{hero()}</div></section>
 
   <section class="sec">
     <h2 class="sh"><span class="lt">Shop by</span><b class="bd">Category</b></h2>

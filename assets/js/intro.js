@@ -1,4 +1,4 @@
-/* Pradhan v2 opening: hover over Pradhan ji and his aviators come off.
+/* Pradhan opening: hover over Pradhan ji and his aviators come off.
    Modelled on the helmet reveal at landonorris.com, without WebGL so it stays smooth on
    budget phones. A small fluid-like field runs on the CPU, gets traced into a crisp outline
    (marching squares), and that outline clips the two official stills on a 2D canvas. */

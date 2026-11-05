@@ -1,12 +1,11 @@
 # Pradhan by Panchayat
 
-Design iterations of the storefront, each in its own folder:
+Static storefront for the clothing line from TVF's Panchayat. Layout modelled on snitch.com, in a rustic cream palette, opening on a landonorris.com-style hover reveal of Pradhan ji.
 
-- `v1/`: KSHM layout (shopkshm.com)
-- `v2/`: Snitch layout (snitch.com)
-
-The root `index.html` is the version picker. `versions.js` is the single list of versions; it also adds the floating "Version" switcher to every page inside a version folder. To add a version, create `vN/`, include `../versions.js` in its pages, add an entry to `versions.js` and a 960x600 thumbnail at `versions/vN.webp`.
-
-Inside each version, shared header, footer and cart live in `build.py`. After editing it or anything in `assets/`, run `python build.py` in that folder.
-
-Local preview: `python -m http.server 5173`, then open http://localhost:5173
+- Pages: `index.html`, `shop.html`, `product.html?id=...`, `about.html`
+- Shared header, footer, bag and opening screen live in `build.py`. After editing it or anything in `assets/`, run `python build.py` to regenerate the pages (CSS and JS are cache-busted automatically).
+- Opening screen: `assets/js/intro.js`, `assets/css/intro.css`, `assets/img/intro-*`.
+- Product data: `assets/js/data.js` (sample products and prices).
+- Image credits: `IMAGE-SOURCES.md`.
+- `v2/` only forwards old links to the main address.
+- Local preview: `python -m http.server 5173`, then open http://localhost:5173

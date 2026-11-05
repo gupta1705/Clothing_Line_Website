@@ -1,4 +1,4 @@
-/* Pradhan by Panchayat v2: layout modelled on snitch.com */
+/* Pradhan by Panchayat: layout modelled on snitch.com */
 :root {
   /* Rustic cream palette: khadi, kattha, terracotta, jute, haldi */
   --ink: #3a2618;
@@ -73,8 +73,6 @@ svg.i { width: 24px; height: 24px; flex: none; }
 .hs.lite { background: #ebe0cc; }
 .hs.lite img { width: 56%; }
 .hs.lite .t { right: 4%; max-width: 40%; font-size: clamp(30px, 3.5vw, 60px); }
-.hero .nav { position: absolute; bottom: 18px; right: var(--pad); display: flex; gap: 8px; z-index: 2; }
-.hero .nav button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: rgba(246, 239, 226, .92); display: grid; place-items: center; }
 
 /* ---------- Shop by category ---------- */
 .sec { padding: 40px var(--pad); }
