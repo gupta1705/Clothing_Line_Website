@@ -1,206 +1,402 @@
-/* Real-time 3D office opening; the storefront below remains independent. */
+/* Pradhan opening: hover over Pradhan ji and his aviators come off.
+   Modelled on the helmet reveal at landonorris.com, without WebGL so it stays smooth on
+   budget phones. A small fluid-like field runs on the CPU, gets traced into a crisp outline
+   (marching squares), and that outline clips the two official stills on a 2D canvas. */
 (function () {
- 'use strict';
- var html=document.documentElement, intro=document.getElementById('intro');
- if(!intro || !html.classList.contains('intro-on')) return;
- var reduced=matchMedia('(prefers-reduced-motion: reduce)'), T=window.PanchayatThree;
- var hidden=[], room='village', leaving=false, disposed=false, lastTrigger, raf=0, timers=[];
- var renderer,scene,camera,office,raycaster,pointer,animations=[],garments=[],pickMeshes=[];
- var pane=intro.querySelector('.intro-detail'), products=intro.querySelector('#intro-products'), status=intro.querySelector('#intro-status');
- var host=intro.querySelector('#office-canvas'), frameTime=0, lastTime=0, activeUntil=0, doorAngle=0, roomStarted=0;
- var width=innerWidth,height=innerHeight,low=width<650 || navigator.deviceMemory<=4;
- var cameraGoal,targetGoal,currentTarget,parallax={x:0,y:0},dragYaw=0,dragStart=null,dragDistance=0;
- var roomData={
-  kurtas:{eyebrow:'01 / THE ALMIRAH',title:'Kurtas, kept with care.',copy:'Open the old steel doors. Find cotton and khadi hanging inside.',ids:['prahlad-cotton-kurta','handloom-khadi-kurta'],labels:['COTTON KURTA','HANDLOOM KHADI']},
-  casuals:{eyebrow:'02 / SACHIV JI’S OFFICE',title:'Everyday in Phulera.',copy:'Checks, easy shirts, and a familiar tee. Hanging on the office wall, ready for the day.',ids:['sachiv-check-shirt','sachiv-bike-ride-shirt','vikas-everyday-tee'],labels:['SACHIV JI’S CHECKS','THE BIKE-RIDE SHIRT','VIKAS’S EVERYDAY TEE']}
- };
- function animate(el,frames,opts){
-  if(window.PanchayatMotion&&!reduced.matches){try{var a=PanchayatMotion.animate(el,frames,opts);animations.push(a);return a;}catch(e){}}
-  Object.keys(frames).forEach(function(k){var v=frames[k];el.style[k]=Array.isArray(v)?v[v.length-1]:v;});
- }
- function stopAnimations(){animations.forEach(function(a){try{a.stop();}catch(e){}});animations=[];}
- function setSiteInert(on){
-  if(on) Array.from(document.body.children).forEach(function(el){if(el!==intro&&el.tagName!=='SCRIPT'&&!el.inert){hidden.push(el);el.inert=true;}});
-  else {hidden.forEach(function(el){el.inert=false;});hidden=[];}
- }
- function wake(){if(!renderer||disposed)return;activeUntil=performance.now()+(reduced.matches?0:6500);if(!raf&&!disposed)raf=requestAnimationFrame(frame);}
- function viewFor(name){
-  var view=name==='kurtas'?office.kurtaView:name==='casuals'?office.casualView:office.overview;
-  var pos=view.position.clone(),target=view.target.clone();
-  if(name==='village'&&width>=600){pos.set(2.9,2.2,5.7);target.set(.2,1.25,-2.5);}
-  if(name==='village'){
-   if(width<600){pos.set(3.0,2.7,7.8);target.set(.85,1.4,-1.65);}
-  } else if(width>=600){
-   // Shift the subject right, leaving room for the editorial copy on the left.
-   var direction=target.clone().sub(pos).normalize();
-   var right=new T.Vector3().crossVectors(direction,new T.Vector3(0,1,0)).normalize();
-   target.addScaledVector(right,-(name==='kurtas'?.62:.8));
-   if(width/height<1.35)pos.addScaledVector(direction,-.7);
-  } else {
-   var d=pos.clone().sub(target).normalize();
-   pos.addScaledVector(d,name==='kurtas'?1.4:2.35);
-   target.y+=.25;
+  var html = document.documentElement;
+  if (!html.classList.contains('intro-on')) return;
+  var intro = document.getElementById('intro');
+  var cv = document.getElementById('intro-canvas');
+  var ctx = cv && cv.getContext && cv.getContext('2d');
+  var hidden = [];
+
+  /* Keep the site out of the tab order while the opening is up. */
+  function setSiteInert(on) {
+    if (on) {
+      [].forEach.call(document.body.children, function (el) {
+        if (el !== intro && el.tagName !== 'SCRIPT' && !el.inert) { el.inert = true; hidden.push(el); }
+      });
+    } else { hidden.forEach(function (el) { el.inert = false; }); hidden = []; }
   }
-  return {position:pos,target:target};
- }
- function setView(name){if(!renderer||disposed)return;renderer.shadowMap.needsUpdate=true;var v=viewFor(name);cameraGoal.copy(v.position);targetGoal.copy(v.target);dragYaw=0;parallax.x=0;parallax.y=0;if(reduced.matches){camera.position.copy(cameraGoal);currentTarget.copy(targetGoal);}wake();}
- function fillProducts(name){
-  products.replaceChildren();
-  var config=roomData[name];
-  config.ids.forEach(function(id,i){
-   var product=window.PBP&&PBP.byId(id);if(!product)return;
-   var link=document.createElement('a');link.className='intro-product';link.href='product.html?id='+id;
-   var type=document.createElement('small');type.textContent=config.labels[i];
-   var title=document.createElement('b');title.textContent=product.name;
-   var bottom=document.createElement('span'),price=document.createElement('i'),arrow=document.createElement('i');price.textContent=PBP.inr(product.price);arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');bottom.append(price,arrow);link.append(type,title,bottom);products.append(link);
+  function removeIntro() {
+    setSiteInert(false);
+    html.classList.remove('intro-on', 'intro-lock');
+    if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
+  }
+  if (!intro || !ctx || !window.Path2D) { removeIntro(); return; }
+  setSiteInert(true);
+
+  var low = (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 3);
+  var IMG_RATIO = 1700 / 1460, THRESH = 0.5, PAD = 24;
+  var EYE_Y = 520 / 1460;      /* eye line, as a share of the image height (both stills are aligned to it) */
+  var vw, vh, dpr, cell, nx, ny, ox, oy, pW, pH, pX, pY, rFace, headW, headH, eyeX, eyeY;
+  var F, F2, U, V, N, G, nextEdge, seen, ex, ey, sinI, sinJ;
+  var maxF = 0, imgA = new Image(), imgB = new Image(), offA, offB, headCx, headCy, headR, faceHold = 0;
+  var raf = 0, last = 0, dirty = true, path = null;
+  var px = null, py = null, ptrInside = false, ptrSeen = false, lastInput = 0;
+  var ghostStart = 0, nextGhost = 0, isTouch = matchMedia('(hover: none)').matches;
+  var pxT = 0, pyT = 0, pxC = 0, pyC = 0, wearState = 'a', hinted = false;
+  var opening = false, floodStart = 0, floodX = 0, floodY = 0, floodMax = 0;
+  var contours = intro.querySelector('.intro-contours');
+
+  function layout() {
+    vw = intro.clientWidth; vh = intro.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, low ? 1 : 1.5);
+    cv.width = Math.round((vw + PAD * 2) * dpr); cv.height = Math.round((vh + PAD * 2) * dpr);
+    if (vw / vh < 0.85) {          /* phones: head fills the width, figure anchored to the bottom */
+      var line = intro.querySelector('.intro-line.r'), textBottom = line ? line.getBoundingClientRect().bottom : 150;
+      /* hair top sits at 7% of the image and the bottom 5% runs off screen, so hair must clear the tagline */
+      pH = Math.min(vw * 2.02 / IMG_RATIO, (vh - textBottom - 14) / 0.88);
+      pW = pH * IMG_RATIO; pY = vh - pH * 0.95;
+    } else {                       /* desktop: large chest-up portrait, like the reference */
+      pH = vh * 1.2; pW = pH * IMG_RATIO; pY = vh * 0.015;
+    }
+    pX = (vw - pW) / 2 + (vw / vh < 0.85 ? pW * 0.03 : 0);   /* phones: centre the aviator head, which sits left of the eyes */
+    eyeX = pX + pW / 2; eyeY = pY + pH * EYE_Y;
+    headW = pW * 0.36; headH = pH * 0.46;
+    rFace = Math.max(64, Math.min(headW * 0.36, vh * 0.19));
+    headCx = eyeX - pW * 0.0135; headCy = eyeY - pH * 0.053; headR = pW * 0.3;   /* a circle big enough to clear both heads */
+    cell = low ? 14 : (vw > 900 ? 9 : 8);
+    ox = -PAD - cell; oy = -PAD - cell;
+    nx = Math.ceil((vw + PAD * 2) / cell) + 3; ny = Math.ceil((vh + PAD * 2) / cell) + 3;
+    var n = nx * ny;
+    F = new Float32Array(n); F2 = new Float32Array(n); U = new Float32Array(n); V = new Float32Array(n);
+    N = new Float32Array(n); G = new Float32Array(n);
+    nextEdge = new Int32Array(n * 2); seen = new Uint8Array(n * 2); ex = new Float32Array(n * 2); ey = new Float32Array(n * 2);
+    sinI = new Float32Array(nx); sinJ = new Float32Array(ny);
+    /* Static low-frequency noise makes the reveal edge organic instead of round. */
+    var s = 9 / cell;
+    for (var j = 0; j < ny; j++) for (var i = 0; i < nx; i++) {
+      var a = i / s, b = j / s;
+      N[j * nx + i] = 0.1 * Math.sin(a * 0.21 + 1.3) * Math.cos(b * 0.17 + 0.4) + 0.07 * Math.sin((a + b) * 0.09 + 2) + 0.05 * Math.sin(a * 0.47 - b * 0.31);
+    }
+    maxF = 0; path = null; dirty = true;
+    /* Scale each portrait to the screen once; every frame after that is a plain copy, which is far cheaper. */
+    if (imgA.naturalWidth && imgB.naturalWidth) { offA = prerender(imgA); offB = prerender(imgB); }
+  }
+
+  function prerender(im) {
+    var c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height;
+    var x = c.getContext('2d'); x.imageSmoothingQuality = 'high';
+    x.setTransform(dpr, 0, 0, dpr, PAD * dpr, PAD * dpr);
+    x.drawImage(im, pX, pY, pW, pH);
+    return c;
+  }
+
+  /* Add reveal at a point; velocity pushes it along like fluid. */
+  function splat(x, y, r, amt, vx, vy) {
+    var cx = (x - ox) / cell, cy = (y - oy) / cell, rc = r / cell, R = rc * 1.7;
+    var i0 = Math.max(1, (cx - R) | 0), i1 = Math.min(nx - 2, (cx + R + 1) | 0);
+    var j0 = Math.max(1, (cy - R) | 0), j1 = Math.min(ny - 2, (cy + R + 1) | 0);
+    var inv = 1 / (rc * rc);
+    for (var j = j0; j <= j1; j++) {
+      var k = j * nx + i0;
+      for (var i = i0; i <= i1; i++, k++) {
+        var dx = i - cx, dy = j - cy, w = Math.exp(-(dx * dx + dy * dy) * inv);
+        var v = amt * w; if (v > F[k]) F[k] = v;
+        U[k] += vx * w; V[k] += vy * w;
+      }
+    }
+    if (amt > maxF) maxF = amt;
+  }
+
+  function inFace(x, y) {
+    var a = (x - eyeX) / (headW * 0.62), b = (y - (eyeY + headH * 0.02)) / (headH * 0.62);
+    return a * a + b * b < 1;
+  }
+  function onFigure(x, y) { return y > eyeY - headH * 0.55 && Math.abs(x - eyeX) < pW * (y > eyeY + headH * 0.55 ? 0.38 : 0.22); }
+
+  function paint(x0, y0, x1, y1) {
+    var dx = x1 - x0, dy = y1 - y0, d = Math.sqrt(dx * dx + dy * dy);
+    var r = inFace(x1, y1) ? rFace * 1.2 : rFace * 0.85;
+    var steps = Math.min(10, Math.max(1, Math.ceil(d / (r * 0.4))));
+    var vx = (dx / cell) * 0.1 / steps, vy = (dy / cell) * 0.1 / steps;
+    for (var s = 1; s <= steps; s++) splat(x0 + dx * s / steps, y0 + dy * s / steps, r, 1.6, vx, vy);
+  }
+
+  /* One step: semi-Lagrangian advection, slow swirl, fade back to the aviators. */
+  function step(f, now) {
+    if (maxF <= 0) return;
+    var decay = Math.pow(0.985, f), vd = Math.pow(0.9, f), t = now * 0.0007, i, j, k, peak = 0;
+    for (i = 0; i < nx; i++) sinI[i] = Math.sin(i * 0.16 * cell / 9 + t) * 0.2 * f;
+    for (j = 0; j < ny; j++) sinJ[j] = Math.sin(j * 0.19 * cell / 9 - t * 0.8) * 0.2 * f;
+    var maxX = nx - 1.001, maxY = ny - 1.001;
+    for (j = 1; j < ny - 1; j++) {
+      k = j * nx + 1;
+      for (i = 1; i < nx - 1; i++, k++) {
+        var x = i - U[k] * f - sinJ[j], y = j - V[k] * f - sinI[i];
+        if (x < 0) x = 0; else if (x > maxX) x = maxX;
+        if (y < 0) y = 0; else if (y > maxY) y = maxY;
+        var x0 = x | 0, y0 = y | 0, fx = x - x0, fy = y - y0, m = y0 * nx + x0;
+        var v = ((F[m] * (1 - fx) + F[m + 1] * fx) * (1 - fy) + (F[m + nx] * (1 - fx) + F[m + nx + 1] * fx) * fy) * decay;
+        if (v < 0.004) v = 0;
+        F2[k] = v; if (v > peak) peak = v;
+        U[k] *= vd; V[k] *= vd;
+      }
+    }
+    var tmp = F; F = F2; F2 = tmp; maxF = peak; dirty = true;
+  }
+
+  /* Marching squares into closed, consistently wound loops. Edge ids: 2k = top of cell k, 2k+1 = left of cell k. */
+  function trace() {
+    if (maxF + 0.3 < THRESH) { path = null; return; }
+    var i, j, k, n = nx * ny;
+    for (k = 0; k < n; k++) G[k] = F[k] > 0.004 ? F[k] + N[k] : 0;
+    for (i = 0; i < nx; i++) { G[i] = 0; G[(ny - 1) * nx + i] = 0; }
+    for (j = 0; j < ny; j++) { G[j * nx] = 0; G[j * nx + nx - 1] = 0; }
+    nextEdge.fill(-1); seen.fill(0);
+    function hp(id, a, b, x, y) { var t = (THRESH - a) / (b - a); ex[id] = ox + (x + t) * cell; ey[id] = oy + y * cell; }
+    function vp(id, a, b, x, y) { var t = (THRESH - a) / (b - a); ex[id] = ox + x * cell; ey[id] = oy + (y + t) * cell; }
+    var any = false;
+    for (j = 0; j < ny - 1; j++) {
+      for (i = 0; i < nx - 1; i++) {
+        k = j * nx + i;
+        var a = G[k], b = G[k + 1], c = G[k + nx + 1], d = G[k + nx];
+        var cs = (a > THRESH ? 1 : 0) | (b > THRESH ? 2 : 0) | (c > THRESH ? 4 : 0) | (d > THRESH ? 8 : 0);
+        if (cs === 0 || cs === 15) continue;
+        any = true;
+        var T = 2 * k, L = 2 * k + 1, B = 2 * (k + nx), R = 2 * (k + 1) + 1;
+        if ((a > THRESH) !== (b > THRESH)) hp(T, a, b, i, j);
+        if ((d > THRESH) !== (c > THRESH)) hp(B, d, c, i, j + 1);
+        if ((a > THRESH) !== (d > THRESH)) vp(L, a, d, i, j);
+        if ((b > THRESH) !== (c > THRESH)) vp(R, b, c, i + 1, j);
+        switch (cs) {
+          case 1: nextEdge[L] = T; break;  case 2: nextEdge[T] = R; break;
+          case 3: nextEdge[L] = R; break;  case 4: nextEdge[R] = B; break;
+          case 5: nextEdge[L] = T; nextEdge[R] = B; break;
+          case 6: nextEdge[T] = B; break;  case 7: nextEdge[L] = B; break;
+          case 8: nextEdge[B] = L; break;  case 9: nextEdge[B] = T; break;
+          case 10: nextEdge[T] = R; nextEdge[B] = L; break;
+          case 11: nextEdge[B] = R; break; case 12: nextEdge[R] = L; break;
+          case 13: nextEdge[R] = T; break; case 14: nextEdge[T] = L; break;
+        }
+      }
+    }
+    if (!any) { path = null; return; }
+    var p = new Path2D(), m = nextEdge.length;
+    for (var id = 0; id < m; id++) {
+      if (nextEdge[id] < 0 || seen[id]) continue;
+      var e = id, nx0 = nextEdge[e], sx = (ex[e] + ex[nx0]) / 2, sy = (ey[e] + ey[nx0]) / 2, guard = 0;
+      p.moveTo(sx, sy);
+      do {
+        seen[e] = 1;
+        var nn = nextEdge[e];
+        if (nn < 0) break;
+        var nn2 = nextEdge[nn];
+        if (nn2 < 0) break;
+        p.quadraticCurveTo(ex[nn], ey[nn], (ex[nn] + ex[nn2]) / 2, (ey[nn] + ey[nn2]) / 2);
+        e = nn;
+      } while (e !== id && !seen[e] && ++guard < 20000);
+      p.closePath();
+    }
+    path = p;
+  }
+
+  function draw() {
+    ctx.setTransform(dpr, 0, 0, dpr, PAD * dpr, PAD * dpr);
+    ctx.clearRect(-PAD, -PAD, vw + PAD * 2, vh + PAD * 2);
+    if (!path) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(offA, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, PAD * dpr, PAD * dpr); return; }
+    var o = new Path2D(); o.rect(-PAD, -PAD, vw + PAD * 2, vh + PAD * 2); o.addPath(path);
+    if (!low) { ctx.fillStyle = 'rgba(107,76,56,.1)'; ctx.fill(path, 'evenodd'); }
+    ctx.save(); ctx.clip(o, 'evenodd'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(offA, 0, 0); ctx.restore();
+    ctx.save(); ctx.clip(path, 'evenodd'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(offB, 0, 0); ctx.restore();
+    ctx.strokeStyle = 'rgba(139,58,30,.8)'; ctx.lineWidth = 1.4; ctx.stroke(path);   /* the thread */
+  }
+
+  function wobble(cx, cy, R, t) {
+    ctx.beginPath();
+    for (var a = 0; a <= 160; a++) {
+      var th = a / 160 * Math.PI * 2;
+      var r = R * (1 + 0.09 * Math.sin(3 * th + t * 3) + 0.05 * Math.sin(7 * th - t * 2) + 0.025 * Math.sin(13 * th + t));
+      var x = cx + Math.cos(th) * r, y = cy + Math.sin(th) * r;
+      if (a) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  function updateWear() {
+    var i = Math.round((eyeX - ox) / cell), j = Math.round((eyeY - oy) / cell);
+    if (i < 1 || j < 1 || i >= nx - 1 || j >= ny - 1) return;
+    var st = F[j * nx + i] > THRESH ? 'b' : 'a';
+    if (st === wearState) return;
+    wearState = st;
+    intro.classList.toggle('is-bare', st === 'b');
+    if (st === 'b' && ptrSeen && !hinted) { hinted = true; intro.classList.add('hint-done'); }
+    var wear = intro.querySelector('.intro-wear');
+    if (wear && window.PBP) {
+      var p = PBP.byId(wear.getAttribute('data-' + st));
+      if (p) {
+        wear.href = 'product.html?id=' + p.id;
+        wear.querySelector('b').textContent = p.name;
+        wear.querySelector('em').textContent = PBP.inr(p.price);
+      }
+    }
+  }
+
+  function frame(now) {
+    raf = 0;
+    var dt = last ? now - last : 0, f = dt ? Math.min(dt / 16.67, 2.5) : 1; last = now;
+
+    /* Struggling device: drop to a lighter canvas and grid rather than stutter. */
+    if (!low && dt && maxF > 0.004) {
+      sampled++; if (dt > 30) slowFrames++;
+      if (sampled >= 24) {
+        if (slowFrames > 12) { low = true; layout(); }
+        sampled = 0; slowFrames = 0;
+      }
+    }
+
+    /* Ghost hand: shows what the effect does until someone tries it. */
+    var ghosting = false;
+    if (ghostStart) {
+      var g = (now - ghostStart) / 2800;
+      if (g >= 1 || (ptrSeen && !isTouch && now - lastInput < 400)) { ghostStart = 0; }
+      else {
+        ghosting = true;
+        var pi2 = Math.PI * 2;
+        var gx = eyeX + headW * 0.62 * Math.sin(pi2 * g * 1.15 - 1.2), gy = eyeY + headH * (0.1 + 0.34 * Math.sin(pi2 * g * 0.72 + 0.2));
+        if (px !== null && g > 0) paint(gxLast, gyLast, gx, gy);
+        else splat(gx, gy, rFace, 1.6, 0, 0);
+        gxLast = gx; gyLast = gy; px = px === null ? gx : px; py = py === null ? gy : py;
+      }
+    } else if (!opening && nextGhost && now > nextGhost && now - lastInput > 5000) {
+      ghostStart = now; nextGhost = now + (isTouch ? 6500 : 9000);
+    }
+
+    /* Resting on him keeps the reveal open; resting on the face grows until the whole head has changed. */
+    if (ptrInside && px !== null && !opening) {
+      var onFace = inFace(px, py);
+      if (onFigure(px, py)) splat(px, py, onFace ? rFace * 1.25 : rFace * 0.85, 1.3, 0, 0);
+      faceHold = onFace ? Math.min(1, faceHold + 0.024 * f) : Math.max(0, faceHold - 0.06 * f);
+      if (faceHold > 0) splat(headCx, headCy, headR * faceHold * faceHold * (3 - 2 * faceHold), 1.35, 0, 0);
+    } else if (faceHold) { faceHold = 0; }
+
+    step(f, now);
+    if (dirty) { trace(); updateWear(); draw(); dirty = false; }
+
+    /* Gentle depth, composited only. */
+    pxC += (pxT - pxC) * 0.07; pyC += (pyT - pyC) * 0.07;
+    var moving = Math.abs(pxT - pxC) + Math.abs(pyT - pyC) > 0.08;
+    if (moving) {
+      cv.style.transform = 'translate3d(' + pxC.toFixed(2) + 'px,' + pyC.toFixed(2) + 'px,0)';
+      if (contours) contours.style.transform = 'translate3d(' + (-pxC * 0.5).toFixed(2) + 'px,' + (-pyC * 0.5).toFixed(2) + 'px,0)';
+    }
+
+    /* Leaving: ink floods out from the cursor, then the page lifts. */
+    if (floodStart) {
+      var p = Math.min((now - floodStart) / 780, 1);
+      var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      draw();
+      ctx.fillStyle = '#8b3a1e';
+      wobble(floodX, floodY, e * floodMax, now * 0.002);
+      ctx.fill();
+      if (p >= 1) { covered(); return; }
+    }
+
+    /* Nothing moving: stop drawing entirely and wake up only for the next ghost pass. */
+    var holding = ptrInside && px !== null && onFigure(px, py);
+    if (floodStart || ghosting || moving || holding || maxF > 0.004) { raf = requestAnimationFrame(frame); }
+    else if (nextGhost && !opening) { clearTimeout(idleTimer); idleTimer = setTimeout(kick, Math.max(250, Math.min(nextGhost - now, 2500))); }
+  }
+  var gxLast = 0, gyLast = 0, idleTimer = 0, sampled = 0, slowFrames = 0;
+  function kick() { if (!raf) { last = 0; raf = requestAnimationFrame(frame); } }
+
+  function open() {
+    if (opening) return;
+    opening = true; nextGhost = 0; ghostStart = 0;
+    intro.classList.add('is-leaving');
+    floodX = px !== null ? px : vw / 2; floodY = py !== null ? py : vh * 0.45;
+    var fx = Math.max(floodX, vw - floodX), fy = Math.max(floodY, vh - floodY);
+    floodMax = Math.sqrt(fx * fx + fy * fy) * 1.2;
+    floodStart = performance.now();
+    kick();
+  }
+
+  function covered() {
+    intro.classList.add('is-covered');
+    html.classList.remove('intro-lock');
+    window.scrollTo(0, 0);
+    setSiteInert(false);
+    setTimeout(function () {
+      intro.classList.add('is-lifting');
+      document.body.classList.add('site-enter');
+      setTimeout(function () { removeIntro(); document.body.classList.remove('site-enter'); }, 1150);
+    }, 320);
+  }
+
+  /* ---------- Input ---------- */
+  intro.addEventListener('pointermove', function (e) {
+    var x = e.clientX, y = e.clientY;
+    if (!opening) {
+      if (px !== null && ptrInside) paint(px, py, x, y); else splat(x, y, rFace * 0.85, 1.6, 0, 0);
+      ptrSeen = true; lastInput = e.timeStamp;
+      if (ghostStart && !isTouch) ghostStart = 0;
+    }
+    px = x; py = y; ptrInside = true;
+    if (e.pointerType === 'mouse') { pxT = (x / vw - 0.5) * -18; pyT = (y / vh - 0.5) * -10; }
+    kick();
+  }, { passive: true });
+  intro.addEventListener('pointerleave', function () { ptrInside = false; kick(); });
+
+  var swipeY = 0, swipeT = 0;
+  intro.addEventListener('pointerdown', function (e) {
+    px = e.clientX; py = e.clientY; ptrSeen = true; lastInput = e.timeStamp; swipeY = e.clientY; swipeT = e.timeStamp;
+    if (e.pointerType !== 'mouse') ptrInside = true;
+    if (ghostStart) ghostStart = 0;
+    kick();
+  }, { passive: true });
+  intro.addEventListener('pointerup', function (e) {
+    if (e.pointerType !== 'mouse') {
+      ptrInside = false;
+      if (swipeY - e.clientY > vh * 0.2 && e.timeStamp - swipeT < 600) open();
+    }
+    lastInput = e.timeStamp;
+  }, { passive: true });
+  intro.addEventListener('pointercancel', function () { ptrInside = false; }, { passive: true });
+
+  var wheel = 0;
+  intro.addEventListener('wheel', function (e) { if (e.deltaY > 0) { wheel += e.deltaY; if (wheel > 50) open(); } }, { passive: true });
+  document.addEventListener('keydown', function (e) {
+    if (!html.classList.contains('intro-lock')) return;
+    if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'Escape' || (e.key === ' ' && document.activeElement === document.body) || (e.key === 'Enter' && document.activeElement === document.body)) {
+      e.preventDefault(); open();
+    }
   });
- }
- function openRoom(name,trigger){
-  if(leaving||!office||!roomData[name]||room!=='village')return;
-  stopAnimations();room=name;lastTrigger=trigger;intro.dataset.room=name;roomStarted=performance.now();
-  var config=roomData[name];pane.hidden=false;products.hidden=false;
-  pane.querySelector('.detail-eyebrow').textContent=config.eyebrow;pane.querySelector('h3').textContent=config.title;pane.querySelector('.detail-copy').textContent=config.copy;
-  fillProducts(name);
-  garments.forEach(function(g){g.group.visible=g.room===name;});
-  intro.querySelectorAll('[data-room-open]').forEach(function(b){b.setAttribute('aria-expanded',String(b.dataset.roomOpen===name));});
-  intro.querySelector('#intro-instruction').textContent='Pick a hanging piece to take a closer look.';
-  status.textContent=name==='kurtas'?'The almirah is open. Two kurtas hang inside.':'At Sachiv Ji’s office. Three casual pieces hang on the wall.';
-  setView(name);
-  animate(pane,{opacity:[0,1],transform:['translateY(10px)','none']},{duration:.6,delay:.25,ease:[.22,1,.36,1]});
-  animate(products,{opacity:[0,1],transform:['translateY(15px)','none']},{duration:.6,delay:.65,ease:[.22,1,.36,1]});
-  pane.querySelector('button').focus({preventScroll:true});
- }
- function closeRoom(){
-  if(room==='village'||leaving)return;stopAnimations();room='village';intro.dataset.room=room;pane.hidden=true;products.hidden=true;
-  garments.forEach(function(g){g.group.visible=false;});intro.querySelectorAll('[data-room-open]').forEach(function(b){b.setAttribute('aria-expanded','false');});
-  intro.querySelector('#intro-instruction').textContent='Move around. Pick a place. Find your piece.';status.textContent='Back in the Panchayat office.';setView(room);
-  if(lastTrigger)lastTrigger.focus({preventScroll:true});
- }
- function markPick(group,data){group.traverse(function(mesh){if(mesh.isMesh){mesh.userData.introAction=data;pickMeshes.push(mesh);}});}
- function addGarments(){
-  var configs=[
-   {room:'kurtas',id:'prahlad-cotton-kurta',type:'kurta',color:0xbda15f,x:-.49},
-   {room:'kurtas',id:'handloom-khadi-kurta',type:'kurta',color:0xe5ddc8,x:.49},
-   {room:'casuals',id:'sachiv-check-shirt',type:'shirt',color:0x627c85,checks:true,x:-1.02},
-   {room:'casuals',id:'sachiv-bike-ride-shirt',type:'shirt',color:0x8d414e,x:0},
-   {room:'casuals',id:'vikas-everyday-tee',type:'tee',color:0xd7cdb1,x:1.02}
-  ];
-  configs.forEach(function(c){
-   var g=window.buildPanchayatGarment(T,c);g.visible=false;
-   if(c.room==='kurtas'){g.scale.setScalar(.85);g.position.set(c.x,office.cabinet.garmentRailY,.08);office.cabinet.group.add(g);}
-   else {g.scale.setScalar(.88);g.position.set(c.x,0,.065);office.casualAnchor.add(g);}
-   markPick(g,{product:c.id});garments.push({room:c.room,group:g,id:c.id,phase:garments.length*.7});
+  [].forEach.call(intro.querySelectorAll('[data-intro-open]'), function (b) { b.addEventListener('click', open); });
+
+  var rz = 0;
+  addEventListener('resize', function () {
+    clearTimeout(rz);
+    rz = setTimeout(function () { if (!opening) { layout(); draw(); kick(); } }, 150);
   });
- }
- function placeHotspot(id,point,offset){
-  var p=point.clone().project(camera),el=document.getElementById(id);var w=el.offsetWidth||170,h=el.offsetHeight||50;
-  var x=(p.x*.5+.5)*width,y=(-p.y*.5+.5)*height+(offset||0);
-  el.style.left=Math.max(w/2+12,Math.min(width-w/2-12,x))+'px';el.style.top=Math.max(140,Math.min(height-150,y))+'px';
- }
- function frame(now){
-  raf=0;if(disposed||!renderer||document.hidden)return;
-  var dt=Math.min((now-lastTime)/1000||.016,.05);lastTime=now;
-  var speed=reduced.matches?1:1-Math.pow(.003,dt);
-  var desired=cameraGoal.clone();
-  if(room==='village'&&!reduced.matches){
-   var dx=desired.x-targetGoal.x,dz=desired.z-targetGoal.z,a=dragYaw+parallax.x*.035;
-   desired.x=targetGoal.x+dx*Math.cos(a)+dz*Math.sin(a);desired.z=targetGoal.z+dz*Math.cos(a)-dx*Math.sin(a);desired.y+=parallax.y*.07;
+
+  /* ---------- Load, then lift the curtain ---------- */
+  var bar = intro.querySelector('.intro-bar i'), suffix = innerWidth <= 900 ? '-sm' : '', loaded = 0;
+  function loadImg(im, name) {
+    return new Promise(function (res, rej) {
+      im.onload = function () {
+        loaded++; if (bar) bar.style.transform = 'scaleX(' + (0.2 + loaded * 0.4) + ')';
+        (im.decode ? im.decode().catch(function () {}) : Promise.resolve()).then(res);
+      };
+      im.onerror = rej;
+      im.src = 'assets/img/' + name + suffix + '.webp';
+    });
   }
-  camera.position.lerp(desired,speed);currentTarget.lerp(targetGoal,speed);camera.lookAt(currentTarget);
-  var oldAngle=doorAngle;doorAngle+=( (room==='kurtas'?1.92:0)-doorAngle)*speed;
-  office.cabinet.leftDoor.rotation.y=-doorAngle;office.cabinet.rightDoor.rotation.y=doorAngle;
-  if(office.fan&&!reduced.matches)office.fan.rotation.y+=dt*.5;
-  var since=(now-roomStarted)/1000;
-  garments.forEach(function(g){if(g.group.visible)g.group.rotation.z=reduced.matches?0:Math.sin(since*3.2+g.phase)*.06*Math.exp(-since*.8);});
-  if(room==='village'){
-   placeHotspot('almirah-hotspot',office.cabinet.center,0);
-   var deskPoint=new T.Vector3(-.6,1.05,.45);placeHotspot('office-hotspot',deskPoint,25);
-  }
-  var fps=low?30:60;
-  if(reduced.matches||now-frameTime>1000/fps-2){if(Math.abs(oldAngle-doorAngle)>.0002 || (room!=='village'&&since<4))renderer.shadowMap.needsUpdate=true;renderer.render(scene,camera);frameTime=now;}
-  var moving=camera.position.distanceTo(desired)>.002||currentTarget.distanceTo(targetGoal)>.002||Math.abs(doorAngle-(room==='kurtas'?1.92:0))>.002;
-  if(moving||now<activeUntil)raf=requestAnimationFrame(frame);
- }
- function resize(){
-  if(!renderer||disposed)return;width=host.clientWidth;height=host.clientHeight;camera.aspect=width/height;camera.fov=width<600?58:50;camera.updateProjectionMatrix();renderer.setSize(width,height);setView(room);
- }
- function pick(e){
-  if(!renderer||disposed)return null;
-  var r=host.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);raycaster.setFromCamera(pointer,camera);
-  var hits=raycaster.intersectObjects(pickMeshes,false).filter(function(hit){var m=hit.object;while(m){if(!m.visible)return false;m=m.parent;}return true;});
-  return hits.length?hits[0].object.userData.introAction:null;
- }
- function onPointerMove(e){
-  if(!renderer||leaving)return;
-  parallax.x=e.clientX/width-.5;parallax.y=.5-e.clientY/height;
-  if(dragStart&&room==='village'){var dx=e.clientX-dragStart.x;dragDistance=Math.max(dragDistance,Math.abs(dx));dragYaw=Math.max(-.19,Math.min(.19,dragStart.yaw+dx/width*.5));}
-  else {var hit=pick(e);host.style.cursor=hit?'pointer':'grab';}
-  wake();
- }
- function onPointerDown(e){if(!renderer||disposed)return;dragStart={x:e.clientX,yaw:dragYaw};dragDistance=0;wake();}
- function onPointerUp(e){
-  if(!dragStart)return;var click=dragDistance<7;dragStart=null;if(!click||leaving)return;var hit=pick(e);if(!hit)return;
-  if(hit.room&&room==='village')openRoom(hit.room,intro.querySelector('[data-room-open="'+hit.room+'"]'));
-  else if(hit.product&&room!=='village')location.href='product.html?id='+hit.product;
- }
- function fallback(error){
-  console.warn('Panchayat office 3D unavailable:',error&&error.message||error);dispose();renderer=null;room='village';intro.dataset.room=room;pane.hidden=true;products.hidden=true;intro.classList.add('is-ready','is-fallback');intro.querySelector('.intro-fallback').hidden=false;intro.querySelector('#intro-instruction').textContent='Explore a collection, or enter the store.';host.replaceChildren();
- }
- function boot(){
-  try{
-   if(!T||!window.buildPanchayatOffice||!window.buildPanchayatGarment)throw new Error('3D assets unavailable');
-   renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,low?1.5:1.75));
-   renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-   renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
-   host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hidden','true');
-   scene=new T.Scene();scene.background=new T.Color(0xc4b69a);
-   camera=new T.PerspectiveCamera(50,1,.08,60);raycaster=new T.Raycaster();pointer=new T.Vector2();
-   scene.add(new T.HemisphereLight(0xfff0d8,0x514636,1.35));
-   var sun=new T.DirectionalLight(0xffe6bc,2.5);sun.position.set(-3.5,7.5,3);sun.target.position.set(.5,0,-2);sun.castShadow=true;sun.shadow.mapSize.set(low?1024:2048,low?1024:2048);sun.shadow.camera.left=-8;sun.shadow.camera.right=8;sun.shadow.camera.top=8;sun.shadow.camera.bottom=-8;sun.shadow.camera.near=.2;sun.shadow.camera.far=25;sun.shadow.normalBias=.03;sun.shadow.bias=-.0002;scene.add(sun,sun.target);
-   var fill=new T.PointLight(0xe0eaf0,10,14,2);fill.position.set(-2,2.5,-3);scene.add(fill);
-   var roomFill=new T.PointLight(0xffead0,4,14,2);roomFill.position.set(2,3,2);scene.add(roomFill);
-   office=window.buildPanchayatOffice(T,scene);addGarments();markPick(office.cabinet.group,{room:'kurtas'});markPick(office.desk,{room:'casuals'});
-   // Product ownership wins over the enclosing cabinet pick target.
-   garments.forEach(function(g){g.group.traverse(function(m){if(m.isMesh)m.userData.introAction={product:g.id};});});
-   cameraGoal=office.overview.position.clone();targetGoal=office.overview.target.clone();currentTarget=targetGoal.clone();camera.position.copy(cameraGoal);
-   resize();var v=viewFor('village');camera.position.copy(v.position);currentTarget.copy(v.target);
-   intro.classList.add('is-ready');
-   host.addEventListener('pointermove',onPointerMove);host.addEventListener('pointerdown',onPointerDown);window.addEventListener('pointerup',onPointerUp);host.addEventListener('pointercancel',function(){dragStart=null;});
-   renderer.domElement.addEventListener('webglcontextlost',function(e){e.preventDefault();if(!disposed){cancelAnimationFrame(raf);raf=0;fallback(new Error('Graphics context lost'));}});
-   window.addEventListener('resize',resize);wake();
-  }catch(e){fallback(e);}
- }
- function dispose(){
-  if(disposed)return;disposed=true;cancelAnimationFrame(raf);raf=0;
-  window.removeEventListener('resize',resize);window.removeEventListener('pointerup',onPointerUp);host.removeEventListener('pointermove',onPointerMove);host.removeEventListener('pointerdown',onPointerDown);document.removeEventListener('visibilitychange',onVisibility);
-  if(scene){var gs=new Set(),ms=new Set(),ts=new Set();scene.traverse(function(o){if(o.geometry)gs.add(o.geometry);if(o.material){(Array.isArray(o.material)?o.material:[o.material]).forEach(function(m){ms.add(m);Object.keys(m).forEach(function(k){if(m[k]&&m[k].isTexture)ts.add(m[k]);});});}});gs.forEach(function(g){g.dispose();});ms.forEach(function(m){m.dispose();});ts.forEach(function(t){t.dispose();});}
-  if(renderer){renderer.dispose();renderer.forceContextLoss();}
- }
- function finish(){
-  if(!intro.isConnected)return;stopAnimations();dispose();setSiteInert(false);html.classList.remove('intro-on','intro-lock');intro.remove();
-  document.removeEventListener('keydown',onKey);reduced.removeEventListener('change',onReduced);window.removeEventListener('pagehide',onPageHide);window.removeEventListener('pageshow',onPageShow);
-  var main=document.getElementById('main');if(main){main.setAttribute('tabindex','-1');main.focus({preventScroll:true});}
- }
- function enterStore(){
-  if(leaving)return;leaving=true;stopAnimations();intro.classList.add('is-leaving');window.scrollTo(0,0);
-  var a=animate(intro,{opacity:[1,0],transform:['none','scale(1.025)']},{duration:.6,ease:[.65,0,.35,1]});
-  if(a){a.then(finish);timers.push(setTimeout(finish,850));}else finish();
- }
- function onKey(e){
-  if(e.key==='Escape'){e.preventDefault();if(room!=='village')closeRoom();else enterStore();return;}
-  if(e.key!=='Tab'||leaving)return;
-  var list=Array.from(intro.querySelectorAll('button,a[href]')).filter(function(el){return el.getClientRects().length&&getComputedStyle(el).visibility!=='hidden';});
-  var first=list[0],last=list[list.length-1];
-  if(e.shiftKey&&(document.activeElement===first||document.activeElement===intro)){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
- }
- function onReduced(){intro.classList.toggle('is-reduced',reduced.matches);if(reduced.matches){stopAnimations();pane.style.opacity='1';pane.style.transform='none';products.style.opacity='1';products.style.transform='none';if(leaving){finish();return;}}if(office)setView(room);}
- function onVisibility(){if(document.hidden){cancelAnimationFrame(raf);raf=0;}else if(renderer&&!disposed)wake();}
- function onPageHide(){setSiteInert(false);html.classList.remove('intro-lock');cancelAnimationFrame(raf);raf=0;}
- function onPageShow(e){if(e.persisted)finish();}
- intro.querySelectorAll('[data-room-open]').forEach(function(b){b.addEventListener('click',function(){openRoom(b.dataset.roomOpen,b);});});
- intro.querySelectorAll('[data-intro-open]').forEach(function(b){b.addEventListener('click',enterStore);});pane.querySelector('button').addEventListener('click',closeRoom);
- document.addEventListener('keydown',onKey);document.addEventListener('visibilitychange',onVisibility);reduced.addEventListener('change',onReduced);window.addEventListener('pagehide',onPageHide);window.addEventListener('pageshow',onPageShow);
- intro.classList.toggle('is-reduced',reduced.matches);window.panchayatIntroReady=true;clearTimeout(window.introFailsafe);setSiteInert(true);intro.setAttribute('tabindex','-1');intro.focus({preventScroll:true});
- // Let the loading text paint before constructing the set.
- requestAnimationFrame(function(){if(!leaving)boot();});
+  var t0 = performance.now();
+  var timeout = new Promise(function (_, rej) { setTimeout(rej, 6000); });
+  if (bar) bar.style.transform = 'scaleX(.2)';
+  Promise.race([Promise.all([loadImg(imgA, 'intro-a'), loadImg(imgB, 'intro-b')]), timeout]).then(function () {
+    layout(); draw();
+    var wear = intro.querySelector('.intro-wear');
+    if (wear && window.PBP) { var p = PBP.byId(wear.getAttribute('data-a')); if (p) { wear.querySelector('em').textContent = PBP.inr(p.price); } }
+    setTimeout(function () {
+      intro.classList.add('is-ready');
+      setTimeout(function () { ghostStart = performance.now(); nextGhost = ghostStart + 8000; px = null; py = null; kick(); }, 1050);
+    }, Math.max(0, 750 - (performance.now() - t0)));
+  }).catch(function () {
+    /* Slow network or a failed image: never hold a shopper back. */
+    html.classList.remove('intro-lock'); setSiteInert(false);
+    intro.classList.add('is-covered', 'is-lifting');
+    setTimeout(removeIntro, 1100);
+  });
 })();
