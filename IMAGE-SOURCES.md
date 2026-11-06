@@ -21,3 +21,13 @@ Not photographs:
 - `grain.png`: a procedurally generated noise texture.
 
 Products are named after the characters' on-screen outfits and use those stills as placeholders until real product photography is supplied.
+
+## 3D office opening — 6 November 2026
+
+The real-time set is modelled from Panchayat production stills: cream/mustard walls, teal desk cloth, barred windows, crowded file storage, warm-grey steel almirah, beige plastic chairs and stone floor. The hanging garments are original 3D display meshes linked to the existing sample catalogue. Geometry and procedural material textures are code-native; no AI-generated raster imagery was added. The store’s photos, product data and pricing remain unchanged.
+
+References (not redistributed in the site bundle):
+- [Full office production still, Amazon/IMDb](https://m.media-amazon.com/images/M/MV5BMjJjNjg1YjktNmQ0OC00NzQ5LWI1YzEtZGE5NDc5OTg1ZGNjXkEyXkFqcGc%40._V1_.jpg)
+- [Same office still, credited to TVF](https://www.idiva.com/entertainment/tv/life-lessons-from-panchayat-web-series/photogallery/18091621)
+
+The clothing rail is the requested shopping interaction, added to the reference-based room.

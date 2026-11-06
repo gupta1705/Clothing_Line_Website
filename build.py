@@ -130,25 +130,11 @@ def footer(active):
 '''
 
 
-# Opening screen (home only). Hidden unless the head script opts in: skipped for reduced motion, data saver,
-# back/forward, deep links and navigation inside the site; plays on a fresh visit or reload.
-INTRO_HEAD = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var w=innerWidth<=900?'-sm':'';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/intro-'+x+w+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
+# Opening screen only; internal navigation and deep links go straight to the shop.
+INTRO_HEAD = r'''<script>(function(){try{var d=document.documentElement,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');window.introFailsafe=setTimeout(function(){if(!window.panchayatIntroReady)d.classList.remove('intro-on','intro-lock')},6000)}catch(e){}})()</script>
 '''
 
-INTRO = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat">
-  <div class="intro-stage">
-    <div class="intro-contours" aria-hidden="true"></div>
-    <div class="intro-figure" aria-hidden="true"><canvas id="intro-canvas"></canvas></div>
-    <div class="intro-top">{LOGO}<button class="intro-store" type="button" data-intro-open>{I['bag']}Store</button></div>
-    <p class="intro-line l"><span><i>Every</i></span><span><i><b>Thread</b></i></span></p>
-    <p class="intro-line r"><span><i>has a</i></span><span><i><b>Village.</b></i></span></p>
-    <a class="intro-wear" href="product.html?id=pradhan-linen-shirt" data-a="pradhan-linen-shirt" data-b="pradhan-half-sweater"><small>Pradhan ji is wearing</small><b>Pradhan ji Linen Shirt</b><em></em></a>
-    <p class="intro-credit">A clothing line from TVF’s Panchayat</p>
-    <div class="intro-bottom"><div class="intro-hint"><span class="m">Hover over Pradhan ji’s face</span><span class="t">Touch Pradhan ji’s face</span></div><button class="intro-enter" type="button" data-intro-open>Enter the store {I['next']}</button></div>
-  </div>
-  <div class="intro-curtain" aria-hidden="true">{LOGO}<span class="intro-bar"><i></i></span></div>
-</div>
-'''
+INTRO = (ROOT / 'partials/intro.html').read_text(encoding='utf-8').replace('{{LOGO}}', LOGO)
 
 
 def page(fname, title, desc, active, body, preload=''):
@@ -240,6 +226,10 @@ ABOUT = '''<main id="main">
 
 if __name__ == '__main__':
     pre = INTRO_HEAD + f'''<link rel="stylesheet" href="assets/css/intro.css?v={ver('assets/css/intro.css')}">
+<script src="assets/js/vendor/motion-mini.js?v={ver('assets/js/vendor/motion-mini.js')}" defer></script>
+<script src="assets/js/vendor/three.min.js?v={ver('assets/js/vendor/three.min.js')}" defer></script>
+<script src="assets/js/intro-office-3d.js?v={ver('assets/js/intro-office-3d.js')}" defer></script>
+<script src="assets/js/intro-garments-3d.js?v={ver('assets/js/intro-garments-3d.js')}" defer></script>
 <script src="assets/js/intro.js?v={ver('assets/js/intro.js')}" defer></script>
 <link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
 '''
