@@ -1,0 +1,176 @@
+/* Opening screen: a walk through Phulera, each stop opened by the fluid. Hidden unless the head script opts in. */
+#intro { display: none; }
+html.intro-lock { overflow: hidden; }
+html.intro-on #intro { display: block; position: fixed; inset: 0; z-index: 300; transition: transform 1.05s cubic-bezier(.76, 0, .24, 1); }
+#intro.is-lifting { transform: translateY(-118%); }
+
+.intro-stage { position: absolute; inset: 0; overflow: hidden; background: #1c130c; color: var(--cream-text); touch-action: none; user-select: none; -webkit-user-select: none; }
+#intro.is-covered .intro-stage { visibility: hidden; }
+#intro[data-tone="light"] .intro-stage { color: var(--ink); }
+
+/* Two stacked canvases: the real scene at the back, the reveal on top. Parallax moves them together. */
+.intro-figure { position: absolute; inset: 0; opacity: 0; transition: opacity .7s ease .15s; }
+#intro.is-ready .intro-figure { opacity: 1; }
+#intro-a, #intro-canvas { position: absolute; left: -24px; top: -24px; width: calc(100% + 48px); height: calc(100% + 48px); display: block; }
+
+/* Scrim so type stays readable over any photograph */
+.intro-shade { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .5s ease; background:
+  linear-gradient(to top, rgba(18, 10, 5, .84) 0%, rgba(18, 10, 5, .55) 22%, rgba(18, 10, 5, 0) 46%),
+  linear-gradient(to bottom, rgba(18, 10, 5, .5) 0%, rgba(18, 10, 5, 0) 15%); }
+#intro.is-ready .intro-shade { opacity: 1; }
+#intro[data-tone="light"] .intro-shade { opacity: 0; }
+
+/* Top bar */
+.intro-top { position: absolute; z-index: 4; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 20px var(--pad); }
+.intro-top .logo .s { color: currentColor; opacity: .8; }
+.intro-store { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border: 0; background: var(--brick); color: var(--cream-text); font-size: 15px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; transition: background .2s, transform .25s var(--ease); }
+.intro-store:hover { background: var(--accent); transform: translateY(-1px); }
+.intro-store svg.i { width: 18px; height: 18px; }
+
+/* Where to touch: a ring on the object, with a line of the show's voice hanging from it */
+.intro-pin { position: absolute; z-index: 3; left: 0; top: 0; width: 0; height: 0; pointer-events: none; opacity: 0; transition: opacity .4s; }
+#intro.pin-on .intro-pin { opacity: 1; }
+.intro-pin .ring { position: absolute; left: -24px; top: -24px; width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--cream-text); box-shadow: 0 0 0 1px rgba(18, 10, 5, .3); animation: introPing 1.9s ease-out infinite; }
+.intro-pin .dot { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: var(--cream-text); box-shadow: 0 0 0 1px rgba(18, 10, 5, .35); }
+@keyframes introPing { 0% { transform: scale(.55); opacity: 1; } 75%, 100% { transform: scale(1.5); opacity: 0; } }
+.intro-hint { position: absolute; top: 38px; left: 0; width: max-content; max-width: calc(100vw - 28px); padding: 8px 14px; background: rgba(28, 19, 12, .9); color: var(--cream-text); font-size: 15px; line-height: 1.3; }
+.intro-hint .t { display: none; }
+@media (hover: none) { .intro-hint .t { display: inline; } .intro-hint .m { display: none; } }
+
+/* Caption: what this stop is, and the way into the shop */
+.intro-foot { position: absolute; z-index: 3; left: var(--pad); right: var(--pad); bottom: 26px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; pointer-events: none; }
+.intro-foot a, .intro-foot button { pointer-events: auto; }
+.intro-caption { max-width: 560px; min-width: 0; }
+.intro-caption > * { opacity: 0; transform: translate3d(0, 16px, 0); }
+.intro-caption.in > * { opacity: 1; transform: none; transition: opacity .5s ease, transform .7s var(--ease); }
+.intro-caption.in > :nth-child(2) { transition-delay: .08s; }
+.intro-kicker { margin: 0 0 8px; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; opacity: .9; }
+.intro-title { margin: 0; font: 300 clamp(38px, 4.6vw, 76px)/.98 var(--sans); letter-spacing: -.03em; text-transform: uppercase; }
+.intro-title b { font-weight: 700; }
+.intro-ref { margin: 10px 0 18px; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.35; }
+.intro-ref em { font-style: normal; font-weight: 700; }
+.intro-ref small { display: block; margin-top: 3px; font-size: .84em; opacity: .85; }
+.intro-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; }
+.intro-shop { display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 22px; background: var(--cream-text); color: var(--ink); font-size: 16px; font-weight: 700; transition: background .2s, color .2s; }
+@media (hover: hover) { .intro-shop:hover { background: var(--beige); } }
+.intro-shop .f { font-weight: 400; color: var(--muted); }
+.intro-shop .f:empty { display: none; }
+#intro[data-tone="light"] .intro-shop { background: var(--ink); color: var(--cream-text); }
+#intro[data-tone="light"] .intro-shop .f { color: inherit; opacity: .8; }
+
+/* Route: the thread that runs through Phulera, one bead for each stop */
+.intro-side { display: grid; justify-items: end; gap: 12px; flex: 0 1 560px; min-width: 300px; }
+.intro-route { position: relative; width: 100%; height: 58px; }
+.intro-thread { position: absolute; left: 22px; right: 22px; top: 12px; width: calc(100% - 44px); height: 10px; overflow: visible; }
+.intro-thread path { fill: none; vector-effect: non-scaling-stroke; }
+.intro-thread .b { stroke: currentColor; stroke-width: 1; opacity: .4; }
+.intro-thread .p { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .9s var(--ease); }
+.intro-route ol { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; display: flex; justify-content: space-between; }
+.intro-route li { width: 44px; display: flex; justify-content: center; }
+.intro-route button { display: grid; justify-items: center; gap: 7px; min-width: 44px; min-height: 44px; padding: 8px 0 0; border: 0; background: none; color: inherit; font-size: 14px; white-space: nowrap; opacity: .85; transition: opacity .2s; }
+.intro-route button::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(18, 10, 5, .28); transition: background .25s, transform .3s var(--ease); }
+#intro[data-tone="light"] .intro-route { background: rgba(246, 239, 226, .86); }
+#intro[data-tone="light"] .intro-route button::before { box-shadow: 0 0 0 3px rgba(246, 239, 226, .8); }
+.intro-route button:hover { opacity: 1; }
+.intro-route button.done::before { background: var(--accent); }
+.intro-route button.on { opacity: 1; font-weight: 700; }
+.intro-route button.on::before { background: var(--accent); transform: scale(1.5); }
+.intro-route button.is-loading::before { animation: introBead 1s ease-in-out infinite; }
+@keyframes introBead { 50% { opacity: .35; } }
+.intro-next { display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 0 22px; border: 1px solid currentColor; background: rgba(18, 10, 5, .28); color: inherit; font-size: 16px; font-weight: 700; transition: background .2s, color .2s; }
+@media (hover: hover) { .intro-next:hover { background: var(--cream-text); color: var(--ink); } }
+.intro-next svg.i { width: 18px; height: 18px; }
+#intro[data-tone="light"] .intro-next { background: var(--paper); }
+@media (hover: hover) { #intro[data-tone="light"] .intro-next:hover { background: var(--ink); color: var(--cream-text); } }
+#intro .intro-next.last { border-color: var(--brick); background: var(--brick); color: var(--cream-text); }
+#intro .intro-next.last:hover { background: var(--accent); color: var(--cream-text); }
+
+/* Product tile: follows whatever the pointer is resting on */
+.intro-wear { position: absolute; z-index: 4; right: var(--pad); top: 84px; width: 236px; padding: 12px 14px 13px; display: grid; gap: 3px; background: rgba(246, 239, 226, .95); color: var(--ink); font-size: 15px; line-height: 1.25; opacity: 0; transform: translate3d(0, -8px, 0); pointer-events: none; transition: opacity .25s, transform .35s var(--ease), background .2s; }
+.intro-wear.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.intro-wear:hover { background: var(--paper); }
+.intro-wear small { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.intro-wear b { font-weight: 700; }
+.intro-wear em { font-style: normal; }
+
+/* Tagline flanks Pradhan ji's head, on his stop only */
+.intro-line { position: absolute; z-index: 2; top: 25%; margin: 0; font: 300 clamp(40px, 5.5vw, 92px)/.94 var(--sans); letter-spacing: -.035em; text-transform: uppercase; color: var(--ink); pointer-events: none; opacity: 0; transition: opacity .4s; }
+#intro.is-portrait .intro-line { opacity: 1; }
+.intro-line.l { left: var(--pad); }
+.intro-line.r { right: var(--pad); text-align: right; }
+.intro-line span { display: block; padding-bottom: .05em; }
+.intro-line b { font-weight: 700; }
+
+/* UI fades in after the curtain, leaves first */
+.intro-top, .intro-foot { opacity: 0; transition: opacity .7s ease .55s; }
+#intro.is-ready .intro-top, #intro.is-ready .intro-foot { opacity: 1; }
+#intro.is-leaving .intro-top, #intro.is-leaving .intro-foot, #intro.is-leaving .intro-wear, #intro.is-leaving .intro-pin, #intro.is-leaving .intro-line { opacity: 0; transition: opacity .2s; }
+
+/* Curtain: the welcome board at the edge of the village, then the page lift with a curved trailing edge */
+.intro-curtain { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; align-content: center; gap: 20px; background: var(--brick); color: var(--cream-text); transition: transform 1.05s cubic-bezier(.76, 0, .24, 1); }
+.intro-curtain::after { content: ''; position: absolute; left: -12%; right: -12%; top: calc(100% - 1px); height: 13vh; background: inherit; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+#intro.is-ready .intro-curtain { transform: translateY(-118%); }
+#intro.is-covered .intro-curtain { transition: none; transform: none; }
+.intro-board { margin: 0; padding: 14px 20px 15px; background: #2c5a3c; border: 3px solid #e9e4d4; outline: 2px solid #1d3f29; color: #f2efe3; text-align: center; font-weight: 700; font-size: clamp(19px, 2.3vw, 28px); line-height: 1.32; box-shadow: 0 10px 24px rgba(30, 12, 4, .35); }
+.intro-board span { display: block; }
+.intro-curtain .logo .w { font-size: clamp(24px, 3.2vw, 36px); }
+.intro-curtain .logo .s { font-size: clamp(9px, .9vw, 12px); color: var(--cream-text); opacity: .75; }
+.intro-bar { display: block; width: 160px; height: 2px; background: rgba(251, 245, 234, .25); overflow: hidden; }
+.intro-bar i { display: block; height: 100%; background: var(--cream-text); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+#intro.is-covered .intro-board, #intro.is-covered .intro-bar, #intro.is-covered .intro-curtain .logo { visibility: hidden; }
+
+/* The site rises in behind the lift */
+body.site-enter main { animation: introSiteUp 1.15s var(--ease) both; }
+@keyframes introSiteUp { from { transform: translate3d(0, 110px, 0); } }
+
+@media (max-width: 1100px) {
+  .intro-line { font-size: clamp(36px, 5.2vw, 60px); }
+  .intro-side { min-width: 260px; }
+  .intro-route button { font-size: 13px; }
+}
+/* Tall screens: everything stacks at the foot, the picture keeps the top */
+@media (max-aspect-ratio: 85/100) {
+  .intro-top { padding: 12px 14px; }
+  .intro-top .logo .w { font-size: 20px; }
+  .intro-top .logo .s { font-size: 8px; }
+  .intro-store { min-height: 44px; padding: 0 13px; font-size: 14px; }
+  .intro-foot { left: 14px; right: 14px; bottom: 14px; display: grid; gap: 10px; justify-content: stretch; }
+  .intro-caption { max-width: none; }
+  .intro-kicker { font-size: 13px; margin-bottom: 4px; }
+  .intro-title { font-size: clamp(30px, 8.6vw, 54px); }
+  .intro-ref { margin: 6px 0 12px; font-size: 16px; }
+  .intro-route { height: 44px; }
+  .intro-route button { font-size: 12px; gap: 5px; }
+  .intro-foot { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'cap cap' 'route route' 'shop next'; }
+  .intro-caption { display: contents; }
+  .intro-text { grid-area: cap; }
+  .intro-text, .intro-actions { opacity: 1 !important; transform: none !important; }
+  .intro-side { display: contents; }
+  .intro-route { grid-area: route; }
+  .intro-actions { grid-area: shop; min-width: 0; }
+  .intro-next { grid-area: next; justify-content: center; min-height: 52px; padding: 0 13px; font-size: 15px; gap: 6px; white-space: nowrap; }
+  .intro-shop { justify-content: center; width: 100%; min-height: 52px; padding: 0 8px; font-size: 15px; gap: 7px; white-space: nowrap; }
+  #intro.is-portrait .intro-text { display: none; }
+  #intro.is-portrait .intro-wear.is-on { top: auto; bottom: 170px; }
+  .intro-wear { right: 14px; top: 66px; width: min(236px, 66vw); padding: 9px 12px 10px; font-size: 14px; display: none; }
+  .intro-wear.is-on { display: grid; }
+  .intro-line { font-size: clamp(30px, 9.4vw, 54px); top: 70px; text-align: left; line-height: .95; }
+  .intro-line.l { left: 14px; }
+  .intro-line.r { left: auto; right: 14px; text-align: right; top: calc(70px + 1.05em); }
+  .intro-line span { display: inline-block; vertical-align: top; }
+  .intro-line span + span { margin-left: .22em; }
+}
+/* Short, wide screens such as a phone on its side */
+@media (max-height: 500px) {
+  .intro-top { padding: 8px var(--pad); }
+  .intro-kicker, .intro-ref small { display: none; }
+  .intro-title { font-size: 28px; }
+  .intro-ref { margin: 4px 0 8px; font-size: 15px; }
+  .intro-shop, .intro-next { min-height: 44px; }
+  .intro-foot { bottom: 8px; }
+  .intro-route { height: 44px; }
+  .intro-wear { top: 58px; }
+  .intro-line { display: none; }
+  #intro.is-portrait .intro-ref { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { html.intro-on #intro { display: none; } html.intro-lock { overflow: auto; } }

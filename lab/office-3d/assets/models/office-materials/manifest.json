@@ -1,0 +1,340 @@
+[
+  {
+    "maps": {
+      "Rough": {
+        "file": "upper-rough.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/plastered_wall_04/plastered_wall_04_rough_2k.jpg",
+        "sourceSha256": "37302048eb2e60be2a73a7f803965097681e652b80b93d6d701cfc7fabc1e0a7",
+        "sourceBytes": 1236406,
+        "bytes": 113688,
+        "sha256": "76cd2d45e790426e9336e928c5a488c9ada7bfd838a8752d8fe85bf832fa777f",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "upper-nor_gl.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/plastered_wall_04/plastered_wall_04_nor_gl_2k.jpg",
+        "sourceSha256": "904f6ca0b569754502675b8891b5d6aad1d8a07f938e8a43cf385170a21a12dc",
+        "sourceBytes": 1760685,
+        "bytes": 576319,
+        "sha256": "27247dd180344441f58205a94d5cdc4b73553e5aa5f3a7ae909d5159e9502ce7",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "upper-diffuse.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/plastered_wall_04/plastered_wall_04_diff_2k.jpg",
+        "sourceSha256": "aaf0e693291d51d13531480625a942f950fed23f6b1d1008ee0e91f2a23a7b1e",
+        "sourceBytes": 1465312,
+        "bytes": 148901,
+        "sha256": "3a2cc2b19572af0c7df466572e22007b97177d740b10929ccaede70e0783de62",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "upper-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/plastered_wall_04/plastered_wall_04_ao_1k.jpg",
+        "sourceSha256": "f955b0561d5a868c7fc67f5d6dcb540b4d5c85234a0060164ef5d0d20cdb50f8",
+        "sourceBytes": 12710,
+        "bytes": 4257,
+        "sha256": "d76bc98f9ca6a0b222cb3c26e577ee73839bb545d11f744840e3f3bf9ab5b86e",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Plastered Wall 04",
+    "license": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "key": "upper",
+    "source": "https://polyhaven.com/a/plastered_wall_04",
+    "id": "plastered_wall_04",
+    "dimensionsMm": [
+      3199.9998092651367,
+      3199.9998092651367
+    ]
+  },
+  {
+    "maps": {
+      "Rough": {
+        "file": "lower-rough.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/yellow_plaster/yellow_plaster_rough_2k.jpg",
+        "sourceSha256": "19539f96c53a59c73ce85c47e2cdaa13c2cb9c120e655188709b0b6ddbb1fa0a",
+        "sourceBytes": 944337,
+        "bytes": 499337,
+        "sha256": "1000b48bd62c9dbc2ae7c9875296c1d0541b909fdc16586b4886b11bacc82f3c",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "lower-nor_gl.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/yellow_plaster/yellow_plaster_nor_gl_2k.jpg",
+        "sourceSha256": "9c6cd2ab745790ffb153f8c6e2ce35941f460fef1b7bb093f4f43750356a1465",
+        "sourceBytes": 1841039,
+        "bytes": 1498875,
+        "sha256": "6d4a1077cec480ebdd9a713892be713f29df7a5a02f452a24e3b810e954c961f",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "lower-diffuse.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/yellow_plaster/yellow_plaster_diff_2k.jpg",
+        "sourceSha256": "17bfd8be29801531ea5477bfa6c4545ea68adcad3f589093193b643617ae34ee",
+        "sourceBytes": 1431013,
+        "bytes": 628859,
+        "sha256": "777af0311b671a2fbb28b4b048eb2f57fb264f5dc0429dd98ad2d7ca22fbef8d",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "lower-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/yellow_plaster/yellow_plaster_ao_1k.jpg",
+        "sourceSha256": "c7b877f494f6e30c068120f2d43808151465d4e09717238e8109a246e2401f84",
+        "sourceBytes": 275068,
+        "bytes": 142271,
+        "sha256": "bc815d67a1d852b3cb4248f1e585bd79bb3fe3d1dc9207e829da48cc8d8775cd",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Yellow Plaster",
+    "license": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "key": "lower",
+    "source": "https://polyhaven.com/a/yellow_plaster",
+    "id": "yellow_plaster",
+    "dimensionsMm": [
+      2000,
+      2000
+    ]
+  },
+  {
+    "maps": {
+      "Rough": {
+        "file": "floor-rough.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_tiles/grey_tiles_rough_2k.jpg",
+        "sourceSha256": "ce6a9338a398d582adec5f66868d68162e22f761004c1a950c7d75685136403f",
+        "sourceBytes": 1908363,
+        "bytes": 451258,
+        "sha256": "5e918d50d548c1cb949e145b63c5b1b7848d76419e5c182dac0c9afe398f6fda",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "floor-nor_gl.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_tiles/grey_tiles_nor_gl_2k.jpg",
+        "sourceSha256": "7d93a579daa9e954546201530a8a3ce1934ed4793f5eade17161ebe195868430",
+        "sourceBytes": 1527309,
+        "bytes": 382638,
+        "sha256": "46aac940e70effabf4c447d6d8df7a440055240dfe82b473659e35cacc803048",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "floor-diffuse.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_tiles/grey_tiles_diff_2k.jpg",
+        "sourceSha256": "50a2b6eab72fa33e6baa8700f49912d75040f9ec23ce201ea360d3494111fe29",
+        "sourceBytes": 2156903,
+        "bytes": 430395,
+        "sha256": "d5025b27ac4fd6b22e78b57dc6479c390c7a0450dd65e6d2ecc0055f6e7f01bc",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "floor-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grey_tiles/grey_tiles_ao_1k.jpg",
+        "sourceSha256": "f99fd816af6a0f71c7cc37dafd578212fc5819aa5a91e1a04c91f0223cea00b1",
+        "sourceBytes": 88608,
+        "bytes": 32644,
+        "sha256": "81635a9803f61a35277a59755ae98da78a768dc2547750b971965668b0f03a8d",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Grey Tiles",
+    "license": "CC0-1.0",
+    "authors": {
+      "Amal Kumar": "All"
+    },
+    "key": "floor",
+    "source": "https://polyhaven.com/a/grey_tiles",
+    "id": "grey_tiles",
+    "dimensionsMm": [
+      2200.000047683716,
+      2200.000047683716
+    ]
+  },
+  {
+    "maps": {
+      "Rough": {
+        "file": "wood-rough.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_table_001/wood_table_001_rough_2k.jpg",
+        "sourceSha256": "c788876d80e4d96598590631f8de92447fb1b0ba1265a812514ee717d270ac3e",
+        "sourceBytes": 963377,
+        "bytes": 947448,
+        "sha256": "f9f0c13a8e552fb93f3cb37fe2df218ffd6f151b4e5741cf65d50baa0d71b197",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "wood-nor_gl.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_table_001/wood_table_001_nor_gl_2k.jpg",
+        "sourceSha256": "d56f02c911391267ddc6adc92e8a5bc29b9803196e8d57ad5b9702e6c842dc28",
+        "sourceBytes": 385020,
+        "bytes": 466088,
+        "sha256": "4fa8f72d0a677797261807b4dcf94923f5a27ef0e36e940bdd0b53738429a3e9",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "wood-diffuse.jpg",
+        "resolution": "2k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_table_001/wood_table_001_diff_2k.jpg",
+        "sourceSha256": "63ae5cd186197b40f18bc020fe2b652bb08df4d9fc6240c6cbf8a7e3bc32c096",
+        "sourceBytes": 924532,
+        "bytes": 894002,
+        "sha256": "b439e1c18d4c34057521a254ef22cc64686a21baf0a43b59707927f84e83d3dc",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "wood-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_table_001/wood_table_001_ao_1k.jpg",
+        "sourceSha256": "44bac849eff9e893f932086f0953acb57adc0e57a97a04db4af8b2e3c87c6b67",
+        "sourceBytes": 163820,
+        "bytes": 155408,
+        "sha256": "2ff5241c9fd089cd193af9b22ae28da42164720a5102f0a3abc3685aa1fa4dfb",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Wood Table 001",
+    "license": "CC0-1.0",
+    "authors": {
+      "Dimitrios Savva": "Photography",
+      "Rico Cilliers": "Processing"
+    },
+    "key": "wood",
+    "source": "https://polyhaven.com/a/wood_table_001",
+    "id": "wood_table_001",
+    "dimensionsMm": [
+      1500,
+      1500.0001192092896
+    ]
+  },
+  {
+    "maps": {
+      "Rough": {
+        "file": "cloth-rough.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stretch_poplin/stretch_poplin_rough_1k.jpg",
+        "sourceSha256": "da4e8fd6176241d072616018c0ef8eec58880609658ed103f9f324d2b0331ad2",
+        "sourceBytes": 662992,
+        "bytes": 206743,
+        "sha256": "8e43c4e7ed74e034385ccbdee2874d25fa55c0c0f5d7cbbf50d4f74ea32eeb0e",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "cloth-nor_gl.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stretch_poplin/stretch_poplin_nor_gl_1k.jpg",
+        "sourceSha256": "a94ae78f3e4726bc6ce7d4eee75dc6c54af270579ab26405a972814789fbe4cf",
+        "sourceBytes": 582698,
+        "bytes": 184428,
+        "sha256": "fffc53011c5da985a6c55fcfa80f79bee735d560f7565d0d0b7a647afc146420",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "cloth-diffuse.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stretch_poplin/stretch_poplin_diff_1k.jpg",
+        "sourceSha256": "43d1fa852fea75ef9ccb0832f70df3d717190263f3048c4d26a8ec764af49640",
+        "sourceBytes": 493642,
+        "bytes": 80342,
+        "sha256": "6330b1e923ebfc4eebef7e715c90e9e105beac640c70b0eae65972d0e05e147c",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "cloth-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/stretch_poplin/stretch_poplin_ao_1k.jpg",
+        "sourceSha256": "493e8a8e366ed47041019bd8093eefe000060a214f360b82e060e8996ae44885",
+        "sourceBytes": 666889,
+        "bytes": 222362,
+        "sha256": "17cbc3794fba57a5ba26f543e8a94e154c15d81e7c3698550787af31bb6f7403",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Stretch Poplin",
+    "license": "CC0-1.0",
+    "authors": {
+      "colormass": "Photography",
+      "Rico Cilliers": "Processing"
+    },
+    "key": "cloth",
+    "source": "https://polyhaven.com/a/stretch_poplin",
+    "id": "stretch_poplin",
+    "dimensionsMm": [
+      291.0233241569048,
+      280.8000147342682
+    ]
+  },
+  {
+    "maps": {
+      "Rough": {
+        "file": "metal-rough.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_rough_1k.jpg",
+        "sourceSha256": "37168cf57144db28dd0743dab47fbebc09147fac919d5e2b5610b069c0b13a46",
+        "sourceBytes": 402450,
+        "bytes": 95967,
+        "sha256": "9db957266c1133e5c7b3f440eb5845ed40accbc8c74e6672b46791488a921ea9",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "nor_gl": {
+        "file": "metal-nor_gl.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_nor_gl_1k.jpg",
+        "sourceSha256": "970f0273c9e2e3b4fc8338bfd58a28c413b70ac4d1734d9dc8a136724bde56e6",
+        "sourceBytes": 238025,
+        "bytes": 71592,
+        "sha256": "3b44265bfc46249fff0f600ed01577b22be915efe5834a83bb21187bb78086c6",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "Diffuse": {
+        "file": "metal-diffuse.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_diff_1k.jpg",
+        "sourceSha256": "a0162bffce47d4a35613a12af22571b28c18412dc5805cbb69eac343554ef750",
+        "sourceBytes": 395923,
+        "bytes": 74001,
+        "sha256": "eaef664348a63bbefbd8f93d8c4f8154b651ef0d2ecd5dfe9cdced101ac8f80b",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      },
+      "AO": {
+        "file": "metal-ao.jpg",
+        "resolution": "1k",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/blue_metal_plate/blue_metal_plate_ao_1k.jpg",
+        "sourceSha256": "453e4eb26a20b185ada77b9719037fd6e5f3fc81766cf439c785e6a17f594d7b",
+        "sourceBytes": 30648,
+        "bytes": 11482,
+        "sha256": "399ac8ea09a69cff4e0610474bd1071df54455d9016357f20c4f5c8e96d790b5",
+        "optimization": "JPEG recompression only; native pixel dimensions and photographic content retained."
+      }
+    },
+    "title": "Blue Metal Plate",
+    "license": "CC0-1.0",
+    "authors": {
+      "Rob Tuytel": "All"
+    },
+    "key": "metal",
+    "source": "https://polyhaven.com/a/blue_metal_plate",
+    "id": "blue_metal_plate",
+    "dimensionsMm": [
+      2500,
+      2500
+    ]
+  }
+]

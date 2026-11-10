@@ -1,3 +1,4 @@
+import re
 """Pradhan by Panchayat: builds the static pages from shared partials. Run: python build.py"""
 import hashlib
 from pathlib import Path
@@ -68,7 +69,7 @@ def header(active):
   <h4>MEN</h4>{cats}<a href="shop.html">Shop All<span>›</span></a>
   <h4>EDITS</h4><a href="shop.html?edit=Phulera%20Everyday">Phulera Drops<span class="tag">NEW</span></a><a href="shop.html?edit=Pradhan%20Office%20Edit">Office Edit<span>›</span></a><a href="shop.html?edit=Festive%20Edit">Festive Edit<span>›</span></a><a href="shop.html?edit=Gifting">Diwali Gifting<span class="tag">FREE WRAP</span></a>
   <h4>WOMEN</h4><a href="#" class="soon" data-soon="Women’s wear is coming after Diwali">Coming after Diwali<span>›</span></a>
-  <h4>MORE</h4><a href="about.html">About Pradhan<span>›</span></a><a href="shop.html?wish=1">Wishlist<span>›</span></a>
+  <h4>MORE</h4><a href="about.html">About Pradhan<span>›</span></a><a href="shop.html?wish=1">Wishlist<span>›</span></a><a href="lab/index.html">Experimental pages<span class="tag">LAB</span></a>
 </nav>
 <div class="search" id="search"><form action="shop.html" role="search"><input id="search-q" name="q" type="search" placeholder="Search for kurtas, shirts…" aria-label="Search products"><button class="btn" type="submit">Search</button><button class="ib" type="button" data-close aria-label="Close search">{I['close']}</button></form></div>
 '''
@@ -99,7 +100,7 @@ def footer(active):
   <div class="fcols">
     <div><h3>Shop</h3><ul><li><a href="shop.html">Shop All</a></li><li><a href="shop.html?edit=Gifting">Gift Sets</a></li><li><a href="shop.html?wish=1">Wishlist</a></li></ul></div>
     <div><h3>Help</h3><ul><li><a href="product.html#size-guide">Size Guide</a></li><li><a href="#" data-soon="Delivery details at launch">Delivery</a></li><li><a href="#" data-soon="Size exchange within 15 days">Returns &amp; Exchange</a></li></ul></div>
-    <div><h3>Company</h3><ul><li><a href="about.html">About Pradhan</a></li><li><a href="about.html#enquire">Bulk &amp; Office Gifting</a></li><li>A TVF brand</li></ul></div>
+    <div><h3>Company</h3><ul><li><a href="about.html">About Pradhan</a></li><li><a href="about.html#enquire">Bulk &amp; Office Gifting</a></li><li><a href="lab/index.html">Experimental pages</a></li><li>A TVF brand</li></ul></div>
     <div><h3>Stay in the loop</h3><form class="news"><input type="email" placeholder="Email address" aria-label="Email address" required><button type="submit">Join</button></form></div>
   </div>
   <div class="legal">{LOGO}<span>© 2026 Pradhan by Panchayat · A TVF brand · Preview: sample products and prices</span></div>
@@ -151,8 +152,45 @@ INTRO = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panc
 '''
 
 
-def page(fname, title, desc, active, body, preload=''):
-    html = head(title, desc, preload) + '<body>\n' + (INTRO if active == 'home' else '') + header(active) + body + footer(active)
+INTRO_HEAD_PHULERA = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var v=innerWidth/innerHeight<.85?'p':Math.max(innerWidth,innerHeight)*(devicePixelRatio||1)>1300?'w':'m';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/op/1'+x+'-'+v+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
+'''
+
+STOP_NAMES = ['Almirah', 'Tanki', 'Deewar', 'Lauki', 'Pradhan ji']
+ROUTE = ''.join(f'<li><button type="button" aria-label="Go to stop {i + 1}, {n}"><span>{n}</span></button></li>' for i, n in enumerate(STOP_NAMES))
+INTRO_PHULERA = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat" data-tone="dark">
+  <div class="intro-stage">
+    <div class="intro-figure" aria-hidden="true"><canvas id="intro-a"></canvas><canvas id="intro-canvas"></canvas></div>
+    <div class="intro-shade" aria-hidden="true"></div>
+    <div class="intro-top">{LOGO}<button class="intro-store" type="button" data-intro-open>{I['bag']}Enter the store</button></div>
+    <p class="intro-line l" aria-hidden="true"><span>Every</span><span><b>Thread</b></span></p>
+    <p class="intro-line r" aria-hidden="true"><span>has a</span><span><b>Village.</b></span></p>
+    <div class="intro-pin" aria-hidden="true"><span class="ring"></span><span class="dot"></span><div class="intro-hint"><span class="m"></span><span class="t"></span></div></div>
+    <a class="intro-wear" href="shop.html"><small></small><b></b><em></em></a>
+    <div class="intro-foot">
+      <div class="intro-caption">
+        <div class="intro-text" aria-live="polite"><p class="intro-kicker"></p><h2 class="intro-title"></h2><p class="intro-ref"></p></div>
+        <div class="intro-actions"><a class="intro-shop" href="shop.html"><span class="t"></span><span class="f"></span></a></div>
+      </div>
+      <div class="intro-side">
+        <nav class="intro-route" aria-label="Stops in Phulera">
+          <svg class="intro-thread" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path class="b" d="M0 5C10 2 18 8 25 5S40 2 50 5 65 8 75 5 90 2 100 5" pathLength="1"/><path class="p" d="M0 5C10 2 18 8 25 5S40 2 50 5 65 8 75 5 90 2 100 5" pathLength="1"/></svg>
+          <ol>{ROUTE}</ol>
+        </nav>
+        <button class="intro-next" type="button"><span class="t"></span>{I['next']}</button>
+      </div>
+    </div>
+  </div>
+  <div class="intro-curtain" aria-hidden="true"><p class="intro-board" lang="hi"><span>ग्राम पंचायत</span><span>फुलेरा में</span><span>आपका स्वागत है।</span></p>{LOGO}<span class="intro-bar"><i></i></span></div>
+</div>
+'''
+
+
+def page(fname, title, desc, active, body, preload='', intro=None, base=None, badge=''):
+    h = head(title, desc, preload)
+    if base:
+        h = h.replace('<head>\n', f'<head>\n<base href="{base}">\n', 1)
+    html = h + '<body>\n' + badge + ((INTRO if intro is None else intro) if active == 'home' else '') + header(active) + body + footer(active)
+    (ROOT / fname).parent.mkdir(parents=True, exist_ok=True)
     (ROOT / fname).write_text(html, encoding='utf-8')
     print('built', fname, len(html.encode()) // 1024, 'KB')
 
@@ -223,6 +261,20 @@ PRODUCT = '''<main id="main">
 </main>
 '''
 
+LAB = '''<main id="main">
+  <section class="lab">
+    <p class="lab-k">Experimental</p>
+    <h1>Experimental <b>pages</b></h1>
+    <p>Openings we have tried for the home page. They are not the live design, and they may be slower or change without notice. Each one opens into the same store.</p>
+    <div class="lab-grid">
+      <a class="lab-card" href="lab/phulera/index.html"><img src="assets/img/op/1b-m.webp" alt="The Panchayat almirah open, full of kurtas" loading="lazy" width="1200" height="811"><span class="lab-tag">Experimental · 6 Nov 2026</span><b>Phulera walk</b><span>Five stops opened by a fluid reveal: the almirah full of kurtas, clothes on the tanki, the repainted slogan wall, the lauki gift, Pradhan ji. 2D only.</span></a>
+      <a class="lab-card" href="lab/office-3d/index.html"><img src="assets/img/g-office.webp" alt="The Panchayat office" loading="lazy"><span class="lab-tag">Experimental · 6 Nov 2026 · heavy</span><b>3D Panchayat office</b><span>A live Three.js model of the office with a clickable almirah and 3D garments. Downloads about 35 MB, so it is slow on phones and mobile data.</span></a>
+      <a class="lab-card" href="index.html"><img src="assets/img/intro-a-sm.webp" alt="Pradhan ji in aviators" loading="lazy" style="background:#f6efe2"><span class="lab-tag live">Live on the home page</span><b>Pradhan ji reveal</b><span>The current opening: hover over Pradhan ji and his aviators come off.</span></a>
+    </div>
+  </section>
+</main>
+'''
+
 ABOUT = '''<main id="main">
   <section class="ab">
     <img src="assets/img/banner.webp" alt="Sachiv ji, Vikas and the women of Phulera on a village street" width="1600" height="900">
@@ -244,6 +296,19 @@ if __name__ == '__main__':
 <link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
 '''
     page('index.html', 'Pradhan by Panchayat | Handmade menswear from Phulera', 'Kurtas, Nehru jackets, half sweaters and shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, pre)
+    badge = '<a class="lab-badge" href="lab/index.html">Experimental opening · all experiments</a>\n'
+    pre_p = INTRO_HEAD_PHULERA + f'''<link rel="stylesheet" href="lab/phulera/intro.css?v={ver('lab/phulera/intro.css')}">
+<script src="lab/phulera/intro.js?v={ver('lab/phulera/intro.js')}" defer></script>
+'''
+    page('lab/phulera/index.html', 'Experimental: Phulera walk | Pradhan by Panchayat', 'Experimental opening: a fluid walk through Phulera.', 'home', HOME, pre_p, intro=INTRO_PHULERA, base='../../', badge=badge)
+    # the 3D office is kept exactly as it was built on 6 November, re-pointed at its own folder
+    src = (ROOT / 'lab/office-3d/source-index.txt').read_text(encoding='utf-8')
+    src = src.replace('<head>\n', '<head>\n<base href="../../">\n', 1)
+    src = re.sub(r'(href|src)="assets/(js/vendor/|js/intro|css/intro)', r'\1="lab/office-3d/assets/\2', src)
+    src = src.replace('<title>', '<title>Experimental: 3D office | ', 1).replace('<body>\n', '<body>\n' + badge, 1)
+    (ROOT / 'lab/office-3d/index.html').write_text(src, encoding='utf-8')
+    print('built lab/office-3d/index.html')
+    page('lab/index.html', 'Experimental pages | Pradhan by Panchayat', 'Openings we tried for the Pradhan by Panchayat site.', '', LAB, base='../')
     page('shop.html', 'Shop All | Pradhan by Panchayat', 'Shop handmade kurtas, shirts, Nehru jackets, half sweaters, pajamas and gift sets.', 'new', SHOP)
     page('product.html', 'Product | Pradhan by Panchayat', 'Handmade by village artisans.', '', PRODUCT)
     page('about.html', 'About | Pradhan by Panchayat', 'Why we are called Pradhan, and how every thread has a village.', '', ABOUT)

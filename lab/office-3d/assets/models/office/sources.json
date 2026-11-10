@@ -1,0 +1,150 @@
+[
+  {
+    "key": "chair",
+    "assetId": "plastic_monobloc_chair_01",
+    "name": "Plastic Monobloc Chair 01",
+    "author": "Kuutti Siitonen",
+    "source": "https://polyhaven.com/a/plastic_monobloc_chair_01",
+    "license": "CC0-1.0",
+    "bytes": 6664600,
+    "triangles": 3356,
+    "maxTexture": 2048,
+    "sha256": "2405d352821799d0cd3cb0a0e3a69b2fa9aa71c95db1d2e4cbed02b311c27834",
+    "imageCount": 3,
+    "nodeNames": [
+      "plastic_monobloc_chair_01"
+    ]
+  },
+  {
+    "key": "desk",
+    "assetId": "metal_office_desk",
+    "name": "Metal Office Desk",
+    "author": "Ulan Cabanilla",
+    "source": "https://polyhaven.com/a/metal_office_desk",
+    "license": "CC0-1.0",
+    "bytes": 754020,
+    "triangles": 6898,
+    "maxTexture": 1024,
+    "sha256": "0a56c90ac4b9ed8dba012c89a3105ced89b3e988f11feaee5bf0f873ac6a30bb",
+    "imageCount": 3,
+    "nodeNames": [
+      "metal_office_desk_drawer_06",
+      "metal_office_desk_tray_01",
+      "metal_office_desk",
+      "metal_office_desk_drawer_04",
+      "metal_office_desk_drawer_03",
+      "metal_office_desk_drawer_05",
+      "metal_office_desk_drawer_02",
+      "metal_office_desk_drawer_01",
+      "metal_office_desk_tray_02"
+    ]
+  },
+  {
+    "key": "table",
+    "assetId": "wooden_table_02",
+    "name": "Wooden Table 02",
+    "author": "Serhii Khromov",
+    "source": "https://polyhaven.com/a/wooden_table_02",
+    "license": "CC0-1.0",
+    "bytes": 676660,
+    "triangles": 196,
+    "maxTexture": 1024,
+    "sha256": "89440161bda51063c550320c59e7cd5cc829b85c1a3fcb93de3fb1d18cc500f1",
+    "imageCount": 3,
+    "nodeNames": [
+      "wooden_table_02"
+    ]
+  },
+  {
+    "key": "jug",
+    "assetId": "metal_jug",
+    "name": "Metal Jug",
+    "author": "Anzor Lezhava",
+    "source": "https://polyhaven.com/a/metal_jug",
+    "license": "CC0-1.0",
+    "bytes": 1793512,
+    "triangles": 6040,
+    "maxTexture": 1024,
+    "sha256": "f6d8310bd7020b92e5aa6de5525536ae5b1ecb9f45d5ba678efa1dccb5dd77cb",
+    "imageCount": 3,
+    "nodeNames": [
+      "metal_jug"
+    ]
+  },
+  {
+    "key": "books",
+    "assetId": "book_encyclopedia_set_01",
+    "name": "Book Encyclopedia Set 01",
+    "author": "John Malcolm",
+    "source": "https://polyhaven.com/a/book_encyclopedia_set_01",
+    "license": "CC0-1.0",
+    "bytes": 3238620,
+    "triangles": 67306,
+    "maxTexture": 1024,
+    "sha256": "3aab705f8234e09503108b1205e870fead6005693d89153df784a3c04e093696",
+    "imageCount": 6,
+    "nodeNames": [
+      "book_encyclopedia_set_01_book01",
+      "book_encyclopedia_set_01_book02",
+      "book_encyclopedia_set_01_book03",
+      "book_encyclopedia_set_01_book04",
+      "book_encyclopedia_set_01_book05",
+      "book_encyclopedia_set_01_book06",
+      "book_encyclopedia_set_01_book07",
+      "book_encyclopedia_set_01_book08",
+      "book_encyclopedia_set_01_book09",
+      "book_encyclopedia_set_01_book10",
+      "book_encyclopedia_set_01_book11",
+      "book_encyclopedia_set_01_book12",
+      "book_encyclopedia_set_01_book13",
+      "book_encyclopedia_set_01_book14",
+      "book_encyclopedia_set_01_book15",
+      "book_encyclopedia_set_01_book16",
+      "book_encyclopedia_set_01_book17",
+      "book_encyclopedia_set_01_book18",
+      "book_encyclopedia_set_01_book19",
+      "book_encyclopedia_set_01_book20"
+    ]
+  },
+  {
+    "key": "binder",
+    "assetId": "binder_notebook",
+    "name": "Binder Notebook",
+    "author": "DaDrood",
+    "source": "https://polyhaven.com/a/binder_notebook",
+    "license": "CC0-1.0",
+    "bytes": 1888420,
+    "triangles": 18077,
+    "maxTexture": 1024,
+    "sha256": "dac50503883df1fc4dc908f86de76fefcf5d166c2f771b50a97f9b311e0f52cb",
+    "imageCount": 3,
+    "nodeNames": [
+      "binder_notebook",
+      "binder_notebook_closed"
+    ]
+  },
+  {
+    "key": "stationery",
+    "assetId": "stationery_supplies",
+    "name": "Stationery Supplies",
+    "author": "Mateusz Sadek",
+    "source": "https://polyhaven.com/a/stationery_supplies",
+    "license": "CC0-1.0",
+    "bytes": 1980964,
+    "triangles": 4412,
+    "maxTexture": 1024,
+    "sha256": "8abb79934289b6faf71cf54ff6cea6e53eebd8ae0bf6ebb4a9d395bfadc86c6a",
+    "imageCount": 3,
+    "nodeNames": [
+      "stationery_supplies_pen_red",
+      "stationery_supplies_pencilcup",
+      "stationery_supplies_eraser",
+      "stationery_supplies_pencil_new_a",
+      "stationery_supplies_pencil_new_b",
+      "stationery_supplies_pencil_used",
+      "stationery_supplies_pencil_old",
+      "stationery_supplies_pen_fancy",
+      "stationery_supplies_pen_blue"
+    ]
+  }
+]

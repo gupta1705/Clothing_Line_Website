@@ -301,3 +301,21 @@ svg.i { width: 24px; height: 24px; flex: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
+
+/* Experimental pages */
+.lab-badge { position: fixed; z-index: 400; left: 50%; top: 10px; transform: translateX(-50%); padding: 7px 14px; background: #f3c74f; color: var(--ink); font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
+.lab-badge:hover { background: #ffd866; }
+@media (max-width: 700px) { .lab-badge { top: auto; bottom: 74px; font-size: 12px; } }
+.lab { max-width: 1240px; margin: 0 auto; padding: 48px var(--pad) 72px; }
+.lab-k { margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.lab h1 { margin: 0 0 12px; font-weight: 300; font-size: clamp(34px, 5vw, 60px); line-height: 1; text-transform: uppercase; letter-spacing: -.02em; }
+.lab h1 b { font-weight: 700; }
+.lab > p { max-width: 640px; font-size: 18px; line-height: 1.5; color: var(--muted); }
+.lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; margin-top: 30px; }
+.lab-card { display: grid; gap: 8px; align-content: start; color: var(--ink); font-size: 16px; line-height: 1.45; }
+.lab-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--tile); }
+.lab-card b { font-size: 21px; }
+.lab-card span:last-child { color: var(--muted); }
+.lab-tag { justify-self: start; padding: 4px 10px; background: #f3c74f; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.lab-tag.live { background: var(--ink); color: var(--cream-text); }
+.lab-card:hover b { text-decoration: underline; }
