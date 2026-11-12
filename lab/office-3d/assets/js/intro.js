@@ -31,7 +31,7 @@
   }
   var view=name==='kurtas'?office.kurtaView:name==='casuals'?office.casualView:office.overview;
   var pos=view.position.clone(),target=view.target.clone();
-  if(name==='village'&&width>=600){pos.set(3.25,1.76,4.45);target.set(-.45,1.35,-2.5);}
+  if(name==='village'&&width>=600){pos.set(4.3,1.6,5.6);target.set(-1.6,1.25,-2.5);}
   if(name==='village'){
    if(width<600){pos.set(3.0,2.7,7.8);target.set(.85,1.4,-1.65);}
   } else if(width>=600){
@@ -46,6 +46,21 @@
    target.y+=.25;
   }
   return {position:pos,target:target};
+ }
+ function addShafts(sun){
+  var dir=sun.target.position.clone().sub(sun.position).normalize(),L=7.5,geo=new T.BufferGeometry(),pos=[],col=[];
+  function quad(a,b){var a2=a.clone().addScaledVector(dir,L),b2=b.clone().addScaledVector(dir,L);[a,b,b2,a,b2,a2].forEach(function(v,i){pos.push(v.x,v.y,v.z);var near=(i===0||i===1||i===3)?1:0;col.push(.55*near,.34*near,.16*near);});}
+  [[-3.3,1.13],[-.22,1.12]].forEach(function(w){
+   var x0=w[0]-w[1]/2,x1=w[0]+w[1]/2,y0=1.2,y1=2.98,z=-4.05;
+   for(var i=0;i<=5;i++){var x=x0+(x1-x0)*i/5;quad(new T.Vector3(x,y0,z),new T.Vector3(x,y1,z));}
+   for(var j=0;j<=4;j++){var y=y0+(y1-y0)*j/4;quad(new T.Vector3(x0,y,z),new T.Vector3(x1,y,z));}
+  });
+  geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setAttribute('color',new T.Float32BufferAttribute(col,3));
+  var mesh=new T.Mesh(geo,new T.MeshBasicMaterial({vertexColors:true,transparent:true,opacity:.1,blending:T.AdditiveBlending,depthWrite:false,side:T.DoubleSide,fog:false,toneMapped:false}));
+  mesh.renderOrder=5;mesh.frustumCulled=false;scene.add(mesh);
+  // the same sun as real light: a warm pool on the floor and furniture, and its bounce
+  [-3.3,-.22].forEach(function(x){var sp=new T.SpotLight(0xffc27a,150,14,.3,.7,1.4);sp.position.set(x,2.15,-3.9);sp.target.position.copy(sp.position).addScaledVector(dir,5);sp.castShadow=false;sp.shadow.mapSize.set(512,512);sp.shadow.bias=-.0005;sp.shadow.normalBias=.02;scene.add(sp,sp.target);});
+  var bounce=new T.PointLight(0xffc48a,5,8,1.6);bounce.position.set(-3.4,.5,.6);scene.add(bounce);
  }
  function setView(name){if(!renderer||disposed)return;renderer.shadowMap.needsUpdate=true;var v=viewFor(name);cameraGoal.copy(v.position);targetGoal.copy(v.target);dragYaw=0;parallax.x=0;parallax.y=0;if(reduced.matches){camera.position.copy(cameraGoal);currentTarget.copy(targetGoal);}wake();}
  function fillProducts(name){
@@ -176,16 +191,16 @@
   try{
    if(!T||!window.buildPanchayatOffice||!window.loadPanchayatGarments||!window.loadPanchayatOfficeMaterials||!window.loadPanchayatOfficeProps)throw new Error('3D assets unavailable');
    renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,low?1.25:1.5));
-   renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;
+   renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;
    renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
    host.appendChild(renderer.domElement);renderer.domElement.setAttribute('aria-hidden','true');
-   scene=new T.Scene();scene.background=new T.Color(0xc4b69a);
-   camera=new T.PerspectiveCamera(50,1,.08,60);raycaster=new T.Raycaster();pointer=new T.Vector2();
-   scene.add(new T.HemisphereLight(0xe6efff,0x776447,.19));
-   var sun=new T.DirectionalLight(0xfff1d5,3.1);sun.position.set(1,5.5,-12);sun.target.position.set(-2,0,3);sun.castShadow=true;sun.shadow.mapSize.set(low?1024:2048,low?1024:2048);sun.shadow.camera.left=-7;sun.shadow.camera.right=7;sun.shadow.camera.top=7;sun.shadow.camera.bottom=-7;sun.shadow.camera.near=.2;sun.shadow.camera.far=30;sun.shadow.normalBias=.008;sun.shadow.bias=-.0001;sun.shadow.radius=3;scene.add(sun,sun.target);
+   scene=new T.Scene();scene.background=new T.Color(0xfff1d6);
+   camera=new T.PerspectiveCamera(42,1,.08,60);raycaster=new T.Raycaster();pointer=new T.Vector2();
+   scene.add(new T.HemisphereLight(0xfff3df,0x8a7354,.5));
+   var sun=new T.DirectionalLight(0xffdcae,5);sun.position.set(2.2,4.6,-12);sun.target.position.set(-2,0,3);sun.castShadow=true;sun.shadow.mapSize.set(low?1024:2048,low?1024:2048);sun.shadow.camera.left=-7;sun.shadow.camera.right=7;sun.shadow.camera.top=7;sun.shadow.camera.bottom=-7;sun.shadow.camera.near=.2;sun.shadow.camera.far=30;sun.shadow.normalBias=.008;sun.shadow.bias=-.0001;sun.shadow.radius=3;scene.add(sun,sun.target);
    T.RectAreaLightUniformsLib.init();
    [[-3.3,2.09,-3.98,1.13,1.9],[-.22,2.09,-3.98,1.12,1.9],[-5.32,2.1,-.82,1.32,1.9]].forEach(function(p,i){var light=new T.RectAreaLight(0xe6efff,i===2?4.5:3.5,p[3],p[4]);light.position.set(p[0],p[1],p[2]);light.lookAt(i===2?0:p[0],1.3,i===2?-.2:1);scene.add(light);});
-   var roomFill=new T.RectAreaLight(0xffe6ba,1.6,4,3);roomFill.position.set(.5,3.2,1);roomFill.lookAt(0,.4,-2);scene.add(roomFill);
+   var roomFill=new T.RectAreaLight(0xffe9c8,2.6,4,3);roomFill.position.set(.5,3.2,1);roomFill.lookAt(0,.4,-2);scene.add(roomFill);
    garmentKey=new T.PointLight(0xffffff,0,5,2);garmentFill=new T.PointLight(0xf5f7ff,0,4,2);scene.add(garmentKey,garmentFill);
    var environmentLoad=new T.HDRLoader().loadAsync('lab/office-3d/assets/models/studio_small_03_1k.hdr').then(function(texture){
     if(disposed||leaving){texture.dispose();return;}
@@ -195,7 +210,7 @@
    var failed=assets.find(function(a){return a.status==='rejected';});
    if(disposed||leaving||failed){assets.forEach(function(a){if(a.status==='fulfilled')a.value.dispose();});if(failed)throw failed.reason;return;}
    officeMaterials=assets[0].value;officeProps=assets[1].value;modelLibrary=assets[2].value;
-   office=window.buildPanchayatOffice(T,scene,{materials:officeMaterials.materials,props:officeProps,invalidate:wake});markPick(office.cabinet.group,{room:'kurtas'});markPick(office.desk,{room:'casuals'});addGarments();
+   office=window.buildPanchayatOffice(T,scene,{materials:officeMaterials.materials,props:officeProps,invalidate:wake});markPick(office.cabinet.group,{room:'kurtas'});markPick(office.desk,{room:'casuals'});addGarments();addShafts(sun);
    var target=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,samples:low?0:4});composer=new T.EffectComposer(renderer,target);composer.addPass(new T.RenderPass(scene,camera));
    aoPass=new T.GTAOPass(scene,camera,1,1);aoPass.output=T.GTAOPass.OUTPUT.Default;aoPass.blendIntensity=.62;aoPass.updateGtaoMaterial({radius:.23,thickness:.45,samples:low?8:16,screenSpaceRadius:false});aoPass.updatePdMaterial({radius:4,samples:low?8:16});composer.addPass(aoPass);composer.addPass(new T.OutputPass());
    cameraGoal=office.overview.position.clone();targetGoal=office.overview.target.clone();currentTarget=targetGoal.clone();camera.position.copy(cameraGoal);

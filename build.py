@@ -152,35 +152,28 @@ INTRO = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panc
 '''
 
 
-INTRO_HEAD_PHULERA = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var v=innerWidth/innerHeight<.85?'p':Math.max(innerWidth,innerHeight)*(devicePixelRatio||1)>1300?'w':'m';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/op/1'+x+'-'+v+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
+INTRO_HEAD_PHULERA = r'''<script>(function(){try{var d=document.documentElement,m=matchMedia('(prefers-reduced-motion: reduce)').matches,c=navigator.connection,s=c&&(c.saveData||/2g/.test(c.effectiveType||'')),n=performance.getEntriesByType('navigation')[0],t=n&&n.type,b=location.href.replace(/[^/]*([?#].*)?$/,''),i=document.referrer.indexOf(b)===0;if(m||s||location.hash||t==='back_forward'||(t==='navigate'&&i))return;d.classList.add('intro-on','intro-lock');var v=innerWidth/innerHeight<.85?'p':Math.max(innerWidth,innerHeight)*(devicePixelRatio||1)>1300?'w':'m';['a','b'].forEach(function(x){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='assets/img/op/1'+x+'-'+(v==='w'?'w':'m')+'.webp';document.head.appendChild(l)})}catch(e){}})()</script>
 '''
 
 STOP_NAMES = ['Almirah', 'Tanki', 'Deewar', 'Lauki', 'Pradhan ji']
 ROUTE = ''.join(f'<li><button type="button" aria-label="Go to stop {i + 1}, {n}"><span>{n}</span></button></li>' for i, n in enumerate(STOP_NAMES))
-INTRO_PHULERA = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat" data-tone="dark">
+INTRO_PHULERA = f'''<div id="intro" role="region" aria-label="Welcome to Pradhan by Panchayat" data-tone="light">
   <div class="intro-stage">
     <div class="intro-figure" aria-hidden="true"><canvas id="intro-a"></canvas><canvas id="intro-canvas"></canvas></div>
     <div class="intro-shade" aria-hidden="true"></div>
-    <div class="intro-top">{LOGO}<button class="intro-store" type="button" data-intro-open>{I['bag']}Enter the store</button></div>
-    <p class="intro-line l" aria-hidden="true"><span>Every</span><span><b>Thread</b></span></p>
-    <p class="intro-line r" aria-hidden="true"><span>has a</span><span><b>Village.</b></span></p>
-    <div class="intro-pin" aria-hidden="true"><span class="ring"></span><span class="dot"></span><div class="intro-hint"><span class="m"></span><span class="t"></span></div></div>
-    <a class="intro-wear" href="shop.html"><small></small><b></b><em></em></a>
-    <div class="intro-foot">
-      <div class="intro-caption">
-        <div class="intro-text" aria-live="polite"><p class="intro-kicker"></p><h2 class="intro-title"></h2><p class="intro-ref"></p></div>
-        <div class="intro-actions"><a class="intro-shop" href="shop.html"><span class="t"></span><span class="f"></span></a></div>
-      </div>
-      <div class="intro-side">
-        <nav class="intro-route" aria-label="Stops in Phulera">
-          <svg class="intro-thread" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path class="b" d="M0 5C10 2 18 8 25 5S40 2 50 5 65 8 75 5 90 2 100 5" pathLength="1"/><path class="p" d="M0 5C10 2 18 8 25 5S40 2 50 5 65 8 75 5 90 2 100 5" pathLength="1"/></svg>
-          <ol>{ROUTE}</ol>
-        </nav>
-        <button class="intro-next" type="button"><span class="t"></span>{I['next']}</button>
-      </div>
+    <div class="intro-top">{LOGO}<button class="intro-store" type="button" data-intro-open>{I['bag']}Store</button></div>
+    <h2 class="intro-line l" aria-live="polite"></h2>
+    <p class="intro-line r" aria-hidden="true"></p>
+    <div class="intro-pin" aria-hidden="true"><span class="ring"></span><span class="dot"></span></div>
+    <div class="intro-side"><p class="intro-ref"></p><a class="intro-shop" href="shop.html"><span class="t"></span><span class="f"></span></a></div>
+    <a class="intro-wear" href="shop.html"><img alt="" width="62" height="78"><small></small><b></b><em></em></a>
+    <div class="intro-bottom">
+      <div class="intro-hint"><span class="m"></span><span class="t"></span></div>
+      <button class="intro-next" type="button"><span class="t"></span>{I['next']}</button>
+      <nav class="intro-route" aria-label="Stops in Phulera"><span class="intro-count" aria-hidden="true"></span><ol>{ROUTE}</ol></nav>
     </div>
   </div>
-  <div class="intro-curtain" aria-hidden="true"><p class="intro-board" lang="hi"><span>ग्राम पंचायत</span><span>फुलेरा में</span><span>आपका स्वागत है।</span></p>{LOGO}<span class="intro-bar"><i></i></span></div>
+  <div class="intro-curtain" aria-hidden="true">{LOGO}<p class="intro-board" lang="hi">ग्राम पंचायत फुलेरा में आपका स्वागत है।</p><span class="intro-bar"><i></i></span></div>
 </div>
 '''
 
@@ -296,7 +289,7 @@ if __name__ == '__main__':
 <link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
 '''
     page('index.html', 'Pradhan by Panchayat | Handmade menswear from Phulera', 'Kurtas, Nehru jackets, half sweaters and shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, pre)
-    badge = '<a class="lab-badge" href="lab/index.html">Experimental opening · all experiments</a>\n'
+    badge = '<a class="lab-badge" href="lab/index.html"><b>Experimental</b><span> opening · all experiments</span></a>\n'
     pre_p = INTRO_HEAD_PHULERA + f'''<link rel="stylesheet" href="lab/phulera/intro.css?v={ver('lab/phulera/intro.css')}">
 <script src="lab/phulera/intro.js?v={ver('lab/phulera/intro.js')}" defer></script>
 '''
@@ -305,6 +298,9 @@ if __name__ == '__main__':
     src = (ROOT / 'lab/office-3d/source-index.txt').read_text(encoding='utf-8')
     src = src.replace('<head>\n', '<head>\n<base href="../../">\n', 1)
     src = re.sub(r'(href|src)="assets/(js/vendor/|js/intro|css/intro)', r'\1="lab/office-3d/assets/\2', src)
+    src = src.replace('<link rel="stylesheet" href="lab/office-3d/assets/css/intro.css', '<link rel="stylesheet" href="lab/office-3d/assets/css/intro.css', 1)
+    src = src.replace('<p class="intro-eyebrow">STEP INSIDE THE WORLD OF PANCHAYAT</p><h2 id="intro-title">Every thread has a <em>village.</em></h2><p id="intro-description">Yeh Phulera hai. Make yourself at home.</p>', '<h2 id="intro-title"><span>Yeh <b>Phulera</b></span><span>hai. <b>Aaiye.</b></span></h2><p id="intro-description">The Panchayat office, in 3D. Open the almirah, or see what Sachiv ji left at his desk.</p>', 1)
+    src = src.replace('<span aria-hidden="true">↔</span> Move around. Pick a place. Find your piece.', '<span aria-hidden="true">↔</span> Drag to look around. Pick a place.', 1)
     src = src.replace('<title>', '<title>Experimental: 3D office | ', 1).replace('<body>\n', '<body>\n' + badge, 1)
     (ROOT / 'lab/office-3d/index.html').write_text(src, encoding='utf-8')
     print('built lab/office-3d/index.html')

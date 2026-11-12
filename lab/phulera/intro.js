@@ -29,44 +29,43 @@
 
   /* ---------- The stops. Hotspots are [x, y, rx, ry] as shares of the plate, one set for wide screens and one for tall ones. ---------- */
   var STOPS = [
-    { n: '1', label: 'Almirah', tone: 'dark', thread: 'rgba(255,205,140,.95)', g: 0,
-      kicker: 'Panchayat Bhawan, Phulera', title: 'The <b>Almirah</b>',
-      line: 'Bijli gayi. Almirah khuli. <em>Files nahi, kurte hain.</em>',
-      hint: ['Dekh raha hai, Binod? Move over the almirah', 'Dekh raha hai, Binod? Touch the almirah'],
+    { n: '1', label: 'Almirah', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: 0,
+      L: 'Files <b>nahi,</b>', L2: 'kurte <b>hain.</b>', side: 'l',
+      line: 'The Panchayat office almirah. Prahlad Cha is guarding it.',
+      hint: ['Dekh raha hai, Binod? Hover over the almirah', 'Dekh raha hai, Binod? Touch the almirah'],
       shop: ['Shop kurtas', 'shop.html?c=kurtas', 'kurtas'],
-      focus: { w: [.62, .34], p: [.5, .5] },
+      fit: { w: { h: .92, ax: .5, cx: .64, by: 1.05 }, p: { h: .56, ax: .4, cx: .5, by: .8 } },
       hot: [
-        { w: [.5514, .5053, .1892, .256], p: [.4764, .4069, .3818, .2207], tag: 'In the almirah', pid: 'handloom-khadi-kurta' },
-        { w: [.627, .7293, .0459, .048], p: [.6291, .6, .0927, .0414], tag: 'On Prahlad Cha’s lap', pid: 'phulera-gamchha-stole' },
-        { w: [.8324, .2533, .13, .2], p: null, tag: 'On the rack, instead of files', pid: 'pradhan-half-sweater' },
-        { w: [.235, .4933, .046, .076], p: null, tag: 'Vikas is wearing', pid: 'vikas-everyday-tee' }
+        { w: [.376, .471, .168, .3871], tag: 'In the almirah', pid: 'handloom-khadi-kurta' },
+        { w: [.488, .8323, .068, .0774], tag: 'On Prahlad Cha’s lap', pid: 'phulera-gamchha-stole' },
+        { w: [.78, .7742, .132, .1935], tag: 'Prahlad Cha is wearing', pid: 'prahlad-cotton-kurta' }
       ] },
-    { n: '2', label: 'Tanki', tone: 'dark', thread: 'rgba(255,236,214,.95)', g: .16,
-      kicker: 'The tanki, Phulera', title: 'Laid out on<br>the <b>Tanki</b>',
+    { n: '2', label: 'Tanki', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: .12,
+      L: 'Kapde <b>tanki</b>', L2: 'pe <b>sukh rahe.</b>', side: 'l',
       line: 'Where Sachiv ji and Rinki had their chai. The washing came later.',
-      hint: ['Move over the tanki', 'Touch the tanki'],
+      hint: ['Hover over the tanki', 'Touch the tanki'],
       shop: ['Shop shirts', 'shop.html?c=shirts', 'shirts'],
-      focus: { w: [.5, .02], p: [.5, 0] },
+      fit: { w: { h: .9, ax: 1, cx: 1.01, by: 1.0 }, p: { h: .6, ax: .5, cx: .5, by: .82 } },
       hot: [
-        { w: [.5094, .25, .1875, .15], p: [.4125, .2499, .45, .0945], tag: 'On the tanki', pid: 'sachiv-check-shirt' },
-        { w: [.8375, .17, .1875, .13], p: [.9045, .2436, .135, .0567], tag: 'On the line', pid: 'prahlad-cotton-kurta' },
-        { w: [.1938, .76, .15, .2], p: null, tag: 'Sachiv ji is wearing', pid: 'sachiv-check-shirt' },
-        { w: [.4375, .8, .125, .19], p: [.24, .5964, .3, .1197], tag: 'Pradhan ji is wearing', pid: 'pradhan-linen-shirt' }
+        { w: [.5124, .1735, .1242, .0972], tag: 'On the tanki', pid: 'sachiv-check-shirt' },
+        { w: [.8075, .1249, .1615, .0833], tag: 'On the line', pid: 'prahlad-cotton-kurta' },
+        { w: [.1988, .5692, .1429, .1596], tag: 'Sachiv ji is wearing', pid: 'sachiv-check-shirt' },
+        { w: [.4534, .5969, .1118, .1388], tag: 'Pradhan ji is wearing', pid: 'pradhan-linen-shirt' }
       ] },
-    { n: '3', label: 'Deewar', tone: 'dark', thread: 'rgba(172,60,32,.95)', g: .2, streak: 1,
-      kicker: 'The wall Sachiv ji got painted', title: 'Do kurte,<br><b>meethi kheer</b>',
-      line: '<span lang="hi">दो कुर्ते हैं मीठी खीर, उससे ज़्यादा अमीर।</span> <small>Two kurtas are sweet kheer. Any more and you’re rich.</small>',
-      hint: ['Move over the wall', 'Touch the wall'],
+    { n: '3', label: 'Deewar', tone: 'light', type: 'cut', thread: 'rgba(246,239,226,.95)', g: .2, streak: 1,
+      L: 'Do <b>kurte,</b>', L2: 'meethi <b>kheer.</b>', side: 'l',
+      line: '<span lang="hi">दो कुर्ते हैं मीठी खीर, उससे ज़्यादा अमीर।</span> Two kurtas are sweet kheer. Any more and you’re rich.',
+      hint: ['Hover over the wall', 'Touch the wall'],
       shop: ['Pick your two', 'shop.html?c=kurtas', 'kurtas'],
-      focus: { w: [1, .5], p: [.82, .5] },
+      fit: { w: { h: .66, ax: 1, cx: 1.09, by: .87 }, p: { h: .44, ax: .7, cx: .5, by: .74 } },
       hot: [
-        { w: [.8594, .7083, .1953, .2778], p: [.5263, .4675, .6579, .2597], tag: 'Fresh on the wall', pid: 'prahlad-cotton-kurta' },
-        { w: [.25, .5, .1289, .2083], p: null, tag: 'Sachiv ji is wearing', pid: 'sachiv-check-shirt' }
+        { w: [.7403, .6597, .2251, .25], tag: 'Fresh on the wall', pid: 'prahlad-cotton-kurta' },
+        { w: [.1342, .5278, .1299, .2917], tag: 'Sachiv ji is wearing', pid: 'sachiv-check-shirt' }
       ] },
     { n: '4', label: 'Lauki', tone: 'dark', thread: 'rgba(255,205,140,.95)', g: 0,
-      kicker: 'Sachiv ji’s desk, by the emergency light', title: 'Lauki nahi,<br><b>gift do</b>',
-      line: 'Pradhan ji gifts lauki. You can do one better.',
-      hint: ['Move over the lauki', 'Touch the lauki'],
+      L: 'Lauki <b>nahi,</b>', L2: 'gift <b>do.</b>', side: 'l',
+      line: 'Bijli gayi. Pradhan ji gifts lauki. You can do one better.',
+      hint: ['Hover over the lauki', 'Touch the lauki'],
       shop: ['Shop gift sets', 'shop.html?c=gifts', 'gifts'],
       focus: { w: [.85, .5], p: [.95, 0] },
       hot: [
@@ -74,7 +73,7 @@
         { w: [.9204, .2431, .0732, .191], p: [.7905, .1804, .1928, .1418], tag: 'By the emergency light', pid: 'phulera-gamchha-stole' }
       ] },
     { n: '5', label: 'Pradhan ji', tone: 'light', type: 'portrait', thread: 'rgba(139,58,30,.85)', g: 0,
-      kicker: 'And the man himself', title: 'Pradhan <b>ji</b>',
+      L: 'Every', L2: '<b>Thread</b>', R: 'has a', R2: '<b>Village.</b>', side: 'both',
       line: 'Aviators off. Half sweater on.',
       hint: ['Hover over Pradhan ji’s face', 'Touch Pradhan ji’s face'],
       shop: ['Shop the Office Edit', 'shop.html?edit=Pradhan%20Office%20Edit', ''],
@@ -97,12 +96,13 @@
   var geo = null, contoursImg = null;
 
   var $ = function (s) { return intro.querySelector(s); };
-  var figure = $('.intro-figure'), elKick = $('.intro-kicker'), elTitle = $('.intro-title'), elLine = $('.intro-ref'), elShop = $('.intro-shop');
+  var figure = $('.intro-figure'), elL = $('.intro-line.l'), elR = $('.intro-line.r'), elLine = $('.intro-ref'), elShop = $('.intro-shop'), elCount = $('.intro-count');
   var elNext = $('.intro-next'), elWear = $('.intro-wear'), elPin = $('.intro-pin'), elHint = $('.intro-hint'), elCap = $('.intro-caption');
   var routeBtns = [].slice.call(intro.querySelectorAll('.intro-route button')), elProg = $('.intro-thread .p');
 
   function smoothstep(t) { return t * t * (3 - 2 * t); }
   function isPort(st) { return st.type === 'portrait'; }
+  function isCut(st) { return st.type === 'cut'; }
   function variant() { return vw / vh < 0.85 ? 'p' : (Math.max(vw, vh) * (window.devicePixelRatio || 1) > 1300 ? 'w' : 'm'); }
 
   /* ---------- Image loading, one stop at a time ---------- */
@@ -120,6 +120,7 @@
     st.v = v;
     var want = isPort(st)
       ? [load('assets/img/intro-a' + v + '.webp'), load('assets/img/intro-b' + v + '.webp'), load('assets/img/intro-contours.svg')]
+      : isCut(st) ? [load(IMG + st.n + 'a-' + (v === 'w' ? 'w' : 'm') + '.webp'), load(IMG + st.n + 'b-' + (v === 'w' ? 'w' : 'm') + '.webp'), load('assets/img/intro-contours.svg')]
       : [load(IMG + st.n + 'a-' + v + '.webp'), load(IMG + st.n + 'b-' + v + '.webp')];
     st.ready = Promise.all(want).then(function (r) { st.a = r[0]; st.b = r[1]; if (r[2]) contoursImg = r[2]; });
     st.ready.catch(function () { st.ready = null; });
@@ -128,6 +129,10 @@
 
   /* ---------- Layout ---------- */
   function fitPlate(st) {
+    if (isCut(st)) {       /* a cutout: sized by screen height, one point of it pinned to a point on screen */
+      var f = st.fit[tall ? 'p' : 'w'], ch = vh * f.h, cw = ch * st.a.naturalWidth / st.a.naturalHeight;
+      return { x: vw * f.cx - cw * f.ax, y: vh * f.by - ch, w: cw, h: ch };
+    }
     var w = st.a.naturalWidth, h = st.a.naturalHeight, s = Math.max(vw / w, vh / h);
     var fo = st.focus[tall ? 'p' : 'w'];
     return { x: (vw - w * s) * fo[0], y: (vh - h * s) * fo[1], w: w * s, h: h * s };
@@ -135,7 +140,7 @@
   function fitPortrait() {
     var pW, pH, pX, pY;
     if (tall) {                    /* phones: head fills the width, figure anchored above the caption */
-      var line = $('.intro-line.r'), textBottom = line ? line.getBoundingClientRect().bottom : 150;
+      var line = $('.intro-line.r'), textBottom = line && line.offsetHeight ? line.getBoundingClientRect().bottom : 170;
       pH = Math.min(vw * 2.02 / PORT_RATIO, (vh - textBottom - 14) / 0.88);
       pW = pH * PORT_RATIO; pY = vh - pH * 0.95;
     } else { pH = vh * 1.2; pW = pH * PORT_RATIO; pY = vh * 0.015; }
@@ -147,8 +152,8 @@
   function drawStop(c, st, which) {
     c.setTransform(dpr, 0, 0, dpr, PAD * dpr, PAD * dpr);
     c.imageSmoothingQuality = 'high';
-    if (isPort(st)) {
-      var f = fitPortrait();
+    if (isPort(st) || isCut(st)) {
+      var f = isCut(st) ? fitPlate(st) : fitPortrait();
       c.fillStyle = PAPER; c.fillRect(-PAD, -PAD, vw + PAD * 2, vh + PAD * 2);
       if (contoursImg) {
         var cw = contoursImg.naturalWidth || 1600, ch = contoursImg.naturalHeight || 1000, cs = Math.max((vw + PAD * 2) / cw, (vh + PAD * 2) / ch);
@@ -181,7 +186,7 @@
     } else {
       var g = fitPlate(st), key = tall ? 'p' : 'w';
       st.hot.forEach(function (h) {
-        var a = h[key]; if (!a) return;
+        var a = h[key] || (isCut(st) ? h.w : null); if (!a) return;
         var o = { cx: g.x + a[0] * g.w, cy: g.y + a[1] * g.h, rx: a[2] * g.w, ry: a[3] * g.h, d: h };
         o.gx = o.cx; o.gy = o.cy; o.grx = o.rx * 1.12; o.gry = o.ry * 1.12;
         if (o.cx + o.rx > 0 && o.cx - o.rx < vw) hots.push(o);
@@ -355,8 +360,8 @@
   function remember() { pbx0 = bx0; pby0 = by0; pbx1 = bx1; pby1 = by1; hasPrev = true; }
   function strokeThread(p, color) {
     ctx.setTransform(dpr, 0, 0, dpr, PAD * dpr, PAD * dpr);
-    if (!low) { ctx.strokeStyle = 'rgba(20,10,4,.3)'; ctx.lineWidth = 4; ctx.stroke(p); }
-    ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke(p);   /* the thread */
+    if (!low) { ctx.strokeStyle = 'rgba(58,38,24,.14)'; ctx.lineWidth = 5; ctx.stroke(p); }
+    ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.stroke(p);   /* the thread */
   }
   function draw() {
     clearPrev();
@@ -461,16 +466,19 @@
     return m < Infinity ? 'from ' + PBP.inr(m) : '';
   }
   function setCaption(i) {
-    var st = STOPS[i], c = elCap;
+    var st = STOPS[i];
     intro.setAttribute('data-tone', st.tone);
     intro.setAttribute('data-stop', st.label);
-    intro.classList.toggle('is-portrait', !!st.type);
-    c.classList.remove('in');
-    elKick.textContent = st.kicker; elTitle.innerHTML = st.title; elLine.innerHTML = st.line;
+    intro.classList.toggle('is-portrait', isPort(st));
+    intro.setAttribute('data-side', st.side);
+    var both = st.side === 'both';
+    elL.innerHTML = '<span>' + st.L + '</span><span>' + st.L2 + '</span>';
+    elR.innerHTML = both ? '<span>' + st.R + '</span><span>' + st.R2 + '</span>' : '';
+    elLine.innerHTML = st.line;
     elShop.href = st.shop[1];
     elShop.querySelector('.t').textContent = st.shop[0];
     elShop.querySelector('.f').textContent = fromPrice(st.shop[2]);
-    void c.offsetWidth; c.classList.add('in');
+    intro.classList.remove('cap-in'); void intro.offsetWidth; intro.classList.add('cap-in');
     routeBtns.forEach(function (b, k) {
       b.classList.toggle('on', k === i); b.classList.toggle('done', k < i);
       if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
@@ -478,6 +486,7 @@
     if (elProg) elProg.style.strokeDashoffset = String(1 - i / (STOPS.length - 1));
     var nx_ = STOPS[i + 1];
     elNext.querySelector('.t').textContent = nx_ ? 'Next: ' + nx_.label : 'Enter the store';
+    if (elCount) elCount.textContent = (i + 1) + ' / ' + STOPS.length;
     elNext.classList.toggle('last', !nx_);
     setTile(st.hot[0], false);
     wearState = 'a'; intro.classList.remove('is-bare');
@@ -486,6 +495,7 @@
     if (!elWear || !window.PBP || !h) return;
     var p = PBP.byId(h.pid); if (!p) return;
     elWear.href = 'product.html?id=' + p.id;
+    var im = elWear.querySelector('img'); if (im) { im.src = 'assets/img/' + p.img + '.webp'; im.alt = ''; }
     elWear.querySelector('small').textContent = h.tag;
     elWear.querySelector('b').textContent = p.name;
     elWear.querySelector('em').textContent = PBP.inr(p.price);
@@ -500,9 +510,6 @@
     elPin.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
     elHint.querySelector('.m').textContent = st.hint[0];
     elHint.querySelector('.t').textContent = st.hint[1];
-    /* Keep the hint on screen: it hangs from the pin, flipped if the pin is near an edge. */
-    var hintW = Math.min(elHint.offsetWidth || 240, vw - 24), off = Math.max(12 - (x - hintW / 2), Math.min(0, vw - 12 - (x + hintW / 2)));
-    elHint.style.marginLeft = (off - hintW / 2).toFixed(1) + 'px';
   }
   function showPin(on) { pinShown = on; intro.classList.toggle('pin-on', on); }
   function arrive() {

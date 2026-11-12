@@ -130,3 +130,70 @@ html.intro-on #intro { position:fixed; inset:0; display:block; z-index:300; over
 .intro-inspect button:hover,.intro-collection:hover { background:#fff8eb; }
 #intro[data-inspect] .intro-webgl { touch-action:none; }
 @media(max-width:600px) { .intro-inspect { left:15px; right:15px; bottom:118px; } .intro-inspect button,.intro-collection { padding:11px 13px; font-size:10px; } .intro-inspect p { font-size:9px; } }
+
+/* ===== Redesign, 2026-11-10 ===== */
+html.intro-on #intro { background: #f6efe2; color: #3a2618; }
+#intro .intro-shade { background: linear-gradient(90deg, #f6efe2 0%, rgba(246, 239, 226, .93) 22%, rgba(246, 239, 226, 0) 50%), linear-gradient(to bottom, rgba(246, 239, 226, .85) 0%, rgba(246, 239, 226, 0) 16%), linear-gradient(to top, rgba(246, 239, 226, .9) 0%, rgba(246, 239, 226, 0) 20%); }
+#intro .intro-top { z-index: 6; padding: 22px 36px; }
+#intro .intro-location { display: none; }
+#intro .intro-store { gap: 8px; min-height: 46px; padding: 0 18px; border: 0; background: #8b3a1e; color: #fbf5ea; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+#intro .intro-store:hover { background: #3a2618; }
+#intro .intro-store span { font-size: 16px; }
+#intro button:focus-visible, #intro a:focus-visible { outline: 3px solid #a9512d; outline-offset: 4px; }
+#intro .intro-heading { left: 36px; top: 27%; max-width: 44%; text-shadow: none; z-index: 4; }
+#intro .intro-eyebrow { display: none; }
+#intro .intro-heading h2 { margin: 0; font: 300 clamp(40px, 5.5vw, 92px)/.94 var(--sans); letter-spacing: -.035em; text-transform: uppercase; }
+#intro .intro-heading h2 b { font-weight: 700; }
+#intro .intro-heading h2 span { display: block; }
+#intro #intro-description { display: block; max-width: 20em; margin: 22px 0 0; font-size: 17px; line-height: 1.45; opacity: .85; }
+#intro .intro-loading { background: #3a2618; color: #fbf5ea; font-size: 15px; }
+#intro .scene-hotspot { gap: 10px; padding: 0 16px 0 0; min-height: 46px; background: #fbf5ea; border: 1px solid #3a2618; color: #3a2618; box-shadow: none; backdrop-filter: none; }
+#intro .scene-hotspot:hover { background: #3a2618; color: #fbf5ea; }
+#intro .hotspot-plus { width: 44px; height: 44px; border: 0; border-radius: 0; background: #8b3a1e; color: #fbf5ea; font-size: 24px; }
+#intro .scene-hotspot small { font-size: 11px; letter-spacing: .1em; color: inherit; opacity: .7; }
+#intro .scene-hotspot b { margin-top: 2px; font-size: 15px; font-weight: 700; }
+#intro .intro-bottom { z-index: 6; padding: 22px 36px 26px; color: #3a2618; }
+#intro #intro-instruction { padding: 7px 14px; background: #3a2618; color: #fbf5ea; font-size: 14px; max-width: none; }
+#intro #intro-instruction > span { font-size: 18px; }
+#intro .intro-credit { display: none; }
+#intro .intro-enter { gap: 10px; min-height: 52px; padding: 0 26px; border: 1px solid #3a2618; background: #f6efe2; color: #3a2618; font-size: 15px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+#intro .intro-enter:hover { background: #3a2618; color: #fbf5ea; }
+#intro:not([data-room='village']) .intro-shade { background: linear-gradient(90deg, #f6efe2 0%, rgba(246, 239, 226, .95) 26%, rgba(246, 239, 226, 0) 52%), linear-gradient(to top, rgba(246, 239, 226, .9) 0%, rgba(246, 239, 226, 0) 20%); }
+#intro .intro-detail { left: 36px; top: 20%; max-width: 30%; }
+#intro .intro-back { margin-bottom: 22px; padding: 0; min-height: 44px; border: 0; font-size: 15px; text-decoration: underline; text-underline-offset: 5px; color: #3a2618; }
+#intro .detail-eyebrow { display: none; }
+#intro .intro-detail h3 { margin: 0; font: 300 clamp(36px, 4.4vw, 72px)/.96 var(--sans); letter-spacing: -.035em; text-transform: uppercase; }
+#intro .detail-copy { max-width: 22em; margin-top: 18px; font-size: 17px; line-height: 1.45; opacity: .85; }
+#intro .intro-products { bottom: 104px; gap: 10px; }
+#intro .intro-product { padding: 12px 16px; background: #fbf5ea; border: 1px solid #b39c80; color: #3a2618; box-shadow: none; }
+#intro .intro-product:hover { border-color: #3a2618; transform: none; background: #fbf5ea; }
+#intro .intro-product small { margin-bottom: 4px; color: #7a6450; font-size: 11px; letter-spacing: .1em; }
+#intro .intro-product b { font-size: 16px; font-weight: 700; }
+#intro .intro-product > span { margin-top: 6px; font-size: 14px; }
+#intro .intro-inspect p { font-size: 14px; color: #3a2618; }
+#intro .intro-inspect button, #intro .intro-collection { min-height: 46px; border: 1px solid #3a2618; background: #fbf5ea; color: #3a2618; font-size: 14px; font-weight: 700; }
+@media (max-width: 600px) {
+  #intro .intro-shade, #intro:not([data-room='village']) .intro-shade { background: linear-gradient(to bottom, #f6efe2 0%, rgba(246, 239, 226, .92) 26%, rgba(246, 239, 226, 0) 44%), linear-gradient(to top, #f6efe2 0%, rgba(246, 239, 226, .9) 18%, rgba(246, 239, 226, 0) 34%); }
+  #intro .intro-top { padding: 14px 16px; }
+  #intro .intro-store { min-height: 42px; padding: 0 13px; font-size: 13px; }
+  #intro .intro-heading { left: 16px; right: 16px; top: 96px; max-width: none; }
+  #intro .intro-heading h2 { font-size: clamp(30px, 9.4vw, 54px); }
+  #intro #intro-description { margin-top: 10px; font-size: 16px; }
+  #intro .scene-hotspot small { display: none; }
+  #intro .scene-hotspot b { font-size: 14px; }
+  #intro .intro-bottom { padding: 10px 16px 14px; gap: 8px; }
+  #intro #intro-instruction { justify-self: center; font-size: 13px; }
+  #intro .intro-enter { min-height: 54px; justify-content: center; }
+  #intro .intro-detail { left: 16px; right: 16px; top: 96px; max-width: none; }
+  #intro .intro-back { margin-bottom: 4px; }
+  #intro .intro-detail h3 { font-size: 32px; }
+  #intro .detail-copy { margin-top: 8px; font-size: 15px; }
+  #intro .intro-products { left: 16px; right: 16px; bottom: 124px; }
+  #intro .intro-product b { font-size: 14px; }
+  #intro .intro-inspect { left: 16px; right: 16px; bottom: 128px; }
+}
+@media (max-height: 500px) and (min-width: 601px) {
+  #intro .intro-heading { top: 70px; } #intro .intro-heading h2 { font-size: 34px; } #intro #intro-description { display: none; }
+  #intro .intro-detail { top: 64px; } #intro .intro-detail h3 { font-size: 30px; } #intro .detail-copy { font-size: 14px; margin-top: 6px; }
+  #intro .intro-products { bottom: 76px; }
+}
