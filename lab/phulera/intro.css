@@ -162,3 +162,45 @@ body.site-enter main { animation: introSiteUp 1.15s var(--ease) both; }
 .intro-picks .dim { position: absolute; background: rgba(20, 11, 5, .5); opacity: 0; transition: opacity .25s; }
 .intro-picks.has .dim { opacity: 1; }
 .intro-picks .dim { clip-path: polygon(0 0, 100% 0, 100% 74%, 60% 97%, 0 97%); }
+
+/* ----- click to zoom ----- */
+.intro-zoom { position: absolute; inset: 0; transform-origin: 0 0; will-change: transform; }
+.intro-back { position: absolute; z-index: 4; left: var(--pad); top: 88px; min-height: 44px; padding: 0 16px; border: 1px solid currentColor; background: rgba(246, 239, 226, .92); color: var(--ink); font-size: 15px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .3s; }
+#intro.is-zoomed .intro-back { opacity: 1; pointer-events: auto; }
+#intro.is-leaving .intro-back { opacity: 0; }
+#intro[data-tone="dark"] .intro-back { background: rgba(14, 9, 5, .55); color: var(--cream-text); }
+/* when zoomed, keep the words readable over the larger picture */
+#intro[data-tone="light"].is-zoomed .intro-shade { opacity: 1; background: linear-gradient(to right, var(--paper) 0%, rgba(246, 239, 226, .9) 20%, rgba(246, 239, 226, 0) 40%); }
+@media (max-aspect-ratio: 85/100) {
+  .intro-back { left: 16px; top: auto; bottom: 268px; }
+  #intro[data-tone="light"].is-zoomed .intro-shade { background: linear-gradient(to bottom, var(--paper) 0%, var(--paper) 20%, rgba(246, 239, 226, 0) 34%); }
+}
+@media (max-height: 500px) { .intro-back { top: 56px; min-height: 40px; } }
+
+/* ----- what a click shows: top view, hanging line, unboxing ----- */
+#intro[data-tone="dark"] .intro-stage { background: #120c07; }
+.intro-topv { position: absolute; inset: 0; z-index: 2; display: none; pointer-events: none; perspective: 1800px; }
+.intro-topv.show { display: block; }
+.tv-obj { position: absolute; transform-origin: 50% 50%; will-change: transform; }
+.tv-base { display: block; width: 100%; height: 100%; filter: drop-shadow(0 34px 44px rgba(40, 24, 12, .32)); }
+.tv-item { position: absolute; display: block; opacity: 0; pointer-events: none; cursor: pointer;
+  transform: translate(-50%, -50%) translate(var(--bx, 0px), var(--by, 0px)) rotate(var(--r, 0deg)) scale(.3);
+  transition: opacity .35s ease var(--d, 0s), transform .75s var(--ease) var(--d, 0s); }
+.tv-obj.ready .tv-item { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); }
+.tv-obj.ready .tv-item.on { z-index: 3; transform: translate(-50%, -50%) rotate(var(--r, 0deg)) scale(1.13); transition-delay: 0s; transition-duration: .2s, .35s; }
+.tv-item img { display: block; height: 100%; width: auto; filter: drop-shadow(0 8px 8px rgba(30, 16, 6, .42)); transition: filter .2s; }
+.tv-item.on img { filter: drop-shadow(0 0 2px #fbf5ea) drop-shadow(0 0 2px #fbf5ea) drop-shadow(0 18px 18px rgba(20, 10, 4, .5)) brightness(1.07); }
+.tv-obj.has .tv-item:not(.on) img { filter: drop-shadow(0 8px 8px rgba(30, 16, 6, .42)) brightness(.74) saturate(.85); }
+/* hung from a line: they drop into place and sway when picked */
+.tv-item.hang { transform-origin: 50% 0; transform: translate(-50%, -28%); }
+.tv-obj.ready .tv-item.hang { transform: translate(-50%, 0); }
+.tv-obj.ready .tv-item.hang.on { transform: translate(-50%, 0) scale(1.08); animation: kurtaSway .8s ease-out; }
+.tv-rope { position: absolute; left: -3%; right: -3%; top: 0; height: 3px; background: #5b4027; box-shadow: 0 2px 3px rgba(0, 0, 0, .35); }
+/* the gift box */
+.tv-box { position: absolute; left: 50%; top: 82%; width: 30%; aspect-ratio: 640 / 460; opacity: 0; pointer-events: auto; transform: translate(-50%, -50%) scale(.55); transition: opacity .4s ease, transform .6s var(--ease); }
+.k-box.in .tv-box { opacity: 1; transform: translate(-50%, -50%); }
+.tv-box i { position: absolute; inset: 5%; background: #24160c; box-shadow: inset 0 0 26px #000; }
+.tv-lid { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .55)); transition: transform .8s var(--ease) .1s; }
+.tv-obj.ready .tv-lid { transform: translate(62%, 16%) rotate(14deg); }
+.tv-box.on .tv-lid { filter: drop-shadow(0 0 2px #fbf5ea) drop-shadow(0 12px 14px rgba(0, 0, 0, .55)) brightness(1.08); }
+@media (max-aspect-ratio: 85/100) { .tv-box { width: 38%; } }

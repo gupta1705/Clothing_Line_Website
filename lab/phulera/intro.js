@@ -33,7 +33,7 @@
       L: 'Files <b>nahi,</b>', L2: 'kurte <b>hain.</b>', side: 'l',
       line: 'The Panchayat office almirah. Open it and pick a kurta.',
       hint: ['Dekh raha hai, Binod? Click the almirah', 'Dekh raha hai, Binod? Tap the almirah'],
-      click: 1,
+      click: 1, zoom: { w: { s: 1.3, ox: .5, oy: .52, tx: .66, ty: .5 }, p: { s: 1.55, ox: .5, oy: .5, tx: .5, ty: .47 } },
       door: [0.2952, 0.1655, 0.3966, 0.7114],
       picks: [
         { f: [0.3002, 0.1991, 0.1436, 0.5749], pid: 'handloom-khadi-kurta' },
@@ -52,21 +52,11 @@
       ] },
     { n: '2', label: 'Tanki', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: .12,
       L: 'Kapde <b>tanki</b>', L2: 'pe <b>sukh rahe.</b>', side: 'l',
-      line: 'Where Sachiv ji and Rinki had their chai. The washing came later.',
+      line: 'Where Sachiv ji and Rinki had their chai. Click it and look from above.',
       hint: ['Click the tanki', 'Tap the tanki'],
-      click: 1, open: 'fade',
-      picks: [
-        { f: [0.4116, 0.1596, 0.0373, 0.0453], pid: 'neel-handloom-kurta', tag: 'On the tanki' },
-        { f: [0.448, 0.1647, 0.0335, 0.0532], pid: 'handloom-khadi-kurta', tag: 'On the tanki' },
-        { f: [0.4795, 0.1661, 0.034, 0.0426], pid: 'mitti-khadi-kurta', tag: 'On the tanki' },
-        { f: [0.5118, 0.1661, 0.036, 0.0574], pid: 'mehendi-cotton-kurta', tag: 'On the tanki' },
-        { f: [0.5449, 0.1634, 0.0377, 0.0467], pid: 'sachiv-check-shirt', tag: 'On the tanki' },
-        { f: [0.5781, 0.161, 0.0277, 0.0393], pid: 'jute-stripe-kurta', tag: 'On the tanki' },
-        { f: [0.6899, 0.1351, 0.0505, 0.0828], pid: 'prahlad-cotton-kurta', tag: 'On the line' },
-        { f: [0.7681, 0.1078, 0.0621, 0.0856], pid: 'pradhan-linen-shirt', tag: 'On the line' },
-        { f: [0.8501, 0.0629, 0.0853, 0.1522], pid: 'safed-cotton-kurta', tag: 'On the line' },
-        { f: [0.9325, 0.0139, 0.0687, 0.1587], pid: 'sachiv-bike-ride-shirt', tag: 'On the line' }
-      ],
+      click: 1, open: 'fade', zsrc: '2z.webp', zf: [0.3665, 0, 0.6335, 0.3054],
+      zoom: { w: { s: 1.9, ox: .72, oy: .15, tx: .73, ty: .5 }, p: { s: 2.2, ox: .52, oy: .17, tx: .5, ty: .44 } },
+      layer: { kind: 'disc', tag: 'Drying on the tanki', items: ['neel-handloom-kurta', 'sachiv-check-shirt', 'handloom-khadi-kurta', 'mitti-khadi-kurta', 'pradhan-linen-shirt', 'mehendi-cotton-kurta', 'prahlad-cotton-kurta', 'jute-stripe-kurta'] },
       shop: ['Shop shirts', 'shop.html?c=shirts', 'shirts'],
       fit: { w: { h: .9, ax: 1, cx: 1.01, by: 1.0 }, p: { h: .6, ax: .5, cx: .5, by: .82 } },
       hot: [
@@ -79,7 +69,7 @@
       L: 'Do <b>kurte,</b>', L2: 'meethi <b>kheer.</b>', side: 'l',
       line: '<span lang="hi">दो कुर्ते हैं मीठी खीर, उससे ज़्यादा अमीर।</span> Two kurtas are sweet kheer. Any more and you’re rich.',
       hint: ['Click the wall', 'Tap the wall'],
-      click: 1, open: 'wipe',
+      click: 1, open: 'wipe', layer: { kind: 'wall', tag: 'Pick your two', items: ['handloom-khadi-kurta', 'prahlad-cotton-kurta', 'neel-handloom-kurta', 'mitti-khadi-kurta'] }, zoom: { w: { s: 1.32, ox: .74, oy: .64, tx: .78, ty: .5 }, p: { s: 1.5, ox: .62, oy: .6, tx: .5, ty: .46 } },
       shop: ['Pick your two', 'shop.html?c=kurtas', 'kurtas'],
       fit: { w: { h: .66, ax: 1, cx: 1.09, by: .87 }, p: { h: .44, ax: .7, cx: .5, by: .74 } },
       hot: [
@@ -88,18 +78,10 @@
       ] },
     { n: '4', label: 'Lauki', tone: 'dark', thread: 'rgba(255,205,140,.95)', g: 0,
       L: 'Lauki <b>nahi,</b>', L2: 'gift <b>do.</b>', side: 'l',
-      line: 'Bijli gayi. Pradhan ji gifts lauki. You can do one better.',
+      line: 'Pradhan ji gifts lauki. You can do one better. Click it and open the box.',
       hint: ['Click the lauki', 'Tap the lauki'],
       click: 1, open: 'fade',
-      picks: [
-        { f: [0.7357, 0.5122, 0.2653, 0.0509], fp: [0.3042, 0.3802, 0.6984, 0.0378], pid: 'handloom-khadi-kurta', tag: 'Instead of files' },
-        { f: [0.7259, 0.5503, 0.2751, 0.0509], fp: [0.2785, 0.4085, 0.7241, 0.0378], pid: 'sachiv-check-shirt', tag: 'Instead of files' },
-        { f: [0.7344, 0.5914, 0.2666, 0.0469], fp: [0.3008, 0.439, 0.7018, 0.0348], pid: 'prahlad-cotton-kurta', tag: 'Instead of files' },
-        { f: [0.7275, 0.6285, 0.2734, 0.0492], fp: [0.2828, 0.4665, 0.7198, 0.0365], pid: 'mehendi-cotton-kurta', tag: 'Instead of files' },
-        { f: [0.7314, 0.6678, 0.2695, 0.0469], fp: [0.2931, 0.4957, 0.7095, 0.0348], pid: 'mitti-khadi-kurta', tag: 'Instead of files' },
-        { f: [0.724, 0.7037, 0.277, 0.0503], fp: [0.2734, 0.5223, 0.7292, 0.0374], pid: 'neel-handloom-kurta', tag: 'Instead of files' },
-        { f: [0.7943, 0.3854, 0.2067, 0.1377], fp: [0.4584, 0.2861, 0.5441, 0.1022], pid: 'pradhan-gift-box', tag: 'Instead of a lauki' }
-      ],
+      layer: { kind: 'box', tag: 'In the gift box', items: ['handloom-khadi-kurta', 'neel-handloom-kurta', 'prahlad-cotton-kurta', 'sachiv-check-shirt', 'mitti-khadi-kurta'] },
       shop: ['Shop gift sets', 'shop.html?c=gifts', 'gifts'],
       focus: { w: [.85, .5], p: [.95, 0] },
       hot: [
@@ -162,7 +144,19 @@
   }
 
   /* ---------- Layout ---------- */
+  var zoomed = false, zoomEl = document.createElement('div');
+  zoomEl.className = 'intro-zoom';
+  while (figure.firstChild) zoomEl.appendChild(figure.firstChild);
+  figure.appendChild(zoomEl);
+  var elBack = document.createElement('button'); elBack.type = 'button'; elBack.className = 'intro-back'; elBack.textContent = '\u2190 Back';
+  intro.querySelector('.intro-stage').appendChild(elBack);
+  function zoomOf(st) { return st.zoom ? st.zoom[tall ? 'p' : 'w'] : null; }
   function fitPlate(st) {
+    var g = fitBase(st), z = zoomed && st === STOPS[cur] ? zoomOf(st) : null;
+    if (z) { g.w *= z.s; g.h *= z.s; g.x = vw * z.tx - z.ox * g.w; g.y = vh * z.ty - z.oy * g.h; }
+    return g;
+  }
+  function fitBase(st) {
     if (isCut(st)) {       /* a cutout: sized by screen height, one point of it pinned to a point on screen */
       var f = st.fit[tall ? 'p' : 'w'], ch = vh * f.h, cw = ch * st.a.naturalWidth / st.a.naturalHeight;
       return { x: vw * f.cx - cw * f.ax, y: vh * f.by - ch, w: cw, h: ch };
@@ -203,6 +197,7 @@
         c.fillStyle = sg; c.beginPath(); c.arc(0, 0, sr, 0, 6.2832); c.fill(); c.restore();
       }
       c.drawImage(which === 'a' ? st.a : st.b, f.x, f.y, f.w, f.h);
+      if (which === 'b' && zoomed && st === STOPS[cur] && st.zimg) c.drawImage(st.zimg, f.x + st.zf[0] * f.w, f.y + st.zf[1] * f.h, st.zf[2] * f.w, st.zf[3] * f.h);
     } else {
       var g = fitPlate(st);
       c.drawImage(which === 'a' ? st.a : st.b, g.x, g.y, g.w, g.h);
@@ -223,6 +218,7 @@
   }
   function layoutHots() {
     var st = STOPS[cur]; hots = [];
+    if (layerOpen && st.layer) { placeLayer(st, false); return; }
     if (isPort(st)) {
       var f = fitPortrait(); geo = f;
       hots.push({ cx: f.eyeX, cy: f.eyeY + f.headH * 0.02, rx: f.headW * 0.62, ry: f.headH * 0.62, gx: f.headCx, gy: f.headCy, grx: f.headR, gry: f.headR, d: st.hot[0] });
@@ -436,7 +432,7 @@
       alm = document.createElement('div'); alm.className = 'intro-alm';
       alm.innerHTML = '<div class="d l"><img src="' + IMG + '1dl.webp" alt=""><i></i></div><div class="d r"><img src="' + IMG + '1dr.webp" alt=""><i></i></div>';
       picksEl = document.createElement('div'); picksEl.className = 'intro-picks';
-      figure.appendChild(alm); figure.appendChild(picksEl);
+      zoomEl.appendChild(alm); zoomEl.appendChild(picksEl);
     }
     if (picksFor === cur) return;
     picksFor = cur; picksEl.innerHTML = '<div class="dim"></div>'; pickImgs = [];
@@ -483,6 +479,14 @@
     if (st.open === 'wipe') { cv.style.opacity = '1'; cv.style.clipPath = 'inset(0 100% 0 0)'; } else cv.style.opacity = '0';
     showOpen();
     void cv.offsetWidth;
+    var z = zoomOf(st);
+    if (z) {         /* the camera moves in on the object */
+      var g0 = fitBase(st), gx = vw * z.tx - z.ox * g0.w * z.s, gy = vh * z.ty - z.oy * g0.h * z.s;
+      zoomEl.style.transition = 'transform 1.15s cubic-bezier(.5, 0, .15, 1)';
+      zoomEl.style.transform = 'translate3d(' + (gx - g0.x * z.s).toFixed(1) + 'px,' + (gy - g0.y * z.s).toFixed(1) + 'px,0) scale(' + z.s + ')';
+      intro.classList.add('is-zoomed');
+    }
+    if (st.layer && st.layer.kind === 'disc') showLayer(st);
     if (st.door) {
       alm.classList.remove('open'); alm.style.opacity = '1'; alm.style.display = 'block'; void alm.offsetWidth;
       cv.style.transition = 'opacity .45s ease'; cv.style.opacity = '1';
@@ -493,13 +497,19 @@
     } else { cv.style.transition = 'opacity .7s ease'; cv.style.opacity = '1'; dur = 750; }
     setTimeout(function () {
       doorBusy = false; if (cur !== at || tr || opening) return;
+      if (z) {       /* arrived: draw the scene again, sharp, at this zoom */
+        zoomed = true; drawStop(ctxA, st, 'a'); offB = offscreen(st, 'b'); showOpen(); layoutHots();
+        zoomEl.style.transition = 'none'; zoomEl.style.transform = '';
+      }
       doorOpen = true; alm.style.display = 'none'; placeDoor();
+      if (st.layer && st.layer.kind !== 'disc') showLayer(st);
       /* a quick ripple through the pieces shows they can be picked */
       pickImgs.forEach(function (im, i) { setTimeout(function () { if (!doorOpen) return; im.classList.add('peek'); setTimeout(function () { im.classList.remove('peek'); }, 260); }, 90 * i); });
-    }, dur);
+    }, z ? Math.max(dur, 1200) : dur);
   }
   function resetDoor() {
     doorOpen = false; doorBusy = false; setPick(-1);
+    hideLayer(); zoomed = false; intro.classList.remove('is-zoomed'); zoomEl.style.transition = 'none'; zoomEl.style.transform = '';
     cv.style.transition = 'none'; cv.style.opacity = ''; cv.style.clipPath = '';
     if (alm) { alm.style.display = 'none'; alm.classList.remove('open'); picksEl.style.display = 'none'; }
   }
@@ -524,6 +534,89 @@
     intro.classList.toggle('pick-on', i >= 0); if (picksEl) picksEl.classList.toggle('has', i >= 0);
     if (i >= 0) { pickImgs[i].classList.add('on'); clearTimeout(tileTimer); setTile(pickInfo(i).tile, true); }
     else if (elWear) hideTileSoon();
+  }
+  /* ---------- What a click shows. Each stop has its own way: a bird's-eye view, a hanging line, an unboxing. ---------- */
+  var layerOpen = false;
+  function buildLayer(st) {
+    var L = st.layer; if (L.el) return;
+    var el = document.createElement('div'); el.className = 'intro-topv k-' + L.kind;
+    var obj = document.createElement('div'); obj.className = 'tv-obj';
+    if (L.kind === 'disc') obj.innerHTML = '<img class="tv-base" src="' + IMG + 'tank-top.webp" alt="">';
+    if (L.kind === 'box') obj.innerHTML = '<a class="tv-box" href="product.html?id=pradhan-gift-box" data-pid="pradhan-gift-box"><i></i><img class="tv-lid" src="' + IMG + 'gift-top.webp" alt="The Pradhan Gift Box"></a>';
+    if (L.kind === 'wall') obj.innerHTML = '<i class="tv-rope"></i>';
+    L.items.forEach(function (pid, i) {
+      var pr = window.PBP && PBP.byId(pid), a = document.createElement('a');
+      a.className = 'tv-item' + (L.kind === 'wall' ? ' hang' : ''); a.href = 'product.html?id=' + pid; a.setAttribute('data-pid', pid);
+      a.style.setProperty('--d', (0.07 * i + (L.kind === 'box' ? 0.35 : 0)).toFixed(2) + 's');
+      a.innerHTML = '<img src="' + IMG + 'g-' + pid + '.webp" alt="' + (pr ? pr.name : '') + '">';
+      obj.appendChild(a);
+    });
+    el.appendChild(obj);
+    var stage = intro.querySelector('.intro-stage'); stage.insertBefore(el, stage.querySelector('.intro-top'));
+    function setOn(a) {
+      [].forEach.call(obj.querySelectorAll('.on'), function (o) { if (o !== a) o.classList.remove('on'); });
+      obj.classList.toggle('has', !!a);
+      if (a) { a.classList.add('on'); clearTimeout(tileTimer); setTile({ tag: L.tag, pid: a.getAttribute('data-pid') }, true); } else hideTileSoon();
+    }
+    obj.addEventListener('mouseover', function (e) { var a = e.target.closest('a'); if (a && layerOpen && !byTouch) setOn(a); });
+    obj.addEventListener('mouseleave', function () { if (!byTouch) setOn(null); });
+    var byTouch = false; obj.addEventListener('pointerdown', function (e) { byTouch = e.pointerType !== 'mouse'; });
+    obj.addEventListener('click', function (e) {
+      var a = e.target.closest('a'); if (!a) return;
+      e.preventDefault(); if (!layerOpen || opening) return;
+      if (byTouch && !a.classList.contains('on')) { setOn(a); return; }      /* touch: first tap picks, second opens */
+      follow(a.getAttribute('href'), e.clientX, e.clientY);
+    });
+    L.el = el; L.obj = obj;
+  }
+  function placeLayer(st, start) {
+    var L = st.layer, o = L.obj, os = o.style, its = o.querySelectorAll('.tv-item'), n = its.length, i, a;
+    if (L.kind === 'disc') {           /* the tanki's roof, seen from straight above */
+      var D = tall ? vw * 1.04 : Math.min(vh * 0.92, vw * 0.6), cx = tall ? vw * 0.5 : vw * 0.67, cy = tall ? vh * 0.46 : vh * 0.52;
+      os.width = os.height = D + 'px'; os.left = (cx - D / 2) + 'px'; os.top = (cy - D / 2) + 'px';
+      for (i = 0; i < n; i++) {
+        var th = (-90 + i * 360 / n) * Math.PI / 180;
+        its[i].style.left = (50 + 24.5 * Math.cos(th)) + '%'; its[i].style.top = (50 + 24.5 * Math.sin(th)) + '%'; its[i].style.height = '27%';
+        its[i].style.setProperty('--r', (-180 + i * 360 / n) + 'deg');      /* collars toward the middle */
+      }
+      if (start) {       /* begin as the roof looks from the ground: small, and tipped away */
+        var g0 = fitBase(st), fx = g0.x + 0.512 * g0.w, fy = g0.y + 0.088 * g0.h, s0 = 0.125 * g0.w / D;
+        os.transition = 'none'; os.opacity = '0';
+        os.transform = 'translate3d(' + (fx - cx).toFixed(1) + 'px,' + (fy - cy).toFixed(1) + 'px,0) scale(' + s0.toFixed(4) + ') rotateX(76deg)';
+      }
+    } else if (L.kind === 'wall') {    /* a line strung across the wall, above the slogan */
+      var x0 = tall ? vw * 0.05 : vw * 0.43, x1 = tall ? vw * 0.95 : vw * 0.985, top = tall ? vh * 0.225 : vh * 0.085, h = tall ? vh * 0.165 : vh * 0.3;
+      os.left = x0 + 'px'; os.top = top + 'px'; os.width = (x1 - x0) + 'px'; os.height = h + 'px';
+      for (i = 0; i < n; i++) { its[i].style.left = ((i + 0.5) / n * 100) + '%'; its[i].style.top = '0'; its[i].style.height = '100%'; }
+      if (start) { os.transition = 'none'; os.opacity = '0'; os.transform = 'none'; }
+    } else {                           /* the gift box, opened: what is inside fans out above it */
+      var Wb = tall ? vw * 0.96 : Math.min(vw * 0.62, 900), Hb = tall ? vh * 0.5 : vh * 0.72, bx = tall ? vw * 0.5 : vw * 0.66, by = tall ? vh * 0.45 : vh * 0.5;
+      os.width = Wb + 'px'; os.height = Hb + 'px'; os.left = (bx - Wb / 2) + 'px'; os.top = (by - Hb / 2) + 'px';
+      var R = Hb * (tall ? 0.5 : 0.52), ih = tall ? 30 : 36, span = tall ? 58 : 64;
+      for (i = 0; i < n; i++) {
+        var ang = (-span + i * 2 * span / (n - 1)) * Math.PI / 180, dx = R * Math.sin(ang) * (tall ? 0.8 : 1.15), dy = R * Math.cos(ang);
+        a = its[i].style; a.left = (50 + dx / Wb * 100) + '%'; a.top = (80 - dy / Hb * 100) + '%'; a.height = ih + '%';
+        a.setProperty('--r', (ang * 180 / Math.PI * 0.55).toFixed(1) + 'deg'); a.setProperty('--bx', (-dx).toFixed(1) + 'px'); a.setProperty('--by', dy.toFixed(1) + 'px');
+      }
+      if (start) { os.transition = 'none'; os.opacity = '1'; os.transform = 'none'; }
+    }
+  }
+  function showLayer(st) {
+    buildLayer(st);
+    var L = st.layer, o = L.obj;
+    o.classList.remove('ready', 'has'); L.el.classList.add('show');
+    placeLayer(st, true); void o.offsetWidth;
+    intro.classList.add('is-zoomed');
+    if (L.kind === 'disc') {
+      o.style.transition = 'transform 1.25s cubic-bezier(.5, 0, .15, 1), opacity .45s ease'; o.style.transform = 'none'; o.style.opacity = '1';
+      zoomEl.style.transition = 'transform 1.15s cubic-bezier(.5, 0, .15, 1), opacity .7s ease .35s'; zoomEl.style.opacity = '0';
+    } else if (L.kind === 'wall') { o.style.transition = 'opacity .4s ease'; o.style.opacity = '1'; }
+    else { zoomEl.style.transition = 'opacity .6s ease'; zoomEl.style.opacity = '.3'; L.el.classList.add('in'); }
+    setTimeout(function () { if (!L.el.classList.contains('show')) return; layerOpen = true; hots = []; o.classList.add('ready'); }, L.kind === 'disc' ? 1150 : L.kind === 'box' ? 450 : 150);
+  }
+  function hideLayer() {
+    layerOpen = false; zoomEl.style.opacity = '';
+    STOPS.forEach(function (st) { if (st.layer && st.layer.el) { st.layer.el.classList.remove('show', 'in'); st.layer.obj.classList.remove('ready', 'has'); } });
   }
   function hotAt(x, y, from) {
     for (var i = from; i < hots.length; i++) { var h = hots[i], a = (x - h.cx) / h.rx, b = (y - h.cy) / h.ry; if (a * a + b * b < 1) return i; }
@@ -668,6 +761,8 @@
   function arrive() {
     showPin(true);
     ghostHot = hots[0] || null; ghostStart = performance.now() + 500; nextGhost = 0;
+    if (STOPS[cur].zsrc && !STOPS[cur].zimg) (function (st) { load(IMG + st.zsrc).then(function (im) { st.zimg = im; }).catch(function () {}); })(STOPS[cur]);
+    if (STOPS[cur].layer) buildLayer(STOPS[cur]);      /* so its pictures are already loaded when asked for */
     if (STOPS[cur].click) { ghostStart = 0; buildDoor(); placeDoor(); clearTimeout(autoTimer); autoTimer = setTimeout(function () { if (!acted) openDoor(); }, 4200); }
     /* Quietly fetch the next stop so it is ready when asked for, unless the connection is slow. */
     var c = navigator.connection, slow = c && /(^|-)[23]g/.test(c.effectiveType || '');
@@ -896,6 +991,7 @@
   [].forEach.call(intro.querySelectorAll('[data-intro-open]'), function (b) { b.addEventListener('click', function () { open(); }); });
   routeBtns.forEach(function (b, i) { b.addEventListener('click', function () { noteAct(); go(i); }); });
   elNext.addEventListener('click', function () { noteAct(); next(); });
+  elBack.addEventListener('click', function () { if (busy || opening || doorBusy) return; noteAct(); resetDoor(); layout(); showPin(true); kick(); });
   elWear.addEventListener('pointerenter', function () { clearTimeout(tileTimer); });
   elWear.addEventListener('pointerleave', hideTileSoon);
   [elShop, elWear].forEach(function (a) {
