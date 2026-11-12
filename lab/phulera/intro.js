@@ -31,14 +31,23 @@
   var STOPS = [
     { n: '1', label: 'Almirah', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: 0,
       L: 'Files <b>nahi,</b>', L2: 'kurte <b>hain.</b>', side: 'l',
-      line: 'The Panchayat office almirah. Prahlad Cha is guarding it.',
-      hint: ['Dekh raha hai, Binod? Hover over the almirah', 'Dekh raha hai, Binod? Touch the almirah'],
+      line: 'The Panchayat office almirah. Open it and pick a kurta.',
+      hint: ['Dekh raha hai, Binod? Click the almirah', 'Dekh raha hai, Binod? Tap the almirah'],
+      door: [0.2952, 0.1655, 0.3966, 0.7114],
+      picks: [
+        { f: [0.3002, 0.1991, 0.1436, 0.5749], pid: 'handloom-khadi-kurta' },
+        { f: [0.3052, 0.1957, 0.1817, 0.5828], pid: 'neel-handloom-kurta' },
+        { f: [0.3484, 0.198, 0.1817, 0.5962], pid: 'prahlad-cotton-kurta' },
+        { f: [0.3936, 0.1991, 0.1797, 0.5928], pid: 'safed-cotton-kurta' },
+        { f: [0.4367, 0.2058, 0.1817, 0.604], pid: 'mitti-khadi-kurta' },
+        { f: [0.4819, 0.2069, 0.2098, 0.6152], pid: 'mehendi-cotton-kurta' },
+        { f: [0.5241, 0.2036, 0.1687, 0.5928], pid: 'jute-stripe-kurta' }
+      ],
       shop: ['Shop kurtas', 'shop.html?c=kurtas', 'kurtas'],
-      fit: { w: { h: .92, ax: .5, cx: .64, by: 1.05 }, p: { h: .56, ax: .4, cx: .5, by: .8 } },
+      floor: 0.894,
+      fit: { w: { h: .84, ax: .5, cx: .66, by: .955 }, p: { h: .5, ax: .5, cx: .5, by: .74 } },
       hot: [
-        { w: [.376, .471, .168, .3871], tag: 'In the almirah', pid: 'handloom-khadi-kurta' },
-        { w: [.488, .8323, .068, .0774], tag: 'On Prahlad Cha’s lap', pid: 'phulera-gamchha-stole' },
-        { w: [.78, .7742, .132, .1935], tag: 'Prahlad Cha is wearing', pid: 'prahlad-cotton-kurta' }
+        { w: [0.497, 0.5168, 0.1988, 0.3758], tag: 'In the almirah', pid: 'handloom-khadi-kurta' }
       ] },
     { n: '2', label: 'Tanki', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: .12,
       L: 'Kapde <b>tanki</b>', L2: 'pe <b>sukh rahe.</b>', side: 'l',
@@ -159,6 +168,15 @@
         var cw = contoursImg.naturalWidth || 1600, ch = contoursImg.naturalHeight || 1000, cs = Math.max((vw + PAD * 2) / cw, (vh + PAD * 2) / ch);
         c.drawImage(contoursImg, (vw - cw * cs) / 2, (vh - ch * cs) / 2, cw * cs, ch * cs);
       }
+      if (st.floor) {      /* a studio floor, so the object stands on something */
+        var fy = f.y + f.h * st.floor;
+        c.fillStyle = '#eadfc8'; c.fillRect(-PAD, fy, vw + PAD * 2, vh + PAD - fy);
+        c.fillStyle = 'rgba(58,38,24,.13)'; c.fillRect(-PAD, fy, vw + PAD * 2, 1);
+        var sx = f.x + f.w * 0.542, sy = f.y + f.h * 0.9315, sr = f.w * 0.42;
+        c.save(); c.translate(sx, sy); c.scale(1, 0.085);
+        var sg = c.createRadialGradient(0, 0, 0, 0, 0, sr); sg.addColorStop(0, 'rgba(40,24,12,.5)'); sg.addColorStop(0.55, 'rgba(40,24,12,.2)'); sg.addColorStop(1, 'rgba(40,24,12,0)');
+        c.fillStyle = sg; c.beginPath(); c.arc(0, 0, sr, 0, 6.2832); c.fill(); c.restore();
+      }
       c.drawImage(which === 'a' ? st.a : st.b, f.x, f.y, f.w, f.h);
     } else {
       var g = fitPlate(st);
@@ -226,6 +244,7 @@
       layoutHots();
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+    placeDoor(); if (doorOpen && cur === 0 && offB) showOpen();
   }
 
   /* ---------- Fluid ---------- */
@@ -384,9 +403,90 @@
     for (j = 0; j < ny; j++) sinJ[j] = 0.10 * Math.sin(j * 0.27 * cell / 9 - t * 1.7);
     for (j = 0; j < ny; j++) for (i = 0; i < nx; i++, k++) G[k] = 0.5 + (R - Dist[k]) / soft + (N[k] * amp + sinI[i] + sinJ[j]);
   }
+  /* ---------- The almirah: a click swings the doors open, then each kurta can be picked ---------- */
+  var alm = null, picksEl = null, pickImgs = [], doorOpen = false, doorBusy = false, pickNow = -1;
+  function buildDoor() {
+    if (alm) return;
+    alm = document.createElement('div'); alm.className = 'intro-alm';
+    alm.innerHTML = '<div class="d l"><img src="' + IMG + '1dl.webp" alt=""><i></i></div><div class="d r"><img src="' + IMG + '1dr.webp" alt=""><i></i></div>';
+    picksEl = document.createElement('div'); picksEl.className = 'intro-picks'; picksEl.innerHTML = '<div class="dim"></div>';
+    STOPS[0].picks.forEach(function (p, i) {
+      var im = new Image(); im.alt = '';
+      im.onload = function () {      /* keep the piece's own outline for exact hit tests */
+        try { var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d'); x.drawImage(im, 0, 0); p.a = x.getImageData(0, 0, c.width, c.height).data; p.aw = c.width; p.ah = c.height; } catch (e) {}
+      };
+      im.src = IMG + '1k' + i + '.webp';
+      picksEl.appendChild(im); pickImgs.push(im);
+    });
+    figure.appendChild(alm); figure.appendChild(picksEl);
+  }
+  function placeDoor() {
+    if (!alm) return;
+    var st = STOPS[0], on = cur === 0 && st.a && !tr;
+    picksEl.style.display = on && doorOpen ? 'block' : 'none';
+    if (!on) { alm.style.display = 'none'; return; }
+    var g = fitPlate(st), d = st.door;
+    var dm = picksEl.firstChild.style; dm.left = (g.x + d[0] * g.w) + 'px'; dm.top = (g.y + d[1] * g.h) + 'px'; dm.width = (d[2] * g.w) + 'px'; dm.height = (d[3] * g.h) + 'px';
+    alm.style.left = (g.x + d[0] * g.w) + 'px'; alm.style.top = (g.y + d[1] * g.h) + 'px'; alm.style.width = (d[2] * g.w) + 'px'; alm.style.height = (d[3] * g.h) + 'px';
+    st.picks.forEach(function (p, i) {
+      p.x = g.x + p.f[0] * g.w; p.y = g.y + p.f[1] * g.h; p.w = p.f[2] * g.w; p.h = p.f[3] * g.h;
+      var im = pickImgs[i].style; im.left = p.x + 'px'; im.top = p.y + 'px'; im.width = p.w + 'px'; im.height = p.h + 'px';
+    });
+  }
+  function showOpen() {       /* the open almirah, drawn whole on the top canvas */
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(offB, 0, 0);
+    pbx0 = 0; pby0 = 0; pbx1 = cv.width; pby1 = cv.height; hasPrev = true;
+  }
+  function openDoor() {
+    if (doorOpen || doorBusy || cur !== 0 || busy || opening || !offB) return;
+    buildDoor(); doorBusy = true; acted = true; clearTimeout(autoTimer); showPin(false);
+    placeDoor();
+    alm.classList.remove('open'); alm.style.opacity = '1'; alm.style.display = 'block';
+    cv.style.transition = 'none'; cv.style.opacity = '0'; showOpen();
+    void cv.offsetWidth;
+    cv.style.transition = 'opacity .45s ease'; cv.style.opacity = '1';
+    alm.classList.add('open');
+    setTimeout(function () { if (alm) alm.style.opacity = '0'; }, 620);
+    setTimeout(function () {
+      doorBusy = false; if (cur !== 0 || tr || opening) return;
+      doorOpen = true; alm.style.display = 'none'; placeDoor();
+      /* a quick ripple through the rail shows the kurtas can be picked */
+      pickImgs.forEach(function (im, i) { setTimeout(function () { if (!doorOpen) return; im.classList.add('peek'); setTimeout(function () { im.classList.remove('peek'); }, 260); }, 90 * i); });
+    }, 1050);
+  }
+  function resetDoor() {
+    doorOpen = false; doorBusy = false; setPick(-1);
+    cv.style.transition = 'none'; cv.style.opacity = '';
+    if (alm) { alm.style.display = 'none'; alm.classList.remove('open'); picksEl.style.display = 'none'; }
+  }
+  function pickAt(x, y) {
+    if (!doorOpen) return -1;
+    var ps = STOPS[0].picks;
+    for (var i = 0; i < ps.length; i++) {
+      var p = ps[i], u = (x - pxC - p.x) / p.w, v = (y - pyC - p.y) / p.h;
+      if (u < 0 || v < 0 || u >= 1 || v >= 1 || !p.a) continue;
+      if (p.a[(((v * p.ah) | 0) * p.aw + ((u * p.aw) | 0)) * 4 + 3] > 70) return i;
+    }
+    return -1;
+  }
+  function pickInfo(i) {
+    var p = STOPS[0].picks[i], pr = p.pid && window.PBP ? PBP.byId(p.pid) : null;
+    return pr ? { href: 'product.html?id=' + pr.id, tile: { tag: 'In the almirah', pid: pr.id } }
+              : { href: 'shop.html?c=kurtas', tile: { tag: 'In the almirah', name: p.name, note: 'See all kurtas', href: 'shop.html?c=kurtas', img: IMG + '1k' + i + '.webp' } };
+  }
+  function setPick(i) {
+    if (i === pickNow) return;
+    if (pickNow >= 0 && pickImgs[pickNow]) pickImgs[pickNow].classList.remove('on');
+    pickNow = i;
+    intro.classList.toggle('pick-on', i >= 0); if (picksEl) picksEl.classList.toggle('has', i >= 0);
+    if (i >= 0) { pickImgs[i].classList.add('on'); clearTimeout(tileTimer); setTile(pickInfo(i).tile, true); }
+    else if (elWear) hideTileSoon();
+  }
+
   function startFlood(x, y, kind, data) {
     /* Freeze whatever the reveal is showing into the base layer, then sweep over it. */
     if (hasPrev || path) { ctxA.setTransform(1, 0, 0, 1, 0, 0); ctxA.drawImage(cv, 0, 0); }
+    resetDoor();
     clearPrev(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
     F.fill(0); U.fill(0); V.fill(0); maxF = 0; path = null; hold = 0; holdHot = -1; sticky = 0; stuck = -1;
     var far = 0, k = 0;
@@ -492,6 +592,12 @@
     wearState = 'a'; intro.classList.remove('is-bare');
   }
   function setTile(h, on) {
+    if (elWear && h && h.name) {
+      elWear.href = h.href; var ig = elWear.querySelector('img'); if (ig) ig.src = h.img;
+      elWear.querySelector('small').textContent = h.tag; elWear.querySelector('b').textContent = h.name; elWear.querySelector('em').textContent = h.note;
+      if (on !== undefined) elWear.classList.toggle('is-on', !!on);
+      return;
+    }
     if (!elWear || !window.PBP || !h) return;
     var p = PBP.byId(h.pid); if (!p) return;
     elWear.href = 'product.html?id=' + p.id;
@@ -515,6 +621,7 @@
   function arrive() {
     showPin(true);
     ghostHot = hots[0] || null; ghostStart = performance.now() + 500; nextGhost = 0;
+    if (STOPS[cur].door) { ghostStart = 0; buildDoor(); placeDoor(); clearTimeout(autoTimer); autoTimer = setTimeout(function () { if (!acted) openDoor(); }, 4200); }
     /* Quietly fetch the next stop so it is ready when asked for, unless the connection is slow. */
     var c = navigator.connection, slow = c && /(^|-)[23]g/.test(c.effectiveType || '');
     if (cur + 1 < STOPS.length && !slow) setTimeout(function () {
@@ -576,7 +683,7 @@
           var hq = hots[i], qa = (px - hq.cx) / hq.rx, qb = (py - hq.cy) / hq.ry;
           if (qa * qa + qb * qb < 1) { over = i; break; }
         }
-        splat(px, py, over >= 0 ? rBrush * 1.08 : rBrush * 0.9, 1.3, 0, 0);
+        if (!STOPS[cur].door) splat(px, py, over >= 0 ? rBrush * 1.08 : rBrush * 0.9, 1.3, 0, 0);
       }
       if (sticky && now > sticky) { sticky = 0; stuck = -1; }
       if (stuck >= 0 && over < 0) over = stuck;
@@ -589,13 +696,12 @@
       else hold = Math.max(0, hold - 0.07 * f);
       if (hold > 0 && holdHot >= 0 && hots[holdHot]) {
         var hh = hots[holdHot], gr = smoothstep(hold);
-        splatE(hh.gx, hh.gy, hh.grx * gr, hh.gry * gr, 1.35);
-        if (hold > 0.35 && pinShown) showPin(false);
+        if (!STOPS[cur].door) splatE(hh.gx, hh.gy, hh.grx * gr, hh.gry * gr, 1.35);
+        if (hold > 0.35 && pinShown && !STOPS[cur].door) showPin(false);
       }
     }
 
-    step(f, now);
-    if (dirty) { trace(); draw(); dirty = false; }
+    if (!STOPS[cur].door) { step(f, now); if (dirty) { trace(); draw(); dirty = false; } }
 
     /* Pradhan ji's stop: the tile follows what he is wearing. */
     var st = STOPS[cur];
@@ -655,7 +761,8 @@
   intro.addEventListener('pointermove', function (e) {
     var x = e.clientX, y = e.clientY;
     if (!opening && !busy) {
-      if (px !== null && ptrInside) paint(px, py, x, y); else splat(x, y, rBrush * 0.9, 1.6, 0, 0);
+      if (STOPS[cur].door) { setPick(pickAt(x, y)); if (!doorOpen && hots[0]) { var qa = (x - hots[0].cx) / hots[0].rx, qb = (y - hots[0].cy) / hots[0].ry; intro.classList.toggle('pick-on', qa * qa + qb * qb < 1); } }
+      else if (px !== null && ptrInside) paint(px, py, x, y); else splat(x, y, rBrush * 0.9, 1.6, 0, 0);
       ptrSeen = true; lastInput = e.timeStamp;
       if (e.pointerType === 'mouse') noteAct();
       if (ghostStart && !isTouch) ghostStart = 0;
@@ -689,6 +796,19 @@
       if (!onUi && adx > ady && adx > vw * (swipeOnHot ? 0.6 : 0.42) && adx / dur > 0.3) { if (dx < 0) next(e.clientX, e.clientY); else prev(); return; }
     }
     /* A tap on an object opens it and keeps it open for a moment, with its product in the tile. */
+    if (!onUi && adx < 12 && ady < 12 && STOPS[cur].door && !busy && !opening) {
+      if (!doorOpen) {
+        var h0 = hots[0], a0 = h0 ? (e.clientX - h0.cx) / h0.rx : 9, b0 = h0 ? (e.clientY - h0.cy) / h0.ry : 9;
+        if (a0 * a0 + b0 * b0 < 1.3) { openDoor(); return; }
+      } else {
+        var pk = pickAt(e.clientX, e.clientY);
+        if (pk >= 0) {       /* mouse: the hovered kurta opens its page. Touch: first tap picks it, second opens it. */
+          if (e.pointerType === 'mouse' || pk === pickNow) { follow(pickInfo(pk).href, e.clientX, e.clientY); return; }
+          setPick(pk); return;
+        }
+        setPick(-1);
+      }
+    }
     if (!onUi && adx < 12 && ady < 12) {
       for (var i = 0; i < hots.length; i++) {
         var h = hots[i], a = (e.clientX - h.cx) / h.rx, b = (e.clientY - h.cy) / h.ry;

@@ -41,6 +41,7 @@ Also downloaded but not on the site at the moment: election art (gSaDMv503bbxylh
 
 Not photographs:
 - `p-gift-box.webp`: a drawn kraft-paper placeholder tile (shapes and text), used until a real gift-box photo exists.
+- `p-kurta-neel.webp`, `p-kurta-safed.webp`, `p-kurta-mitti.webp`, `p-kurta-mehendi.webp`, `p-kurta-jute.webp`: kurtas drawn by code (no AI), placeholders until real product photos exist.
 - `grain.png`: a procedurally generated noise texture.
 - `intro-contours.svg`: procedurally generated map-style contour lines.
 

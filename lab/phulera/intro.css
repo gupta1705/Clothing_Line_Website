@@ -142,3 +142,23 @@ body.site-enter main { animation: introSiteUp 1.15s var(--ease) both; }
   .intro-wear { bottom: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { html.intro-on #intro { display: none; } html.intro-lock { overflow: auto; } }
+
+/* ----- the almirah opens, kurtas can be picked ----- */
+.intro-alm { position: absolute; display: none; perspective: 1500px; pointer-events: none; transition: opacity .4s ease; }
+.intro-alm .d { position: absolute; top: 0; width: 50%; height: 100%; transform-style: preserve-3d; transition: transform 1.05s cubic-bezier(.3, .05, .2, 1); }
+.intro-alm .d.l { left: 0; transform-origin: 0 50%; }
+.intro-alm .d.r { right: 0; transform-origin: 100% 50%; }
+.intro-alm .d img, .intro-alm .d i { position: absolute; inset: 0; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.intro-alm .d i { background: #77725f; transform: rotateY(180deg); }
+.intro-alm.open .d.l { transform: rotateY(-116deg); }
+.intro-alm.open .d.r { transform: rotateY(130deg); }
+.intro-picks { position: absolute; inset: 0; display: none; pointer-events: none; }
+.intro-picks img { position: absolute; opacity: 0; transform-origin: 50% 0; transition: opacity .16s, transform .4s var(--ease), filter .25s; }
+.intro-picks img.peek { opacity: 1; transform: translate3d(0, -1%, 0) scale(1.03); filter: brightness(1.12); }
+.intro-picks img.on { opacity: 1; z-index: 2; transform: translate3d(0, -2%, 0) scale(1.07); filter: drop-shadow(0 0 1.5px #fbf5ea) drop-shadow(0 0 1.5px #fbf5ea) drop-shadow(0 18px 16px rgba(20, 10, 4, .6)) brightness(1.16) saturate(1.15); animation: kurtaSway .8s ease-out; }
+@keyframes kurtaSway { 0% { rotate: 0deg; } 28% { rotate: 1.8deg; } 62% { rotate: -1deg; } 100% { rotate: 0deg; } }
+#intro.pick-on .intro-stage { cursor: pointer; }
+.intro-wear img { object-fit: contain; }
+.intro-picks .dim { position: absolute; background: rgba(20, 11, 5, .5); opacity: 0; transition: opacity .25s; }
+.intro-picks.has .dim { opacity: 1; }
+.intro-picks .dim { clip-path: polygon(0 0, 100% 0, 100% 74%, 60% 97%, 0 97%); }

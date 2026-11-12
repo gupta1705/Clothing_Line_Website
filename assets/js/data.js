@@ -42,6 +42,16 @@ PBP.products = [
     craft: 'Handloom jacket with a woven border, fully lined, with horn buttons.', fit: 'Tailored fit. Made to sit over a kurta.' },
   { id: 'loom-cotton-pajama', name: 'Loom-Fresh Cotton Pajama', price: 1199, cat: 'pajamas', img: 'p-pajama', tag: 'New', line: 'Loom Fresh', colour: 'khadi', sizes: ['M', 'L', 'XL', 'XXL'],
     craft: 'Soft hand-woven cotton with a drawstring waist.', fit: 'Relaxed straight leg.' },
+  { id: 'neel-handloom-kurta', name: 'Neel Handloom Kurta', price: 2799, cat: 'kurtas', img: 'p-kurta-neel', tag: 'New', line: 'Loom Fresh', colour: 'neel', sizes: ['M', 'L', 'XL', 'XXL'],
+    craft: 'Hand-woven cotton, dyed in natural indigo.', fit: 'Straight, easy kurta length with side slits.' },
+  { id: 'safed-cotton-kurta', name: 'Safed Cotton Kurta', price: 2299, cat: 'kurtas', img: 'p-kurta-safed', tag: 'New', line: 'Loom Fresh', colour: 'khadi', sizes: ['M', 'L', 'XL', 'XXL'],
+    craft: 'Soft bleached handloom cotton with hand-finished seams.', fit: 'Classic kurta length. Pairs with the Loom-Fresh pajama.' },
+  { id: 'mitti-khadi-kurta', name: 'Mitti Khadi Kurta', price: 2899, cat: 'kurtas', img: 'p-kurta-mitti', tag: 'Festive Edit', line: 'Festive Edit', colour: 'mitti', sizes: ['M', 'L', 'XL', 'XXL'],
+    craft: 'Hand-spun khadi in a deep terracotta.', fit: 'Straight fit with side slits.' },
+  { id: 'mehendi-cotton-kurta', name: 'Mehendi Cotton Kurta', price: 2499, cat: 'kurtas', img: 'p-kurta-mehendi', tag: 'New', line: 'Phulera Everyday', colour: 'mehendi', sizes: ['M', 'L', 'XL', 'XXL'],
+    craft: 'Handloom cotton in mehendi green.', fit: 'Relaxed, everyday kurta length.' },
+  { id: 'jute-stripe-kurta', name: 'Jute-Stripe Kurta', price: 2699, cat: 'kurtas', img: 'p-kurta-jute', tag: 'New', line: 'Phulera Everyday', colour: 'haldi', sizes: ['M', 'L', 'XL', 'XXL'],
+    craft: 'Fine-stripe handloom cotton in a jute tone.', fit: 'Straight, easy kurta length.' },
   { id: 'pradhan-gift-box', name: 'The Pradhan Gift Box', price: 5999, cat: 'gifts', img: 'p-gift-box', tag: 'Diwali Special', line: 'Gifting', colour: 'haldi', sizes: ['M', 'L', 'XL', 'XXL'],
     craft: 'Khadi kurta, Nehru jacket and gamchha, wrapped in handmade paper with a handwritten note.', fit: 'Pick his kurta size. Easy exchange if it doesn’t fit.' }
 ];
