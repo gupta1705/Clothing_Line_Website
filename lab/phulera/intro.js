@@ -33,6 +33,7 @@
       L: 'Files <b>nahi,</b>', L2: 'kurte <b>hain.</b>', side: 'l',
       line: 'The Panchayat office almirah. Open it and pick a kurta.',
       hint: ['Dekh raha hai, Binod? Click the almirah', 'Dekh raha hai, Binod? Tap the almirah'],
+      click: 1,
       door: [0.2952, 0.1655, 0.3966, 0.7114],
       picks: [
         { f: [0.3002, 0.1991, 0.1436, 0.5749], pid: 'handloom-khadi-kurta' },
@@ -52,7 +53,20 @@
     { n: '2', label: 'Tanki', tone: 'light', type: 'cut', thread: 'rgba(139,58,30,.9)', g: .12,
       L: 'Kapde <b>tanki</b>', L2: 'pe <b>sukh rahe.</b>', side: 'l',
       line: 'Where Sachiv ji and Rinki had their chai. The washing came later.',
-      hint: ['Hover over the tanki', 'Touch the tanki'],
+      hint: ['Click the tanki', 'Tap the tanki'],
+      click: 1, open: 'fade',
+      picks: [
+        { f: [0.4116, 0.1596, 0.0373, 0.0453], pid: 'neel-handloom-kurta', tag: 'On the tanki' },
+        { f: [0.448, 0.1647, 0.0335, 0.0532], pid: 'handloom-khadi-kurta', tag: 'On the tanki' },
+        { f: [0.4795, 0.1661, 0.034, 0.0426], pid: 'mitti-khadi-kurta', tag: 'On the tanki' },
+        { f: [0.5118, 0.1661, 0.036, 0.0574], pid: 'mehendi-cotton-kurta', tag: 'On the tanki' },
+        { f: [0.5449, 0.1634, 0.0377, 0.0467], pid: 'sachiv-check-shirt', tag: 'On the tanki' },
+        { f: [0.5781, 0.161, 0.0277, 0.0393], pid: 'jute-stripe-kurta', tag: 'On the tanki' },
+        { f: [0.6899, 0.1351, 0.0505, 0.0828], pid: 'prahlad-cotton-kurta', tag: 'On the line' },
+        { f: [0.7681, 0.1078, 0.0621, 0.0856], pid: 'pradhan-linen-shirt', tag: 'On the line' },
+        { f: [0.8501, 0.0629, 0.0853, 0.1522], pid: 'safed-cotton-kurta', tag: 'On the line' },
+        { f: [0.9325, 0.0139, 0.0687, 0.1587], pid: 'sachiv-bike-ride-shirt', tag: 'On the line' }
+      ],
       shop: ['Shop shirts', 'shop.html?c=shirts', 'shirts'],
       fit: { w: { h: .9, ax: 1, cx: 1.01, by: 1.0 }, p: { h: .6, ax: .5, cx: .5, by: .82 } },
       hot: [
@@ -64,17 +78,28 @@
     { n: '3', label: 'Deewar', tone: 'light', type: 'cut', thread: 'rgba(246,239,226,.95)', g: .2, streak: 1,
       L: 'Do <b>kurte,</b>', L2: 'meethi <b>kheer.</b>', side: 'l',
       line: '<span lang="hi">दो कुर्ते हैं मीठी खीर, उससे ज़्यादा अमीर।</span> Two kurtas are sweet kheer. Any more and you’re rich.',
-      hint: ['Hover over the wall', 'Touch the wall'],
+      hint: ['Click the wall', 'Tap the wall'],
+      click: 1, open: 'wipe',
       shop: ['Pick your two', 'shop.html?c=kurtas', 'kurtas'],
       fit: { w: { h: .66, ax: 1, cx: 1.09, by: .87 }, p: { h: .44, ax: .7, cx: .5, by: .74 } },
       hot: [
-        { w: [.7403, .6597, .2251, .25], tag: 'Fresh on the wall', pid: 'prahlad-cotton-kurta' },
+        { w: [.7403, .6597, .2251, .25], tag: 'Fresh on the wall', pid: 'prahlad-cotton-kurta', href: 'shop.html?c=kurtas' },
         { w: [.1342, .5278, .1299, .2917], tag: 'Sachiv ji is wearing', pid: 'sachiv-check-shirt' }
       ] },
     { n: '4', label: 'Lauki', tone: 'dark', thread: 'rgba(255,205,140,.95)', g: 0,
       L: 'Lauki <b>nahi,</b>', L2: 'gift <b>do.</b>', side: 'l',
       line: 'Bijli gayi. Pradhan ji gifts lauki. You can do one better.',
-      hint: ['Hover over the lauki', 'Touch the lauki'],
+      hint: ['Click the lauki', 'Tap the lauki'],
+      click: 1, open: 'fade',
+      picks: [
+        { f: [0.7357, 0.5122, 0.2653, 0.0509], fp: [0.3042, 0.3802, 0.6984, 0.0378], pid: 'handloom-khadi-kurta', tag: 'Instead of files' },
+        { f: [0.7259, 0.5503, 0.2751, 0.0509], fp: [0.2785, 0.4085, 0.7241, 0.0378], pid: 'sachiv-check-shirt', tag: 'Instead of files' },
+        { f: [0.7344, 0.5914, 0.2666, 0.0469], fp: [0.3008, 0.439, 0.7018, 0.0348], pid: 'prahlad-cotton-kurta', tag: 'Instead of files' },
+        { f: [0.7275, 0.6285, 0.2734, 0.0492], fp: [0.2828, 0.4665, 0.7198, 0.0365], pid: 'mehendi-cotton-kurta', tag: 'Instead of files' },
+        { f: [0.7314, 0.6678, 0.2695, 0.0469], fp: [0.2931, 0.4957, 0.7095, 0.0348], pid: 'mitti-khadi-kurta', tag: 'Instead of files' },
+        { f: [0.724, 0.7037, 0.277, 0.0503], fp: [0.2734, 0.5223, 0.7292, 0.0374], pid: 'neel-handloom-kurta', tag: 'Instead of files' },
+        { f: [0.7943, 0.3854, 0.2067, 0.1377], fp: [0.4584, 0.2861, 0.5441, 0.1022], pid: 'pradhan-gift-box', tag: 'Instead of a lauki' }
+      ],
       shop: ['Shop gift sets', 'shop.html?c=gifts', 'gifts'],
       focus: { w: [.85, .5], p: [.95, 0] },
       hot: [
@@ -244,7 +269,7 @@
       layoutHots();
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-    placeDoor(); if (doorOpen && cur === 0 && offB) showOpen();
+    placeDoor(); if (doorOpen && STOPS[cur].click && offB) showOpen();
   }
 
   /* ---------- Fluid ---------- */
@@ -403,65 +428,84 @@
     for (j = 0; j < ny; j++) sinJ[j] = 0.10 * Math.sin(j * 0.27 * cell / 9 - t * 1.7);
     for (j = 0; j < ny; j++) for (i = 0; i < nx; i++, k++) G[k] = 0.5 + (R - Dist[k]) / soft + (N[k] * amp + sinI[i] + sinJ[j]);
   }
-  /* ---------- The almirah: a click swings the doors open, then each kurta can be picked ---------- */
-  var alm = null, picksEl = null, pickImgs = [], doorOpen = false, doorBusy = false, pickNow = -1;
+  /* ---------- Click to open: the almirah's doors swing, the other scenes change in place. Then each piece can be picked. ---------- */
+  var alm = null, picksEl = null, pickImgs = [], doorOpen = false, doorBusy = false, pickNow = -1, picksFor = -1;
+  function curPicks() { return STOPS[cur].picks || []; }
   function buildDoor() {
-    if (alm) return;
-    alm = document.createElement('div'); alm.className = 'intro-alm';
-    alm.innerHTML = '<div class="d l"><img src="' + IMG + '1dl.webp" alt=""><i></i></div><div class="d r"><img src="' + IMG + '1dr.webp" alt=""><i></i></div>';
-    picksEl = document.createElement('div'); picksEl.className = 'intro-picks'; picksEl.innerHTML = '<div class="dim"></div>';
-    STOPS[0].picks.forEach(function (p, i) {
-      var im = new Image(); im.alt = '';
-      im.onload = function () {      /* keep the piece's own outline for exact hit tests */
-        try { var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d'); x.drawImage(im, 0, 0); p.a = x.getImageData(0, 0, c.width, c.height).data; p.aw = c.width; p.ah = c.height; } catch (e) {}
-      };
-      im.src = IMG + '1k' + i + '.webp';
-      picksEl.appendChild(im); pickImgs.push(im);
+    if (!picksEl) {
+      alm = document.createElement('div'); alm.className = 'intro-alm';
+      alm.innerHTML = '<div class="d l"><img src="' + IMG + '1dl.webp" alt=""><i></i></div><div class="d r"><img src="' + IMG + '1dr.webp" alt=""><i></i></div>';
+      picksEl = document.createElement('div'); picksEl.className = 'intro-picks';
+      figure.appendChild(alm); figure.appendChild(picksEl);
+    }
+    if (picksFor === cur) return;
+    picksFor = cur; picksEl.innerHTML = '<div class="dim"></div>'; pickImgs = [];
+    var n = STOPS[cur].n;
+    curPicks().forEach(function (p, i) {
+      if (!p.im) {
+        p.im = new Image(); p.im.alt = '';
+        p.im.onload = function () {      /* keep the piece's own outline for exact hit tests */
+          try { var c = document.createElement('canvas'); c.width = p.im.naturalWidth; c.height = p.im.naturalHeight; var x = c.getContext('2d'); x.drawImage(p.im, 0, 0); p.a = x.getImageData(0, 0, c.width, c.height).data; p.aw = c.width; p.ah = c.height; } catch (e) {}
+        };
+        p.im.src = IMG + n + 'k' + i + '.webp';
+      }
+      p.im.className = '';
+      picksEl.appendChild(p.im); pickImgs.push(p.im);
     });
-    figure.appendChild(alm); figure.appendChild(picksEl);
   }
   function placeDoor() {
-    if (!alm) return;
-    var st = STOPS[0], on = cur === 0 && st.a && !tr;
+    if (!picksEl) return;
+    var st = STOPS[cur], on = !!st.click && !!st.a && !tr && picksFor === cur;
     picksEl.style.display = on && doorOpen ? 'block' : 'none';
     if (!on) { alm.style.display = 'none'; return; }
-    var g = fitPlate(st), d = st.door;
-    var dm = picksEl.firstChild.style; dm.left = (g.x + d[0] * g.w) + 'px'; dm.top = (g.y + d[1] * g.h) + 'px'; dm.width = (d[2] * g.w) + 'px'; dm.height = (d[3] * g.h) + 'px';
-    alm.style.left = (g.x + d[0] * g.w) + 'px'; alm.style.top = (g.y + d[1] * g.h) + 'px'; alm.style.width = (d[2] * g.w) + 'px'; alm.style.height = (d[3] * g.h) + 'px';
-    st.picks.forEach(function (p, i) {
-      p.x = g.x + p.f[0] * g.w; p.y = g.y + p.f[1] * g.h; p.w = p.f[2] * g.w; p.h = p.f[3] * g.h;
+    var g = fitPlate(st), dm = picksEl.firstChild.style;
+    if (st.door) {
+      var d = st.door;
+      dm.display = ''; dm.left = (g.x + d[0] * g.w) + 'px'; dm.top = (g.y + d[1] * g.h) + 'px'; dm.width = (d[2] * g.w) + 'px'; dm.height = (d[3] * g.h) + 'px';
+      alm.style.left = (g.x + d[0] * g.w) + 'px'; alm.style.top = (g.y + d[1] * g.h) + 'px'; alm.style.width = (d[2] * g.w) + 'px'; alm.style.height = (d[3] * g.h) + 'px';
+    } else { dm.display = 'none'; alm.style.display = 'none'; }
+    curPicks().forEach(function (p, i) {
+      var f = (tall && p.fp) || p.f;
+      p.x = g.x + f[0] * g.w; p.y = g.y + f[1] * g.h; p.w = f[2] * g.w; p.h = f[3] * g.h;
       var im = pickImgs[i].style; im.left = p.x + 'px'; im.top = p.y + 'px'; im.width = p.w + 'px'; im.height = p.h + 'px';
     });
   }
-  function showOpen() {       /* the open almirah, drawn whole on the top canvas */
+  function showOpen() {       /* the opened scene, drawn whole on the top canvas */
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(offB, 0, 0);
     pbx0 = 0; pby0 = 0; pbx1 = cv.width; pby1 = cv.height; hasPrev = true;
   }
   function openDoor() {
-    if (doorOpen || doorBusy || cur !== 0 || busy || opening || !offB) return;
+    var st = STOPS[cur], at = cur, dur = 1050;
+    if (doorOpen || doorBusy || !st.click || busy || opening || !offB) return;
     buildDoor(); doorBusy = true; acted = true; clearTimeout(autoTimer); showPin(false);
     placeDoor();
-    alm.classList.remove('open'); alm.style.opacity = '1'; alm.style.display = 'block';
-    cv.style.transition = 'none'; cv.style.opacity = '0'; showOpen();
+    cv.style.transition = 'none'; cv.style.clipPath = '';
+    if (st.open === 'wipe') { cv.style.opacity = '1'; cv.style.clipPath = 'inset(0 100% 0 0)'; } else cv.style.opacity = '0';
+    showOpen();
     void cv.offsetWidth;
-    cv.style.transition = 'opacity .45s ease'; cv.style.opacity = '1';
-    alm.classList.add('open');
-    setTimeout(function () { if (alm) alm.style.opacity = '0'; }, 620);
+    if (st.door) {
+      alm.classList.remove('open'); alm.style.opacity = '1'; alm.style.display = 'block'; void alm.offsetWidth;
+      cv.style.transition = 'opacity .45s ease'; cv.style.opacity = '1';
+      alm.classList.add('open');
+      setTimeout(function () { if (alm) alm.style.opacity = '0'; }, 620);
+    } else if (st.open === 'wipe') {      /* a roller across the wall */
+      cv.style.transition = 'clip-path 1.2s cubic-bezier(.6, 0, .2, 1)'; cv.style.clipPath = 'inset(0 0 0 0)'; dur = 1250;
+    } else { cv.style.transition = 'opacity .7s ease'; cv.style.opacity = '1'; dur = 750; }
     setTimeout(function () {
-      doorBusy = false; if (cur !== 0 || tr || opening) return;
+      doorBusy = false; if (cur !== at || tr || opening) return;
       doorOpen = true; alm.style.display = 'none'; placeDoor();
-      /* a quick ripple through the rail shows the kurtas can be picked */
+      /* a quick ripple through the pieces shows they can be picked */
       pickImgs.forEach(function (im, i) { setTimeout(function () { if (!doorOpen) return; im.classList.add('peek'); setTimeout(function () { im.classList.remove('peek'); }, 260); }, 90 * i); });
-    }, 1050);
+    }, dur);
   }
   function resetDoor() {
     doorOpen = false; doorBusy = false; setPick(-1);
-    cv.style.transition = 'none'; cv.style.opacity = '';
+    cv.style.transition = 'none'; cv.style.opacity = ''; cv.style.clipPath = '';
     if (alm) { alm.style.display = 'none'; alm.classList.remove('open'); picksEl.style.display = 'none'; }
   }
   function pickAt(x, y) {
     if (!doorOpen) return -1;
-    var ps = STOPS[0].picks;
+    var ps = curPicks();
     for (var i = 0; i < ps.length; i++) {
       var p = ps[i], u = (x - pxC - p.x) / p.w, v = (y - pyC - p.y) / p.h;
       if (u < 0 || v < 0 || u >= 1 || v >= 1 || !p.a) continue;
@@ -470,9 +514,8 @@
     return -1;
   }
   function pickInfo(i) {
-    var p = STOPS[0].picks[i], pr = p.pid && window.PBP ? PBP.byId(p.pid) : null;
-    return pr ? { href: 'product.html?id=' + pr.id, tile: { tag: 'In the almirah', pid: pr.id } }
-              : { href: 'shop.html?c=kurtas', tile: { tag: 'In the almirah', name: p.name, note: 'See all kurtas', href: 'shop.html?c=kurtas', img: IMG + '1k' + i + '.webp' } };
+    var p = curPicks()[i];
+    return { href: 'product.html?id=' + p.pid, tile: { tag: p.tag || 'In the almirah', pid: p.pid } };
   }
   function setPick(i) {
     if (i === pickNow) return;
@@ -481,6 +524,10 @@
     intro.classList.toggle('pick-on', i >= 0); if (picksEl) picksEl.classList.toggle('has', i >= 0);
     if (i >= 0) { pickImgs[i].classList.add('on'); clearTimeout(tileTimer); setTile(pickInfo(i).tile, true); }
     else if (elWear) hideTileSoon();
+  }
+  function hotAt(x, y, from) {
+    for (var i = from; i < hots.length; i++) { var h = hots[i], a = (x - h.cx) / h.rx, b = (y - h.cy) / h.ry; if (a * a + b * b < 1) return i; }
+    return -1;
   }
 
   function startFlood(x, y, kind, data) {
@@ -621,7 +668,7 @@
   function arrive() {
     showPin(true);
     ghostHot = hots[0] || null; ghostStart = performance.now() + 500; nextGhost = 0;
-    if (STOPS[cur].door) { ghostStart = 0; buildDoor(); placeDoor(); clearTimeout(autoTimer); autoTimer = setTimeout(function () { if (!acted) openDoor(); }, 4200); }
+    if (STOPS[cur].click) { ghostStart = 0; buildDoor(); placeDoor(); clearTimeout(autoTimer); autoTimer = setTimeout(function () { if (!acted) openDoor(); }, 4200); }
     /* Quietly fetch the next stop so it is ready when asked for, unless the connection is slow. */
     var c = navigator.connection, slow = c && /(^|-)[23]g/.test(c.effectiveType || '');
     if (cur + 1 < STOPS.length && !slow) setTimeout(function () {
@@ -683,7 +730,7 @@
           var hq = hots[i], qa = (px - hq.cx) / hq.rx, qb = (py - hq.cy) / hq.ry;
           if (qa * qa + qb * qb < 1) { over = i; break; }
         }
-        if (!STOPS[cur].door) splat(px, py, over >= 0 ? rBrush * 1.08 : rBrush * 0.9, 1.3, 0, 0);
+        if (!STOPS[cur].click) splat(px, py, over >= 0 ? rBrush * 1.08 : rBrush * 0.9, 1.3, 0, 0);
       }
       if (sticky && now > sticky) { sticky = 0; stuck = -1; }
       if (stuck >= 0 && over < 0) over = stuck;
@@ -696,12 +743,12 @@
       else hold = Math.max(0, hold - 0.07 * f);
       if (hold > 0 && holdHot >= 0 && hots[holdHot]) {
         var hh = hots[holdHot], gr = smoothstep(hold);
-        if (!STOPS[cur].door) splatE(hh.gx, hh.gy, hh.grx * gr, hh.gry * gr, 1.35);
-        if (hold > 0.35 && pinShown && !STOPS[cur].door) showPin(false);
+        if (!STOPS[cur].click) splatE(hh.gx, hh.gy, hh.grx * gr, hh.gry * gr, 1.35);
+        if (hold > 0.35 && pinShown && !STOPS[cur].click) showPin(false);
       }
     }
 
-    if (!STOPS[cur].door) { step(f, now); if (dirty) { trace(); draw(); dirty = false; } }
+    if (!STOPS[cur].click) { step(f, now); if (dirty) { trace(); draw(); dirty = false; } }
 
     /* Pradhan ji's stop: the tile follows what he is wearing. */
     var st = STOPS[cur];
@@ -761,7 +808,8 @@
   intro.addEventListener('pointermove', function (e) {
     var x = e.clientX, y = e.clientY;
     if (!opening && !busy) {
-      if (STOPS[cur].door) { setPick(pickAt(x, y)); if (!doorOpen && hots[0]) { var qa = (x - hots[0].cx) / hots[0].rx, qb = (y - hots[0].cy) / hots[0].ry; intro.classList.toggle('pick-on', qa * qa + qb * qb < 1); } }
+      if (STOPS[cur].click) { setPick(pickAt(x, y)); if (pickNow < 0) intro.classList.toggle('pick-on', hotAt(x, y, doorOpen ? 1 : 0) >= 0 || (doorOpen && !!hots[0] && !!hots[0].d.href && hotAt(x, y, 0) === 0)); }
+      else if (STOPS[cur].wear) { intro.classList.toggle('pick-on', hotAt(x, y, 0) === 0); }
       else if (px !== null && ptrInside) paint(px, py, x, y); else splat(x, y, rBrush * 0.9, 1.6, 0, 0);
       ptrSeen = true; lastInput = e.timeStamp;
       if (e.pointerType === 'mouse') noteAct();
@@ -796,17 +844,25 @@
       if (!onUi && adx > ady && adx > vw * (swipeOnHot ? 0.6 : 0.42) && adx / dur > 0.3) { if (dx < 0) next(e.clientX, e.clientY); else prev(); return; }
     }
     /* A tap on an object opens it and keeps it open for a moment, with its product in the tile. */
-    if (!onUi && adx < 12 && ady < 12 && STOPS[cur].door && !busy && !opening) {
-      if (!doorOpen) {
-        var h0 = hots[0], a0 = h0 ? (e.clientX - h0.cx) / h0.rx : 9, b0 = h0 ? (e.clientY - h0.cy) / h0.ry : 9;
-        if (a0 * a0 + b0 * b0 < 1.3) { openDoor(); return; }
-      } else {
-        var pk = pickAt(e.clientX, e.clientY);
-        if (pk >= 0) {       /* mouse: the hovered kurta opens its page. Touch: first tap picks it, second opens it. */
-          if (e.pointerType === 'mouse' || pk === pickNow) { follow(pickInfo(pk).href, e.clientX, e.clientY); return; }
+    if (!onUi && adx < 12 && ady < 12 && !busy && !opening) {
+      var cx_ = e.clientX, cy_ = e.clientY, mouse = e.pointerType === 'mouse', st_ = STOPS[cur];
+      if (st_.click) {
+        var pk = pickAt(cx_, cy_);
+        if (pk >= 0) {       /* mouse: the hovered piece opens its page. Touch: first tap picks it, second opens it. */
+          if (mouse || pk === pickNow) { follow(pickInfo(pk).href, cx_, cy_); return; }
           setPick(pk); return;
         }
         setPick(-1);
+        /* someone in the picture: what they are wearing */
+        var hp = hotAt(cx_, cy_, 1);
+        if (hp >= 0 && (mouse || stuck === hp)) { follow('product.html?id=' + hots[hp].d.pid, cx_, cy_); return; }
+        if (hp < 0) {
+          var h0 = hots[0], a0 = h0 ? (cx_ - h0.cx) / h0.rx : 9, b0 = h0 ? (cy_ - h0.cy) / h0.ry : 9, in0 = a0 * a0 + b0 * b0 < 1.3;
+          if (!doorOpen) { if (in0) { openDoor(); return; } }
+          else if (in0 && h0.d.href) { follow(h0.d.href, cx_, cy_); return; }
+        }
+      } else if (st_.wear && (mouse || stuck === 0) && hotAt(cx_, cy_, 0) === 0) {
+        follow('product.html?id=' + st_.wear[wearState], cx_, cy_); return;
       }
     }
     if (!onUi && adx < 12 && ady < 12) {
