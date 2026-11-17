@@ -1,0 +1,169 @@
+/* Phulera Starter: Mana Yerba Mate's playful structure (letter pops that flash through the palette, a sliding look picker,
+   circle-mask portrait swaps, arched sections, drifting cards, a turning wheel of products) in the store's type and colours. */
+@property --tone{syntax:'<color>';inherits:true;initial-value:#f0c14b}
+:root{
+  --paper:#f6efe2;--paper-2:#ebe0cc;--ink:#3a2618;--brick:#8b3a1e;--accent:#a9512d;--yellow:#f3c74f;
+  --haldi:#f0c14b;--neel:#2f4a7a;--sky:#9cc3e3;--rani:#c8374a;--pink:#e98aa6;--mehendi:#6b7a35;--mitti:#7a4a2a;
+  --tone:#f0c14b;--pad:clamp(18px,3vw,44px);
+  --sans:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --io:cubic-bezier(.77,0,.18,1);--out:cubic-bezier(.22,.8,.24,1);
+  --elastic:cubic-bezier(.34,1.7,.5,1);   /* replaced by a true elastic linear() curve in start.js where supported */
+  transition:--tone .7s var(--io);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.45 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+svg{display:block}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.big{font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:.9}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;background:var(--brick);color:var(--paper);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s var(--out),box-shadow .2s var(--out),background .2s}
+.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);background:var(--accent)}
+.btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--ink)}
+.btn.sm{min-height:42px;padding:0 16px;font-size:12px;box-shadow:4px 4px 0 var(--ink);gap:0;white-space:pre}
+.card .n{text-transform:uppercase}
+
+/* letters: each pops in with an elastic bounce and flashes through the palette (start.js) */
+.pop .wd{display:inline-block;white-space:nowrap}
+.pop .l{display:inline-block;opacity:0;transform:scale(.5) translateY(.1em);will-change:transform}
+.pop.in .l{opacity:1;transform:none;transition:transform .8s var(--elastic),opacity .12s;transition-delay:calc(var(--i)*55ms)}
+
+/* header drops in like Mana's */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px var(--pad);transform:translateY(-130%);transition:transform 1s var(--elastic) .5s}
+.ready .hdr{transform:none}
+.ready.hdr-off .hdr{transform:translateY(-130%);transition:transform .45s var(--io)}
+.logo{display:grid;line-height:1;justify-items:start}
+.logo .w{font-weight:700;font-size:20px;letter-spacing:.32em;margin-right:-.32em}
+.logo .s{font-size:8px;letter-spacing:.38em;margin-top:5px;opacity:.7}
+.nav{display:flex;gap:4px;padding:6px;background:var(--paper);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.nav a{padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .25s}
+.nav a:hover{background:var(--tone)}
+
+/* hero: a look picker like Mana's flavour switcher */
+.hero{position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:26px;padding:110px var(--pad) 60px;overflow:hidden}
+.eyebrow{position:absolute;top:92px;left:50%;z-index:4;transform:translateX(-50%) rotate(-2deg);white-space:nowrap;color:var(--accent);background:var(--paper);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:7px 12px}
+.eyebrow span{color:var(--ink)}
+.word{position:absolute;left:50%;top:22%;transform:translate(-50%,0);font-size:clamp(70px,15.5vw,260px);font-weight:800;text-transform:uppercase;letter-spacing:-.055em;line-height:.85;white-space:nowrap;z-index:0;pointer-events:none;will-change:transform}
+.stage{position:relative;z-index:1;width:min(32vw,390px);aspect-ratio:3/4;will-change:transform}
+.tone{position:absolute;inset:-9% -24% -6%;background:var(--tone);border:2px solid var(--ink);border-radius:999px 999px 24px 24px;z-index:-1}
+.frame{position:absolute;inset:0;border:2px solid var(--ink);border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--paper-2);box-shadow:10px 10px 0 var(--ink);will-change:transform}
+.portrait{width:100%;height:100%}
+.sticker{position:absolute;z-index:3;display:grid;place-items:center;text-align:center;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);will-change:transform}
+.sticker b{font-weight:800;letter-spacing:-.02em;line-height:1}
+.sticker small{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.price{right:-22%;top:8%;width:118px;height:118px;border-radius:50%;background:var(--yellow);transform:rotate(12deg);align-content:center;gap:4px}
+.price b{font-size:26px}
+.price:hover{background:var(--pink)}
+.craft{left:-30%;bottom:16%;padding:12px 16px;background:var(--paper);transform:rotate(-7deg);gap:2px;max-width:200px}
+.craft b{font-size:20px;text-transform:uppercase}
+.deco{position:absolute;display:block;pointer-events:none;will-change:transform}
+.deco svg{width:100%;height:100%;overflow:visible}
+.d-sun{left:-26%;top:2%;width:88px;height:88px;z-index:2}
+.d-spool{right:-16%;bottom:2%;width:74px;height:84px;z-index:2}
+.picker{position:relative;z-index:2;display:flex;gap:2px;padding:6px;background:var(--paper);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.picker button{position:relative;z-index:1;padding:12px 18px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;transition:color .3s}
+.picker button[aria-selected="true"]{color:var(--ink)}
+.pill{position:absolute;left:0;top:0;width:0;height:0;background:var(--tone);border:2px solid var(--ink);transition:transform .55s var(--io),width .55s var(--io),height .55s var(--io)}
+.look{position:relative;z-index:2;display:flex;align-items:center;gap:16px;font-size:15px;flex-wrap:wrap;justify-content:center}
+.look .nm{font-weight:300;text-transform:uppercase;letter-spacing:.04em}
+.look .go{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:2px}
+.look .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .3s}
+.look .go:hover svg{transform:translateX(4px)}
+
+/* two crossing bands */
+.bands{position:relative;height:clamp(150px,16vw,230px);margin-top:-30px;z-index:3;overflow:hidden}
+.band{position:absolute;left:-5%;right:-5%;top:50%;border-block:2px solid var(--ink);overflow:hidden}
+.b1{background:var(--ink);color:var(--paper);transform:translateY(-50%) rotate(-3deg)}
+.b2{background:var(--tone);color:var(--ink);transform:translateY(-50%) rotate(3deg)}
+.track{display:flex;width:max-content;font-size:clamp(26px,3.6vw,52px);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;padding:12px 0;animation:mq 26s linear infinite}
+.b2 .track{animation-direction:reverse;animation-duration:32s}
+.track span{padding:0 22px;white-space:nowrap}
+.track i{font-style:normal;color:var(--haldi)}
+.b2 .track i{color:var(--ink)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* village: the top edge curves into an arch as it scrolls in (Mana's .arrondi) */
+.village{position:relative;background:var(--haldi);padding:40px var(--pad) 140px;margin-top:clamp(80px,12vw,180px);overflow-x:clip}   /* tilted cards may lean past the edge on phones */
+.arch{position:absolute;left:0;right:0;bottom:100%;height:clamp(80px,12vw,180px);background:var(--haldi);border:2px solid var(--ink);border-bottom:0;border-radius:50% 50% 0 0/100% 100% 0 0;transform-origin:50% 100%;transform:scaleY(0)}
+.village .inner{position:relative;max-width:1240px;margin:0 auto;text-align:center}
+.village .big{font-size:clamp(46px,8vw,128px);margin:18px auto 22px;max-width:12ch}
+.lede{max-width:46ch;margin:0 auto;font-size:18px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;text-align:left}
+.card{background:var(--paper);border:2px solid var(--ink);box-shadow:7px 7px 0 var(--ink);padding:20px;display:grid;gap:12px;align-content:start;will-change:transform}
+.card .n{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.card h3{font-size:clamp(30px,2.8vw,44px);font-weight:800;text-transform:uppercase;letter-spacing:-.04em;line-height:.9}
+.card p{font-size:15px}
+.card a{display:flex;gap:12px;align-items:center;margin-top:6px;padding-top:12px;border-top:2px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.card a img{width:44px;height:58px;object-fit:cover;border:2px solid var(--ink)}
+.p-lauki{left:4%;top:-40px;width:110px;height:150px;z-index:2}
+.p-tanki{right:5%;top:120px;width:120px;height:170px}
+
+/* office: a wheel of pieces turns as you scroll (Mana's circle of cards) */
+.office{position:relative;height:320vh;background:var(--paper)}
+.sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.center{position:absolute;left:50%;top:15vh;transform:translateX(-50%);text-align:center;width:min(92vw,900px);z-index:2}
+.center .big{font-size:clamp(48px,8.5vw,140px);margin:14px 0 26px}
+.ring{position:absolute;left:50%;top:0;width:0;height:0;will-change:transform}
+.pc{position:absolute;left:0;top:0;transform-origin:0 0;width:var(--cw);display:grid;gap:8px;background:var(--paper);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:10px;transition:background .25s}
+.pc:hover{background:var(--tone)}
+.pc img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--ink);background:var(--paper-2)}
+.pc .nm{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.15}
+.pc .pr{font-size:13px}
+.o-sun{right:8%;top:12vh;width:110px;height:110px}
+
+/* quotes */
+.quotes{position:relative;background:var(--neel);color:var(--paper);text-align:center;padding:140px var(--pad) 130px;border-block:2px solid var(--ink);overflow:hidden}
+.quotes .lbl{color:var(--yellow)}
+.q{font-size:clamp(40px,7vw,112px);max-width:16ch;margin:24px auto 22px;min-height:1.8em}
+.who{color:var(--sky)}
+.qnav{display:flex;gap:10px;justify-content:center;margin-top:34px}
+.qnav button{width:42px;height:42px;border:2px solid var(--paper);font-weight:700;font-size:13px;transition:background .25s,color .25s}
+.qnav button[aria-pressed="true"],.qnav button:hover{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.q-spool{left:7%;bottom:60px;width:90px;height:100px}
+
+/* footer: hover a letter to flash it (Mana's footer word) */
+.foot{padding:90px var(--pad) 40px;text-align:center;overflow:hidden}
+.foot>.lbl{color:var(--accent)}
+.giant{font-size:clamp(80px,21vw,360px);font-weight:800;text-transform:uppercase;letter-spacing:-.06em;line-height:.85;margin:16px 0 40px;cursor:default;user-select:none}
+.giant.pop.in .l{transition:transform .8s var(--elastic) calc(var(--i)*55ms),opacity .12s calc(var(--i)*55ms),translate .6s var(--elastic),rotate .6s var(--elastic),scale .6s var(--elastic)}
+.giant .l:hover{translate:0 -.08em;rotate:-5deg;scale:1.06}
+.d-sun svg,.o-sun svg{animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:2px solid var(--ink);padding-top:18px;font-size:14px;text-align:left}
+.frow nav{display:flex;gap:18px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.lab-badge{position:fixed;z-index:60;left:50%;bottom:14px;transform:translateX(-50%);padding:6px 12px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.lab-badge span{font-weight:400}
+
+@media (max-width:900px){
+  .nav{display:none}
+  .stage{width:min(56vw,330px)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .price{right:-26%;width:96px;height:96px}.price b{font-size:21px}
+  .craft{left:-28%}
+}
+@media (max-width:600px){
+  .hide-s{display:none}
+  .eyebrow{top:84px;font-size:10px}
+  .word{top:20%;font-size:clamp(52px,15vw,110px)}
+  .hero{gap:22px;padding-top:150px}
+  .stage{width:58vw}
+  .picker{display:grid;grid-template-columns:1fr 1fr;width:min(100%,340px)}
+  .picker button{padding:11px 10px;font-size:11px}
+  .price{right:-20%;top:-4%;width:84px;height:84px}.price b{font-size:18px}
+  .craft{left:-18%;bottom:6%;padding:8px 10px}.craft b{font-size:15px}
+  .d-sun{left:-18%;width:60px;height:60px}.d-spool{right:-12%;width:52px;height:60px}
+  .cards{grid-template-columns:1fr;gap:20px}
+  .p-tanki{display:none}.p-lauki{width:70px;height:96px}
+  .office{height:280vh}
+  .center{top:12vh}
+  .lede{font-size:16px}
+  .frow{text-align:center;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  :root{transition:none}
+  .track{animation:none}
+  .pop .l{opacity:1;transform:none;transition:none}
+  .hdr{transition:none}
+}
