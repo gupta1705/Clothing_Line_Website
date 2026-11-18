@@ -1,6 +1,6 @@
 /* Phulera Starter. Motion follows Mana Yerba Mate's own code (read with the Awwwards MCP's bundle tool):
    letters pop with an elastic scale and flash through the palette 70 ms a colour; the look picker slides a pill and
-   swaps the portrait through three growing circles with a springy settle; sections arch in, cards drift with a tilt,
+   swaps the portrait through three growing circles with a springy settle;
    a wheel of pieces turns as you scroll. Plain JS, CSS and SVG: no libraries, transforms only. */
 (function () {
   'use strict';
@@ -41,26 +41,16 @@
   $$('[data-pop]').forEach(function (el) { if (el.textContent.trim()) split(el, el.textContent.trim()) });
   var seen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { pop(e.target); seen.unobserve(e.target) } }) }, { threshold: .35 });
 
-  /* ---------- drawn stickers ---------- */
-  function star(n, r1, r2) { var pts = []; for (var i = 0; i < n * 2; i++) { var a = i / (n * 2) * Math.PI * 2 - Math.PI / 2, r = i % 2 ? r2 : r1; pts.push((50 + Math.cos(a) * r).toFixed(1) + ',' + (50 + Math.sin(a) * r).toFixed(1)) } return pts.join(' ') }
-  var DECO = {
-    sun: '<svg viewBox="0 0 100 100"><polygon points="' + star(12, 48, 34) + '" fill="#f0c14b" stroke="#3a2618" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="50" r="17" fill="#e0892a" stroke="#3a2618" stroke-width="3"/></svg>',
-    spool: '<svg viewBox="0 0 70 80"><rect x="12" y="14" width="46" height="52" fill="#c8374a" stroke="#3a2618" stroke-width="3"/><path d="M12 26h46M12 36h46M12 46h46M12 56h46" stroke="#3a2618" stroke-width="1.5" opacity=".45"/><rect x="4" y="5" width="62" height="11" rx="2" fill="#b07a4a" stroke="#3a2618" stroke-width="3"/><rect x="4" y="64" width="62" height="11" rx="2" fill="#b07a4a" stroke="#3a2618" stroke-width="3"/><path d="M58 40c10 2 8 14 2 22" fill="none" stroke="#c8374a" stroke-width="2.5" stroke-linecap="round"/></svg>',
-    lauki: '<svg viewBox="0 0 80 110"><path d="M40 16c6 0 8 6 7 12-1 8-7 12-7 22 0 12 18 16 18 36 0 14-9 20-18 20s-18-6-18-20c0-20 18-24 18-36 0-10-6-14-7-22-1-6 1-12 7-12z" fill="#7d8f3a" stroke="#3a2618" stroke-width="3" stroke-linejoin="round"/><path d="M40 16c0-6 4-10 9-11" fill="none" stroke="#3a2618" stroke-width="3" stroke-linecap="round"/><path d="M33 70c-2 6-1 14 3 19" fill="none" stroke="#f6efe2" stroke-width="3" stroke-linecap="round" opacity=".7"/></svg>',
-    tanki: '<svg viewBox="0 0 90 130"><path d="M20 70 10 126M70 70l10 56M45 70v56M14 104h62" stroke="#3a2618" stroke-width="3.5" stroke-linecap="round"/><rect x="12" y="20" width="66" height="54" rx="4" fill="#d9c4a0" stroke="#3a2618" stroke-width="3"/><path d="M12 32h66M12 60h66" stroke="#3a2618" stroke-width="2" opacity=".35"/><rect x="34" y="8" width="22" height="13" fill="#f6efe2" stroke="#3a2618" stroke-width="3"/><text x="45" y="52" text-anchor="middle" font-family="Arial" font-weight="700" font-size="11" fill="#3a2618">फुलेरा</text></svg>'
-  };
-  $$('[data-deco]').forEach(function (d) { d.innerHTML = DECO[d.getAttribute('data-deco')] || '' });
-
   /* ---------- hero: pick a Phulera look ---------- */
   var LOOKS = [
-    { who: 'Pradhan ji', pid: 'pradhan-half-sweater', img: 'p-half-sweater', tone: '#f0c14b', s: 'hand-knitted in', b: 'Kullu' },
-    { who: 'Sachiv ji', pid: 'sachiv-check-shirt', img: 'p-check-shirt', tone: '#9cc3e3', s: 'handloom from', b: 'Pochampally' },
-    { who: 'Prahlad Cha', pid: 'prahlad-cotton-kurta', img: 'p-cotton-kurta', tone: '#c3cd8a', s: 'woven in', b: 'Bhagalpur' },
-    { who: 'Vikas', pid: 'vikas-everyday-tee', img: 'p-vikas-tee', tone: '#f3a58c', s: 'hand-printed', b: 'Organic tee' }
+    { who: 'Pradhan ji', pid: 'pradhan-half-sweater', img: 'p-half-sweater', tone: '#f0c14b' },
+    { who: 'Sachiv ji', pid: 'sachiv-check-shirt', img: 'p-check-shirt', tone: '#9cc3e3' },
+    { who: 'Prahlad Cha', pid: 'prahlad-cotton-kurta', img: 'p-cotton-kurta', tone: '#c3cd8a' },
+    { who: 'Vikas', pid: 'vikas-everyday-tee', img: 'p-vikas-tee', tone: '#f3a58c' }
   ];
   LOOKS.forEach(function (L) { var im = new Image(); im.src = 'assets/img/' + L.img + '.webp' });   // warm the cache so swaps never wait
   var picker = $('.picker'), pill = $('.pill'), word = $('.word'), svg = $('.portrait'), defs = $('defs', svg), layers = $('.layers', svg);
-  var price = $('.price'), craft = $('.craft'), look = $('.look'), frame = $('.frame'), tone = $('.tone'), cur = -1, cpN = 0;
+  var price = $('.price'), look = $('.look'), frame = $('.frame'), tone = $('.tone'), cur = -1, cpN = 0;
   picker.insertAdjacentHTML('beforeend', LOOKS.map(function (L, i) { return '<button type="button" role="tab" aria-selected="false" data-i="' + i + '">' + L.who + '</button>' }).join(''));
   var tabs = $$('button', picker);
   var POS = [[[25, 50], [70, 70], [40, 20]], [[50, 20], [60, 65], [20, 80]], [[30, 70], [45, 25], [80, 45]], [[75, 25], [20, 40], [55, 85]], [[15, 15], [85, 55], [40, 75]]];
@@ -92,9 +82,8 @@
     portrait(L, instant);
     var href = 'product.html?id=' + L.pid;
     $('b', price).textContent = d ? inr(d.price) : ''; price.href = href; price.setAttribute('aria-label', (d ? d.name + ', ' + inr(d.price) : L.who) + ', shop it');
-    $('small', craft).textContent = L.s; $('b', craft).textContent = L.b;
     $('.nm', look).textContent = d ? d.name : L.who; $('.go', look).href = href;
-    if (!instant) { bounceIn(price); bounceIn(craft); if (tone.animate) tone.animate([{ rotate: (Math.random() < .5 ? -4 : 4) + 'deg' }, { rotate: '0deg' }], { duration: 1000, easing: EL }) }
+    if (!instant) { bounceIn(price); if (tone.animate) tone.animate([{ rotate: (Math.random() < .5 ? -4 : 4) + 'deg' }, { rotate: '0deg' }], { duration: 1000, easing: EL }) }
   }
   var auto = !reduce, autoT, heroOn = true;
   function stopAuto() { auto = false; clearTimeout(autoT) }
@@ -105,24 +94,6 @@
     stopAuto(); var n = (cur + k + LOOKS.length) % LOOKS.length; setLook(n); tabs[n].focus(); e.preventDefault();
   });
   new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting }).observe($('.hero'));
-
-  /* ---------- bands ---------- */
-  var PHR = ['Handloom', 'Hand-knitted', 'Made in villages', 'Ab aap bhi Pradhan ji', 'Dekh raha hai Binod'];
-  $$('.band .track').forEach(function (t, k) { var s = (k ? PHR.slice().reverse() : PHR).map(function (p) { return '<span>' + p + '</span><i>✺</i>' }).join(''); t.innerHTML = s + s });
-
-  /* ---------- villages ---------- */
-  var VIL = [
-    ['01', 'Kullu', 'A women’s collective hand-knits the wool for Pradhan ji’s half sweater.', 'pradhan-half-sweater'],
-    ['02', 'Pochampally', 'Sachiv ji’s checks come off handlooms in Telangana, one shuttle at a time.', 'sachiv-check-shirt'],
-    ['03', 'Bhagalpur', 'Prahlad Cha’s fine-stripe cotton, with every seam finished by hand.', 'prahlad-cotton-kurta'],
-    ['04', 'Bengal', 'Artisan families hand-spin and hand-weave the khadi for the khadi kurta.', 'handloom-khadi-kurta']
-  ];
-  $('.cards').innerHTML = VIL.map(function (v) {
-    var d = byId(v[3]);
-    return '<article class="card"><span class="n">' + v[0] + ' · Village</span><h3>' + v[1] + '</h3><p>' + esc(v[2]) + '</p>' +
-      (d ? '<a href="product.html?id=' + d.id + '"><img src="assets/img/' + d.img + '.webp" alt="" loading="lazy">' + esc(d.name) + '</a>' : '') + '</article>';
-  }).join('');
-  var cards = $$('.card').map(function (c) { return { el: c, x0: Math.random() * 40 - 20, x1: Math.random() * 40 - 20, r0: Math.random() * 10 - 5, r1: Math.random() * 6 - 3 } });
 
   /* ---------- the office: a wheel of every piece ---------- */
   var ring = $('.ring'), office = $('.office'), pcs = P ? P.products : [];
@@ -135,22 +106,12 @@
     $$('.pc', ring).forEach(function (c, i) { c.style.transform = 'rotate(' + (i * 360 / pcs.length) + 'deg) translate(-50%,calc(-50% - ' + R + 'px))' });   // pivots on the wheel's centre (transform-origin 0 0)
   }
 
-  /* ---------- quotes ---------- */
-  var QUOTES = [['Dekh raha hai Binod?', 'Bhushan, Phulera'], ['Ab aap bhi Pradhan ji', 'Pradhan by Panchayat'], ['Pradhan poore gaon ko saath le ke chalta hai', 'Why the brand is called Pradhan']];
-  var q = $('.q'), who = $('.who'), qnav = $('.qnav'), qi = -1, qT, qOn = false;
-  qnav.innerHTML = QUOTES.map(function (_, i) { return '<button type="button" aria-pressed="false" aria-label="Quote ' + (i + 1) + '">' + (i + 1) + '</button>' }).join('');
-  function setQuote(i, show) { qi = i; split(q, QUOTES[i][0]); who.textContent = QUOTES[i][1]; $$('button', qnav).forEach(function (b, k) { b.setAttribute('aria-pressed', k === i) }); if (show) pop(q) }
-  function nextQuote() { clearTimeout(qT); qT = setTimeout(function () { if (qOn && !document.hidden) setQuote((qi + 1) % QUOTES.length, true); nextQuote() }, 5200) }
-  qnav.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { setQuote($$('button', qnav).indexOf(b), true); nextQuote() } });
-  setQuote(0, false);
-  new IntersectionObserver(function (es) { var was = qOn; qOn = es[0].isIntersecting; if (qOn && !was) { pop(q); if (!reduce) nextQuote() } }, { threshold: .4 }).observe($('.quotes'));
-
   /* ---------- footer word ---------- */
   var giant = $('.giant'); split(giant, 'Phulera'); seen.observe(giant);
   giant.addEventListener('pointerover', function (e) { var l = e.target.closest('.l'); if (l) flash(l, 0) });
 
   /* ---------- one frame loop for scroll and pointer ---------- */
-  var stage = $('.stage'), decos = $$('.stage .sticker, .stage .deco'), pars = $$('[data-par]'), village = $('.village'), arch = $('.arch');
+  var stage = $('.stage'), decos = $$('.stage .sticker');
   var mx = 0, my = 0, sx = 0, sy = 0, raf = 0;
   function want() { if (!raf) raf = requestAnimationFrame(render) }
   var lastY = 0;
@@ -170,15 +131,6 @@
         d.style.rotate = (dir * hp * 28).toFixed(1) + 'deg';
       });
     }
-    var vr = village.getBoundingClientRect();
-    if (vr.top < vh * 1.4 && vr.bottom > 0) {
-      arch.style.transform = 'scaleY(' + clamp((vh - vr.top) / (vh * .8), 0, 1).toFixed(3) + ')';
-      cards.forEach(function (c) {
-        var r = c.el.getBoundingClientRect(), p = clamp((vh - r.top) / (vh * .9), 0, 1);
-        c.el.style.transform = 'translate3d(' + (c.x0 + (c.x1 - c.x0) * p).toFixed(1) + 'px,' + ((1 - p) * 40).toFixed(1) + '%,0) rotate(' + (c.r0 + (c.r1 - c.r0) * p).toFixed(2) + 'deg)';
-      });
-    }
-    pars.forEach(function (d) { var r = d.parentNode.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) d.style.translate = '0 ' + ((r.top + r.height / 2 - vh / 2) * +d.dataset.par).toFixed(1) + 'px' });
     var or = office.getBoundingClientRect();
     if (or.top < vh && or.bottom > 0) {
       var p = clamp(-or.top / (or.height - vh), 0, 1);
