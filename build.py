@@ -56,7 +56,7 @@ def header(active):
     return f'''<a class="sr-only" href="#main">Skip to content</a>
 <header class="hdr">
   <div class="l"><button class="ib" data-menu aria-label="Menu">{I['menu']}</button></div>
-  <a href="index.html" aria-label="Pradhan by Panchayat home">{LOGO}</a>
+  <a href="store.html" aria-label="Pradhan by Panchayat store home">{LOGO}</a>
   <div class="icons">
     <button class="ib" data-search aria-label="Search">{I['search']}</button>
     <button class="ib" data-open-cart aria-label="Bag">{I['bag']}<span class="ct" data-count></span></button>
@@ -77,7 +77,7 @@ def header(active):
 
 def footer(active):
     tags = ' '.join(f'<a href="shop.html?c={c}">{n}</a>' for c, n, _ in CATS)
-    mbar = [('home', 'Home', 'index.html', I['home']), ('menu', 'Menu', None, I['menu']), ('new', 'New', 'shop.html?edit=Phulera%20Everyday', I['new']), ('bag', 'Bag', None, I['bag']), ('wish', 'Saved', None, I['heart'])]
+    mbar = [('home', 'Home', 'store.html', I['home']), ('menu', 'Menu', None, I['menu']), ('new', 'New', 'shop.html?edit=Phulera%20Everyday', I['new']), ('bag', 'Bag', None, I['bag']), ('wish', 'Saved', None, I['heart'])]
     mb = ''
     for k, n, href, ic in mbar:
         on = ' class="on"' if k == active else ''
@@ -260,9 +260,10 @@ LAB = '''<main id="main">
     <h1>Experimental <b>pages</b></h1>
     <p>Openings we have tried for the home page. They are not the live design, and they may be slower or change without notice. Each one opens into the same store.</p>
     <div class="lab-grid">
+      <a class="lab-card" href="index.html"><img src="assets/img/ring/r02.webp" alt="Sachiv ji, seen from above" loading="lazy" style="background:#f6efe2;object-fit:contain"><span class="lab-tag live">Live: the main page</span><b>Phulera Starter</b><span>A ring of Phulera looks seen from above; the front look opens a printed panchayat bill. Store opens the office almirah as the store loads.</span></a>
       <a class="lab-card" href="lab/phulera/index.html"><img src="assets/img/op/1b-m.webp" alt="The Panchayat almirah open, full of kurtas" loading="lazy" width="1200" height="811"><span class="lab-tag">Experimental · 6 Nov 2026</span><b>Phulera walk</b><span>Five stops opened by a fluid reveal: the almirah full of kurtas, clothes on the tanki, the repainted slogan wall, the lauki gift, Pradhan ji. 2D only.</span></a>
       <a class="lab-card" href="lab/office-3d/index.html"><img src="assets/img/g-office.webp" alt="The Panchayat office" loading="lazy"><span class="lab-tag">Experimental · 6 Nov 2026 · heavy</span><b>3D Panchayat office</b><span>A live Three.js model of the office with a clickable almirah and 3D garments. Downloads about 35 MB, so it is slow on phones and mobile data.</span></a>
-      <a class="lab-card" href="index.html"><img src="assets/img/intro-a-sm.webp" alt="Pradhan ji in aviators" loading="lazy" style="background:#f6efe2"><span class="lab-tag live">Live on the home page</span><b>Pradhan ji reveal</b><span>The current opening: hover over Pradhan ji and his aviators come off.</span></a>
+      <a class="lab-card" href="store.html"><img src="assets/img/intro-a-sm.webp" alt="Pradhan ji in aviators" loading="lazy" style="background:#f6efe2"><span class="lab-tag live">Live on the store page</span><b>Pradhan ji reveal</b><span>The store's opening: hover over Pradhan ji and his aviators come off.</span></a>
     </div>
   </section>
 </main>
@@ -288,7 +289,8 @@ if __name__ == '__main__':
 <script src="assets/js/intro.js?v={ver('assets/js/intro.js')}" defer></script>
 <link rel="preload" as="image" href="assets/img/s-hero-festive.webp">
 '''
-    page('index.html', 'Pradhan by Panchayat | Handmade menswear from Phulera', 'Kurtas, Nehru jackets, half sweaters and shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, pre)
+    # the main URL (index.html) is the Phulera Starter (lab/phulera-start/); the store home lives at store.html
+    page('store.html', 'Pradhan by Panchayat | Handmade menswear from Phulera', 'Kurtas, Nehru jackets, half sweaters and shirts, handmade by village artisans. The clothing line from TVF’s Panchayat.', 'home', HOME, pre)
     badge = '<a class="lab-badge" href="lab/index.html"><b>Experimental</b><span> opening · all experiments</span></a>\n'
     pre_p = INTRO_HEAD_PHULERA + f'''<link rel="stylesheet" href="lab/phulera/intro.css?v={ver('lab/phulera/intro.css')}">
 <script src="lab/phulera/intro.js?v={ver('lab/phulera/intro.js')}" defer></script>

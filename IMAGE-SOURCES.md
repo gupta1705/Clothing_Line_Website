@@ -49,3 +49,22 @@ Not photographs:
 Products are named after the characters' on-screen outfits and use the stills as placeholders until real product photography is supplied.
 
 The experimental 3D office (`lab/office-3d/`) uses licensed CC-BY garment models and CC0 Poly Haven materials; their credits are in `lab/office-3d/assets/models/README.models.md` and `lab/office-3d/assets/models/office-materials/README.md`.
+
+## Phulera Starter ring and almirah (`lab/phulera-start/`), 18 November 2026
+
+Generated with ChatGPT (image generation, signed in to the user's account) at the user's request, using the official stills already on the site as the reference images. Originals are kept outside the site in `Clothing - Website/chatgpt-images/`.
+
+| File | Reference still | What was asked |
+|---|---|---|
+| `assets/img/ring/r01.webp` | `p-half-sweater.webp` | Pradhan ji, full body from above, half sweater over check shirt |
+| `assets/img/ring/r02.webp` | `p-check-shirt.webp` | Sachiv ji, check shirt, arms crossed |
+| `assets/img/ring/r03.webp` | `p-cotton-kurta.webp` | Prahlad Cha, grey cotton kurta |
+| `assets/img/ring/r04.webp` | `p-vikas-tee.webp` | Vikas, colour-block polo tee |
+| `assets/img/ring/r05.webp` | `p-linen-shirt.webp` | Pradhan ji, linen shirt and aviators |
+| `assets/img/ring/r06.webp` | `p-sachiv-sweater.webp` | Sachiv ji, maroon half sweater |
+| `assets/img/ring/r07.webp` | `p-bike-shirt.webp` | Sachiv ji, bike-ride shirt with backpack |
+| `assets/img/ring/r08.webp` | `p-khadi-kurta.webp` | Prahlad Cha, khadi kurta and gamchha |
+| `assets/img/ring/r09.webp` | `p-nehru-jacket.webp` | Shaadi look, Nehru jacket, garland |
+| `assets/img/almirah/alm-*.webp` | `op/1a-w.webp` | The office almirah, open and empty, then closed with its posters |
+
+Backgrounds were made transparent by `chatgpt-images/cutout.py` (flood fill from the border, no AI). The almirah body and doors come from the closed image and the interior from the open one (`chatgpt-images/build-almirah.py`). The bill in the ring still shows the official stills.

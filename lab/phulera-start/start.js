@@ -1,11 +1,10 @@
-/* Phulera Starter. Motion follows Mana Yerba Mate's own code (read with the Awwwards MCP's bundle tool):
-   letters pop with an elastic scale and flash through the palette 70 ms a colour; the look picker slides a pill and
-   swaps the portrait through three growing circles with a springy settle;
-   a wheel of pieces turns as you scroll. Plain JS, CSS and SVG: no libraries, transforms only. */
+/* Phulera Starter. Letters pop with an elastic scale and flash through the palette 70 ms a colour (Mana Yerba Mate);
+   the looks stand in a ring that turns on its own and can be dragged, and the front look opens a printed bill
+   (after filatov.design/offline); a wheel of pieces turns as you scroll. Plain JS and CSS: no libraries, transforms only. */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s) }, $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)) };
-  var root = document.documentElement, body = document.body, NS = 'http://www.w3.org/2000/svg';
+  var root = document.documentElement, body = document.body;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var P = window.PBP, byId = function (id) { return P && P.byId(id) }, inr = function (n) { return P ? P.inr(n) : '₹' + n };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] }) };
@@ -20,7 +19,7 @@
   }
   var EL = 'cubic-bezier(.34,1.7,.5,1)';
   if (window.CSS && CSS.supports('transition-timing-function', 'linear(0, 1)')) { EL = elastic(1.5, .5); root.style.setProperty('--elastic', EL) }
-  var inOut = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2 };
+  var pad = function (n) { return (n < 10 ? '0' : '') + n };
 
   /* ---------- letters ---------- */
   function split(el, text) {
@@ -41,59 +40,122 @@
   $$('[data-pop]').forEach(function (el) { if (el.textContent.trim()) split(el, el.textContent.trim()) });
   var seen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { pop(e.target); seen.unobserve(e.target) } }) }, { threshold: .35 });
 
-  /* ---------- hero: pick a Phulera look ---------- */
+  /* ---------- hero: a ring of Phulera looks ----------
+     Each look lists only catalogue pieces you can see in its still; [id, x, y] puts that piece's dot on the photo (shares of 600x800). */
   var LOOKS = [
-    { who: 'Pradhan ji', pid: 'pradhan-half-sweater', img: 'p-half-sweater', tone: '#f0c14b' },
-    { who: 'Sachiv ji', pid: 'sachiv-check-shirt', img: 'p-check-shirt', tone: '#9cc3e3' },
-    { who: 'Prahlad Cha', pid: 'prahlad-cotton-kurta', img: 'p-cotton-kurta', tone: '#c3cd8a' },
-    { who: 'Vikas', pid: 'vikas-everyday-tee', img: 'p-vikas-tee', tone: '#f3a58c' }
+    { who: 'Pradhan ji', t: 'Office', img: 'p-half-sweater', tone: '#f0c14b', items: [['pradhan-half-sweater', .6, .6]] },
+    { who: 'Sachiv ji', t: 'Checks', img: 'p-check-shirt', tone: '#9cc3e3', items: [['sachiv-check-shirt', .3, .6]] },
+    { who: 'Prahlad Cha', t: 'Everyday', img: 'p-cotton-kurta', tone: '#c3cd8a', items: [['prahlad-cotton-kurta', .58, .74]] },
+    { who: 'Vikas', t: 'Weekend', img: 'p-vikas-tee', tone: '#f3a58c', items: [['vikas-everyday-tee', .42, .8]] },
+    { who: 'Pradhan ji', t: 'Linen', img: 'p-linen-shirt', tone: '#e7d9b5', items: [['pradhan-linen-shirt', .3, .84]] },
+    { who: 'Sachiv ji', t: 'Winter', img: 'p-sachiv-sweater', tone: '#d99a8c', items: [['sachiv-maroon-half-sweater', .45, .9]] },
+    { who: 'Sachiv ji', t: 'Bike ride', img: 'p-bike-shirt', tone: '#e98aa6', items: [['sachiv-bike-ride-shirt', .3, .4]] },
+    { who: 'Prahlad Cha', t: 'Mela', img: 'p-khadi-kurta', tone: '#9fc7b8', items: [['handloom-khadi-kurta', .5, .62], ['phulera-gamchha-stole', .74, .4]] },
+    { who: 'Pradhan ji', t: 'Shaadi', img: 'p-nehru-jacket', tone: '#c8a36a', items: [['olive-nehru-jacket', .42, .6]] }
   ];
-  LOOKS.forEach(function (L) { var im = new Image(); im.src = 'assets/img/' + L.img + '.webp' });   // warm the cache so swaps never wait
-  var picker = $('.picker'), pill = $('.pill'), word = $('.word'), svg = $('.portrait'), defs = $('defs', svg), layers = $('.layers', svg);
-  var price = $('.price'), look = $('.look'), frame = $('.frame'), tone = $('.tone'), cur = -1, cpN = 0;
-  picker.insertAdjacentHTML('beforeend', LOOKS.map(function (L, i) { return '<button type="button" role="tab" aria-selected="false" data-i="' + i + '">' + L.who + '</button>' }).join(''));
-  var tabs = $$('button', picker);
-  var POS = [[[25, 50], [70, 70], [40, 20]], [[50, 20], [60, 65], [20, 80]], [[30, 70], [45, 25], [80, 45]], [[75, 25], [20, 40], [55, 85]], [[15, 15], [85, 55], [40, 75]]];
-  function image(src) { var im = document.createElementNS(NS, 'image'); im.setAttribute('href', src); im.setAttribute('width', 600); im.setAttribute('height', 800); im.setAttribute('preserveAspectRatio', 'xMidYMid slice'); return im }
-  function portrait(L, instant) {   // the new still opens through three circles that grow one after another
-    var g = document.createElementNS(NS, 'g'); g.appendChild(image('assets/img/' + L.img + '.webp'));
-    if (instant || reduce) { layers.replaceChildren(g); return }
-    var id = 'cp' + (++cpN), cp = document.createElementNS(NS, 'clipPath'); cp.id = id;
-    var cs = POS[Math.random() * POS.length | 0].map(function (p) { var c = document.createElementNS(NS, 'circle'); c.setAttribute('cx', p[0] * 6); c.setAttribute('cy', p[1] * 8); c.setAttribute('r', 0); cp.appendChild(c); return c });
-    defs.appendChild(cp); g.setAttribute('clip-path', 'url(#' + id + ')'); layers.appendChild(g);
-    var t0 = performance.now();
-    requestAnimationFrame(function tick(now) {
-      var done = true;
-      cs.forEach(function (c, k) { var t = clamp((now - t0 - k * 70) / 1000, 0, 1); if (t < 1) done = false; c.setAttribute('r', (1000 * inOut(t)).toFixed(1)) });
-      if (!done) return requestAnimationFrame(tick);
-      g.removeAttribute('clip-path'); cp.remove(); while (layers.firstChild !== g) layers.removeChild(layers.firstChild);
-    });
-    if (frame.animate) frame.animate([{ scale: .95 }, { scale: 1 }], { duration: 1100, easing: EL });
+  var N = LOOKS.length, word = $('.word'), car = $('.carousel'), cnt = $('.cnt'), ttl = $('.ttl'), playB = $('.play');
+  car.innerHTML = LOOKS.map(function (L, i) {
+    return '<button type="button" class="lk" data-i="' + i + '" aria-label="Look ' + pad(i + 1) + ': ' + L.who + ', ' + L.t + '"><img src="assets/img/ring/r' + pad(i + 1) + '.webp" alt="" draggable="false"></button>';   // ring figure; the bill keeps the official still
+  }).join('');
+  var cards = $$('.lk', car), rot = 0, tgt = 0, RX = 0, RY = 0, cur = -1, drag = null, spinRaf = 0, lastT = 0, live = false;
+  function fitWord() {   // the name never gets cut: shrink it until it fits the screen
+    word.style.fontSize = ''; var w = word.scrollWidth, max = innerWidth * .94;
+    if (w > max) word.style.fontSize = (parseFloat(getComputedStyle(word).fontSize) * max / w).toFixed(1) + 'px';
   }
-  function bounceIn(el) { if (!reduce && el.animate) el.animate([{ scale: 0 }, { scale: 1 }], { duration: 900, easing: EL, delay: 250 }) }
-  function movePill(b) { pill.style.width = b.offsetWidth + 'px'; pill.style.height = b.offsetHeight + 'px'; pill.style.transform = 'translate(' + b.offsetLeft + 'px,' + b.offsetTop + 'px)' }   // also works when phones wrap the picker into a grid
-  function setLook(i, instant) {
-    if (i === cur) return; cur = i; var L = LOOKS[i], d = byId(L.pid);
+  function setCur(n) {
+    cur = n; var L = LOOKS[n];
     root.style.setProperty('--tone', L.tone);
-    tabs.forEach(function (b, k) { b.setAttribute('aria-selected', k === i); b.tabIndex = k === i ? 0 : -1 });
-    movePill(tabs[i]);
-    split(word, L.who); if (!instant) pop(word);
-    svg.setAttribute('aria-label', L.who + (d ? ' wearing the ' + d.name : ''));
-    portrait(L, instant);
-    var href = 'product.html?id=' + L.pid;
-    $('b', price).textContent = d ? inr(d.price) : ''; price.href = href; price.setAttribute('aria-label', (d ? d.name + ', ' + inr(d.price) : L.who) + ', shop it');
-    $('.nm', look).textContent = d ? d.name : L.who; $('.go', look).href = href;
-    if (!instant) { bounceIn(price); if (tone.animate) tone.animate([{ rotate: (Math.random() < .5 ? -4 : 4) + 'deg' }, { rotate: '0deg' }], { duration: 1000, easing: EL }) }
+    cnt.textContent = pad(n + 1) + ' / ' + pad(N); ttl.textContent = L.who + ' · ' + L.t;
+    if (word.getAttribute('aria-label') !== L.who) { split(word, L.who); fitWord(); if (live) pop(word) }
   }
-  var auto = !reduce, autoT, heroOn = true;
-  function stopAuto() { auto = false; clearTimeout(autoT) }
-  function tickAuto() { clearTimeout(autoT); if (auto) autoT = setTimeout(function () { if (heroOn && !document.hidden) setLook((cur + 1) % LOOKS.length); tickAuto() }, 4600) }
-  picker.addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (b) { stopAuto(); setLook(+b.dataset.i) } });
-  picker.addEventListener('keydown', function (e) {
+  function place() {   // a ring seen from above: the front card is big, the far ones small, higher and faded
+    cards.forEach(function (c, i) {
+      var a = (i - rot) / N * 2 * Math.PI, s = Math.sin(a), t = (Math.cos(a) + 1) / 2, k = .34 + .66 * Math.pow(t, 1.6);
+      c.style.transform = 'translate3d(' + (s * RX).toFixed(1) + 'px,' + (-(1 - t) * RY).toFixed(1) + 'px,0) scale(' + k.toFixed(3) + ')';
+      c.style.zIndex = Math.round(t * 100); c.style.opacity = (.7 + .3 * t).toFixed(2);
+    });
+    var n = ((Math.round(rot) % N) + N) % N; if (n !== cur) setCur(n);
+  }
+  function layoutCar() {
+    var w = innerWidth, h = car.clientHeight, small = w < 700, cw = Math.min(w * (small ? .42 : .17), h * .64 / 2);   // front figure about two thirds of the ring's height
+    car.style.setProperty('--cw', cw.toFixed(0) + 'px');
+    RX = Math.min(w * (small ? .5 : .44), 780); RY = h * (small ? .6 : .56);   // deep enough that the far side of the ring shows above the front card
+    place(); fitWord();
+  }
+  function spin(now) {
+    spinRaf = 0; var dt = lastT ? Math.min(now - lastT, 100) : 16; lastT = now;
+    if (!drag) { var d = tgt - rot; rot = Math.abs(d) < .0008 || reduce ? tgt : rot + d * (1 - Math.pow(.9, dt / 16.7)) }   // same speed at any frame rate
+    place();
+    if (drag || rot !== tgt) spinRaf = requestAnimationFrame(spin); else lastT = 0;
+  }
+  function go(t) { tgt = t; if (!spinRaf) spinRaf = requestAnimationFrame(spin) }
+  function front() { return ((Math.round(tgt) % N) + N) % N }
+  function pick(i) {   // tap the front look for its bill; tap another to turn it to the front
+    var k = ((i - front()) % N + N) % N; if (k > N / 2) k -= N;
+    if (k === 0) openBill(i); else { go(Math.round(tgt) + k); restartAuto() }
+  }
+
+  var auto = !reduce, autoT, heroOn = true, billOn = false;
+  function restartAuto() { clearTimeout(autoT); if (auto) autoT = setTimeout(function () { if (heroOn && !billOn && !drag && !document.hidden) go(Math.round(tgt) + 1); restartAuto() }, 3600) }
+  function setAuto(on) { auto = on; playB.setAttribute('aria-pressed', on); playB.setAttribute('aria-label', on ? 'Pause the ring' : 'Play the ring'); restartAuto() }
+  playB.addEventListener('click', function () { setAuto(!auto) });
+  if (reduce) setAuto(false);
+
+  car.addEventListener('pointerdown', function (e) {
+    if (e.button) return;
+    drag = { x: e.clientX, r: rot, card: e.target.closest('.lk'), moved: false, v: 0, lx: e.clientX, lt: e.timeStamp };
+    car.setPointerCapture(e.pointerId); if (!spinRaf) spinRaf = requestAnimationFrame(spin);
+  });
+  car.addEventListener('pointermove', function (e) {
+    if (!drag) return; var dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 6) { drag.moved = true; car.classList.add('drag') }
+    if (!drag.moved) return;
+    var per = RX * Math.sin(2 * Math.PI / N);   // pixels between two neighbouring looks at the front
+    rot = drag.r - dx / per; var dt = Math.max(1, e.timeStamp - drag.lt); drag.v = (e.clientX - drag.lx) / dt / per; drag.lx = e.clientX; drag.lt = e.timeStamp;
+  });
+  function endDrag(e) {
+    if (!drag) return; var d = drag; drag = null; car.classList.remove('drag');
+    if (d.moved) { tgt = rot; go(Math.round(rot - d.v * 180)); restartAuto() }   // a flick carries on a little
+    else if (d.card && e.type === 'pointerup') pick(+d.card.dataset.i);
+  }
+  car.addEventListener('pointerup', endDrag); car.addEventListener('pointercancel', endDrag);
+  car.addEventListener('click', function (e) { var c = e.target.closest('.lk'); if (c && e.detail === 0) pick(+c.dataset.i) });   // keyboard Enter / Space
+  car.addEventListener('keydown', function (e) {
     var k = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!k) return;
-    stopAuto(); var n = (cur + k + LOOKS.length) % LOOKS.length; setLook(n); tabs[n].focus(); e.preventDefault();
+    e.preventDefault(); go(Math.round(tgt) + k); restartAuto(); cards[front()].focus({ preventScroll: true });
   });
   new IntersectionObserver(function (es) { heroOn = es[0].isIntersecting }).observe($('.hero'));
+
+  /* ---------- the bill ---------- */
+  var bill = $('.bill'), cats = {}, lastFocus = null, others = $$('header, main, footer, .lab-badge');
+  (P ? P.categories : []).forEach(function (c) { cats[c.id] = c.name });
+  function openBill(i) {
+    var L = LOOKS[i], rows = L.items.map(function (it) { return { d: byId(it[0]), x: it[1], y: it[2] } }).filter(function (o) { return o.d });
+    $('.bill-t', bill).innerHTML = '<span>' + pad(i + 1) + '.</span> ' + esc(L.who) + ' · ' + esc(L.t);
+    var im = $('.bill-fig img', bill); im.src = 'assets/img/' + L.img + '.webp'; im.alt = L.who + ', ' + L.t;
+    $('.dots', bill).innerHTML = rows.map(function (o, k) { return '<a class="dot" data-k="' + k + '" href="product.html?id=' + o.d.id + '" style="left:' + o.x * 100 + '%;top:' + o.y * 100 + '%;--k:' + k + '" aria-label="' + pad(k + 1) + ': ' + esc(o.d.name) + '">' + pad(k + 1) + '</a>' }).join('');
+    $('.rc-rows', bill).innerHTML = rows.map(function (o, k) {
+      return '<li data-k="' + k + '"><span class="n">' + pad(k + 1) + '</span><span class="nm"><b>' + esc(o.d.name) + '</b><small>' + esc(cats[o.d.cat] || '') + '</small></span><span class="pr">' + inr(o.d.price) + '</span><a class="add" href="product.html?id=' + o.d.id + '">Shop</a></li>';
+    }).join('');
+    $('.rc-no', bill).textContent = 'Bill no. ' + pad(i + 1) + '/' + new Date().getFullYear() + ' · ' + new Date().toLocaleDateString('en-IN');
+    $('.rc-total b', bill).textContent = inr(rows.reduce(function (a, o) { return a + o.d.price }, 0));
+    $('.rc-go', bill).href = rows.length === 1 ? 'product.html?id=' + rows[0].d.id : 'shop.html';
+    billOn = true; lastFocus = document.activeElement; bill.hidden = false; root.classList.add('bill-on');
+    others.forEach(function (el) { el.inert = true });
+    void bill.offsetWidth; bill.classList.add('on'); bill.scrollTop = 0; $('.x', bill).focus();
+  }
+  function closeBill() {
+    if (!billOn) return; billOn = false; bill.classList.remove('on'); root.classList.remove('bill-on');
+    others.forEach(function (el) { el.inert = false });
+    setTimeout(function () { if (!billOn) bill.hidden = true }, 320);
+    if (lastFocus) lastFocus.focus({ preventScroll: true }); restartAuto();
+  }
+  $('.x', bill).addEventListener('click', closeBill);
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBill() });
+  bill.addEventListener('pointerover', function (e) {   // a line on the bill and its dot light up together
+    var k = e.target.closest('[data-k]'); k = k ? k.dataset.k : null;
+    $$('[data-k]', bill).forEach(function (el) { el.classList.toggle('hi', el.dataset.k === k) });
+  });
 
   /* ---------- the office: a wheel of every piece ---------- */
   var ring = $('.ring'), office = $('.office'), pcs = P ? P.products : [];
@@ -111,7 +173,6 @@
   giant.addEventListener('pointerover', function (e) { var l = e.target.closest('.l'); if (l) flash(l, 0) });
 
   /* ---------- one frame loop for scroll and pointer ---------- */
-  var stage = $('.stage'), decos = $$('.stage .sticker');
   var mx = 0, my = 0, sx = 0, sy = 0, raf = 0;
   function want() { if (!raf) raf = requestAnimationFrame(render) }
   var lastY = 0;
@@ -122,14 +183,8 @@
     if (Math.abs(mx - sx) + Math.abs(my - sy) > .001) want();   // keep easing toward the pointer
     var hp = clamp(scrollY / vh, 0, 1.2);
     if (hp < 1.2) {
-      stage.style.transform = 'translate3d(0,' + (hp * 14).toFixed(2) + 'vh,0) rotate(' + (hp * -5).toFixed(2) + 'deg) scale(' + (1 - hp * .1).toFixed(3) + ')';
-      stage.style.translate = (sx * 18).toFixed(1) + 'px ' + (sy * 12).toFixed(1) + 'px';
+      car.style.transform = 'translate3d(' + (sx * 18).toFixed(1) + 'px,' + (hp * 12).toFixed(2) + 'vh,0) scale(' + (1 - hp * .1).toFixed(3) + ')';
       word.style.translate = (sx * -26).toFixed(1) + 'px ' + (hp * -14).toFixed(2) + 'vh';
-      decos.forEach(function (d, k) {   // stickers float with the pointer and fly off to the sides as you scroll (Mana's step3 .gauche / .droite)
-        var dir = d.offsetLeft < stage.offsetWidth / 2 ? -1 : 1, dep = 14 + k * 7;
-        d.style.translate = (sx * dep + dir * hp * 38 * innerWidth / 100).toFixed(1) + 'px ' + (sy * dep - hp * 24 * vh / 100).toFixed(1) + 'px';
-        d.style.rotate = (dir * hp * 28).toFixed(1) + 'deg';
-      });
     }
     var or = office.getBoundingClientRect();
     if (or.top < vh && or.bottom > 0) {
@@ -138,17 +193,77 @@
     }
   }
   addEventListener('scroll', want, { passive: true });
-  addEventListener('resize', function () { layoutRing(); if (cur >= 0) movePill(tabs[cur]); want() });
+  addEventListener('resize', function () { layoutRing(); layoutCar(); want() });
   $('.hero').addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') return; mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; want() });
 
+  /* ---------- STORE: the almirah opens as the store loads ----------
+     Click fetches the store page and every file it needs at first paint into the browser cache.
+     The doors open in step with that progress, are fully open exactly when it is all in, then we step inside
+     and the store paints straight from cache. */
+  var alm = $('.almirah'), AL = 'assets/img/almirah/alm-', almReady = null;
+  function buildAlmirah() {   // built shortly after load (or on first click) so the page's own first load stays light
+    if (almReady) return almReady;
+    alm.innerHTML = '<div class="plate"><img src="' + AL + 'body.webp" alt=""><img class="inside" src="' + AL + 'inside.webp" alt="">' +
+      '<div class="doors"><div class="d l"><img src="' + AL + 'door-l.webp" alt=""><i></i></div><div class="d r"><img src="' + AL + 'door-r.webp" alt=""><i></i></div></div></div>';
+    almReady = Promise.all($$('img', alm).map(function (im) { return im.decode ? im.decode().catch(function () {}) : Promise.resolve() }));
+    return almReady;
+  }
+  addEventListener('load', function () { setTimeout(buildAlmirah, 1500) });
+
+  function storeFiles(href) {   // the store's HTML, then its same-origin CSS, JS and eager images, with progress callbacks
+    return fetch(href).then(function (r) { return r.text() }).then(function (html) {
+      var doc = new DOMParser().parseFromString(html, 'text/html'), urls = {};
+      function add(u) { if (!u) return; var x = new URL(u, href); if (x.origin === location.origin) urls[x.href] = 1 }
+      $$('link[rel="stylesheet"],link[rel="preload"]', doc).forEach(function (l) { add(l.getAttribute('href')) });
+      $$('script[src]', doc).forEach(function (s) { add(s.getAttribute('src')) });
+      $$('img:not([loading="lazy"])', doc).forEach(function (im) {
+        var src = im.getAttribute('src'), pic = im.parentNode;
+        if (pic && pic.tagName === 'PICTURE') $$('source', pic).some(function (s) { if (matchMedia(s.getAttribute('media') || 'all').matches) { src = s.getAttribute('srcset'); return true } });
+        add(src);
+      });
+      return Object.keys(urls);
+    });
+  }
+
+  var opening = false;
+  $('[data-almirah]').addEventListener('click', function (e) {
+    if (reduce || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;   // new-tab clicks and reduced motion go straight through
+    e.preventDefault(); if (opening) return; opening = true;
+    var href = this.href, total = 1, done = 0, target = 0, shown = 0, started = 0, last = 0, ease = function (t) { return 1 - Math.pow(1 - t, 3) };
+    var tick = function () { done++; target = Math.max(target, done / total) };
+    storeFiles(href).then(function (urls) {
+      total = urls.length + 1; tick();   // the HTML itself counts as the first piece
+      urls.forEach(function (u) { fetch(u).then(tick, tick) });
+    }, function () { target = 1 });
+    setTimeout(function () { target = 1 }, 10000);   // slow network: never trap anyone in the almirah
+    buildAlmirah().then(function () {
+      var dl = $('.doors .l', alm), dr = $('.doors .r', alm);
+      alm.classList.add('on');
+      setTimeout(function () { alm.classList.add('rattle') }, 400);
+      setTimeout(function () { started = 1; requestAnimationFrame(swing) }, 900);
+      function swing(now) {
+        var dt = last ? Math.min(now - last, 250) : 16; last = now;   // real elapsed time, so slow phones swing at the same speed
+        var want = Math.max(.07, target);   // they unlatch and crack open at once, then follow the loading
+        shown = Math.min(want, shown + Math.max(0, (want - shown) * .12) * dt / 16, shown + dt / 1100);   // eased, and never faster than ~1.1 s for the full swing
+        var a = ease(shown);
+        dl.style.transform = 'rotateY(' + (-116 * a).toFixed(2) + 'deg)'; dr.style.transform = 'rotateY(' + (130 * a).toFixed(2) + 'deg)';
+        if (shown < .999) return requestAnimationFrame(swing);
+        alm.classList.add('in'); setTimeout(function () { location.href = href }, 650);
+      }
+    });
+  });
+  addEventListener('pageshow', function (e) {   // back button from the store shows the page, not open doors
+    if (!e.persisted) return; opening = false; alm.className = 'almirah'; $$('.doors .d', alm).forEach(function (d) { d.style.transform = '' });
+  });
+
   /* ---------- go ---------- */
-  layoutRing(); setLook(0, true); want();
+  layoutRing(); layoutCar(); want();
   (document.fonts && document.fonts.ready || Promise.resolve()).then(function () {
-    movePill(tabs[cur]);
+    fitWord();
     requestAnimationFrame(function () {
-      body.classList.add('ready'); pop(word);
+      body.classList.add('ready'); live = true; pop(word);
       $$('[data-pop]').forEach(function (el) { if (el !== word) seen.observe(el) });
-      tickAuto();
+      restartAuto();
     });
   });
 })();

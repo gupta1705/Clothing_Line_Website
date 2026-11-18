@@ -1,5 +1,5 @@
-/* Phulera Starter: Mana Yerba Mate's playful structure (letter pops that flash through the palette, a sliding look picker,
-   circle-mask portrait swaps, a turning wheel of products) in the store's type and colours. */
+/* Phulera Starter: Mana Yerba Mate's letter pops, a ring of looks with a bill for each (after filatov.design/offline),
+   and a turning wheel of products, in the store's type and colours. */
 @property --tone{syntax:'<color>';inherits:true;initial-value:#f0c14b}
 :root{
   --paper:#f6efe2;--paper-2:#ebe0cc;--ink:#3a2618;--brick:#8b3a1e;--accent:#a9512d;--yellow:#f3c74f;
@@ -37,28 +37,62 @@ svg{display:block}
 .logo .w{font-weight:700;font-size:20px;letter-spacing:.32em;margin-right:-.32em}
 .logo .s{font-size:8px;letter-spacing:.38em;margin-top:5px;opacity:.7}
 
-/* hero: a look picker like Mana's flavour switcher */
-.hero{position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:26px;padding:110px var(--pad) 60px;overflow:hidden}
-.word{position:absolute;left:50%;top:22%;transform:translate(-50%,0);font-size:clamp(70px,15.5vw,260px);font-weight:800;text-transform:uppercase;letter-spacing:-.055em;line-height:.85;white-space:nowrap;z-index:0;pointer-events:none;will-change:transform}
-.stage{position:relative;z-index:1;width:min(32vw,390px);aspect-ratio:3/4;will-change:transform}
-.tone{position:absolute;inset:-9% -24% -6%;background:var(--tone);border:2px solid var(--ink);border-radius:999px 999px 24px 24px;z-index:-1}
-.frame{position:absolute;inset:0;border:2px solid var(--ink);border-radius:999px 999px 18px 18px;overflow:hidden;background:var(--paper-2);box-shadow:10px 10px 0 var(--ink);will-change:transform}
-.portrait{width:100%;height:100%}
-.sticker{position:absolute;z-index:3;display:grid;place-items:center;text-align:center;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);will-change:transform}
-.sticker b{font-weight:800;letter-spacing:-.02em;line-height:1}
-.sticker small{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.price{right:-22%;top:8%;width:118px;height:118px;border-radius:50%;background:var(--yellow);transform:rotate(12deg);align-content:center;gap:4px}
-.price b{font-size:26px}
-.price:hover{background:var(--pink)}
-.picker{position:relative;z-index:2;display:flex;gap:2px;padding:6px;background:var(--paper);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
-.picker button{position:relative;z-index:1;padding:12px 18px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;transition:color .3s}
-.picker button[aria-selected="true"]{color:var(--ink)}
-.pill{position:absolute;left:0;top:0;width:0;height:0;background:var(--tone);border:2px solid var(--ink);transition:transform .55s var(--io),width .55s var(--io),height .55s var(--io)}
-.look{position:relative;z-index:2;display:flex;align-items:center;gap:16px;font-size:15px;flex-wrap:wrap;justify-content:center}
-.look .nm{font-weight:300;text-transform:uppercase;letter-spacing:.04em}
-.look .go{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:2px}
-.look .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .3s}
-.look .go:hover svg{transform:translateX(4px)}
+/* hero: the name behind, a ring of looks in front (start.js places every card) */
+.hero{position:relative;min-height:100svh;display:grid;align-content:end;padding:96px 0 0;overflow:hidden}
+.word{position:absolute;left:50%;top:clamp(96px,17vh,190px);transform:translate(-50%,0);font-size:clamp(70px,15.5vw,260px);font-weight:800;text-transform:uppercase;letter-spacing:-.055em;line-height:.85;white-space:nowrap;z-index:0;pointer-events:none;will-change:transform}
+.carousel{position:relative;z-index:1;height:calc(100svh - 150px);min-height:420px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;will-change:transform}
+.carousel.drag{cursor:grabbing}
+/* each look is a cut-out figure shot from above (generated from the official stills), standing on its own soft shadow */
+.lk{position:absolute;left:50%;bottom:9%;width:var(--cw);margin-left:calc(var(--cw)/-2);aspect-ratio:1/2;transform-origin:50% 100%;will-change:transform,opacity}
+.lk img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
+.lk:focus-visible{outline-offset:6px}
+.hud{position:absolute;left:var(--pad);bottom:22px;z-index:3;display:grid;gap:6px}
+.hud .row{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.play{width:32px;height:32px;border:2px solid var(--ink);display:grid;place-items:center;background:var(--paper)}
+.play svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linejoin:round}
+.play .i-play,.play[aria-pressed="false"] .i-pause{display:none}.play[aria-pressed="false"] .i-play{display:inline}
+.ttl{font-size:clamp(18px,2vw,26px);font-weight:300;text-transform:uppercase;letter-spacing:.02em}
+.hint{position:absolute;left:50%;bottom:28px;z-index:3;transform:translateX(-50%);white-space:nowrap;opacity:.65}
+
+/* the bill: a Gram Panchayat receipt prints out, numbered dots pop onto each piece */
+.bill-on{overflow:hidden}
+.bill{position:fixed;inset:0;z-index:90;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,440px);grid-template-rows:auto 1fr;gap:16px clamp(24px,4vw,64px);padding:22px var(--pad) 40px;background:var(--paper);overflow:auto;overscroll-behavior:contain;opacity:0;transition:opacity .3s}
+.bill.on{opacity:1}
+.bill[hidden]{display:none}   /* display:grid above would otherwise beat [hidden] and the invisible bill would swallow every click */
+.bill-top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.bill-t{font-size:clamp(28px,4.4vw,64px);font-weight:800;text-transform:uppercase;letter-spacing:-.035em;line-height:.95}
+.bill-t span{font-weight:300}
+.x{flex:none;width:50px;height:50px;border:2px solid var(--ink);display:grid;place-items:center;background:var(--paper);box-shadow:4px 4px 0 var(--ink);transition:transform .2s var(--out),box-shadow .2s var(--out)}
+.x:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.4}
+.bill-fig{position:relative;justify-self:end;align-self:center;height:min(76vh,780px);aspect-ratio:3/4;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink);background:var(--paper-2);transform:scale(.94);transition:transform .55s var(--out)}
+.bill.on .bill-fig{transform:none}
+.bill-fig img{display:block;width:100%;height:100%;object-fit:cover}
+.dot{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper);border:2px solid var(--paper);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;transform:scale(0);transition:transform .7s var(--elastic) calc(.45s + var(--k)*.14s),background .2s}
+.bill.on .dot{transform:none}
+.dot:hover,.dot.hi{background:var(--brick)}
+.receipt{position:relative;align-self:center;max-width:440px;background:#fffdf6;padding:24px 24px 28px;font-variant-numeric:tabular-nums;box-shadow:0 18px 30px -18px rgba(58,38,24,.5);clip-path:inset(-20px -20px 100% -20px);transition:clip-path 1s steps(16,end) .15s}
+.bill.on .receipt{clip-path:inset(-20px)}
+.receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:9px;background:radial-gradient(circle at 7px var(--cy),#fffdf6 6.5px,transparent 7px) 0 0/14px 9px repeat-x}
+.receipt::before{bottom:100%;--cy:9px}
+.receipt::after{top:100%;--cy:0}
+.rc-head{display:grid;gap:4px;text-align:center;padding-bottom:14px;border-bottom:1.5px dashed var(--ink)}
+.rc-head b{font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.rc-head span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.rc-rows{list-style:none;padding:0}
+.rc-rows li{display:grid;grid-template-columns:28px 1fr auto;gap:8px 10px;padding:14px 0;border-bottom:1.5px dashed rgba(58,38,24,.45);align-items:start;transition:background .2s}
+.rc-rows li.hi{background:rgba(240,193,75,.25)}
+.rc-rows .n{font-size:12px;font-weight:700;padding-top:2px}
+.rc-rows .nm b{display:block;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.2}
+.rc-rows .nm small{display:block;margin-top:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.rc-rows .pr{font-size:15px;font-weight:700;text-align:right}
+.rc-rows .add{grid-column:3;justify-self:end;padding:5px 10px;border:1.5px dashed var(--ink);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
+.rc-rows .add:hover{background:var(--haldi);border-style:solid}
+.rc-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 0 18px}
+.rc-total span{font-size:clamp(24px,2.4vw,32px);font-weight:300;text-transform:uppercase}
+.rc-total b{font-size:clamp(26px,2.6vw,36px);font-weight:800;letter-spacing:-.02em}
+.rc-go{width:100%;justify-content:center}
+.rc-foot{margin-top:18px;text-align:center;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
 
 /* office: a wheel of pieces turns as you scroll (Mana's circle of cards) */
 .office{position:relative;height:320vh;background:var(--paper)}
@@ -80,24 +114,40 @@ svg{display:block}
 .giant .l:hover{translate:0 -.08em;rotate:-5deg;scale:1.06}
 .frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-top:2px solid var(--ink);padding-top:18px;font-size:14px;text-align:left}
 .frow nav{display:flex;gap:18px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.lab-badge{position:fixed;z-index:60;right:14px;bottom:14px;padding:6px 12px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.lab-badge span{font-weight:400}
 
 @media (max-width:900px){
-  .stage{width:min(56vw,330px)}
-  .price{right:-26%;width:96px;height:96px}.price b{font-size:21px}
+  .hint{display:none}
+  .bill{grid-template-columns:1fr;grid-template-rows:auto}
+  .bill-fig{justify-self:center;height:auto;width:min(80vw,54vh*.75)}
+  .receipt{justify-self:center;width:100%;margin-top:18px}
 }
 @media (max-width:600px){
-  .word{top:20%;font-size:clamp(52px,15vw,110px)}
-  .hero{gap:22px;padding-top:150px}
-  .stage{width:58vw}
-  .picker{display:grid;grid-template-columns:1fr 1fr;width:min(100%,340px)}
-  .picker button{padding:11px 10px;font-size:11px}
-  .price{right:-20%;top:-4%;width:84px;height:84px}.price b{font-size:18px}
+  .word{top:110px}
+  .lk{bottom:17%}   /* clear of the counter and title below */
+
+  .dot{width:36px;height:36px;margin:-18px 0 0 -18px;font-size:12px}
   .office{height:280vh}
   .center{top:12vh}
   .frow{text-align:center;justify-content:center}
 }
+/* STORE opens the Panchayat office almirah (generated from the official still: closed body, its two doors cut out, the empty inside of the open version):
+   it rattles, then the doors open in step with the store loading (start.js), fully open when it is loaded; we step into the dark */
+.almirah{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--paper);visibility:hidden;opacity:0;transition:opacity .25s,visibility 0s .25s}
+.almirah.on{visibility:visible;opacity:1;transition:opacity .25s}
+.plate{position:relative;width:min(92vw,86vh*658/1104);aspect-ratio:658/1104;transform:scale(.94);transition:transform .5s var(--out);will-change:transform}
+.almirah.on .plate{transform:none}
+.plate>img{position:absolute;inset:0;width:100%;height:100%}
+.plate{transform-origin:42% 48.8%}
+.plate>.inside{position:absolute;inset:auto;left:3.951%;top:11.504%;width:78.116%;height:74.547%}
+.doors{position:absolute;left:3.951%;top:11.504%;width:78.116%;height:74.547%;perspective:1500px}
+.doors .d{position:absolute;top:0;height:100%;transform-style:preserve-3d;will-change:transform}
+.doors .d img,.doors .d i{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.doors .d i{background:linear-gradient(90deg,#55574a,#76786a 55%,#626456);box-shadow:inset 0 0 0 10px rgba(0,0,0,.08),inset 0 0 0 12px rgba(0,0,0,.3),inset 2px 2px 0 13px rgba(255,255,255,.12);transform:rotateY(180deg)}
+.doors .l{left:0;width:48.638%;transform-origin:0 50%}.doors .r{right:0;width:51.362%;transform-origin:100% 50%}
+.almirah.rattle .doors{animation:rattle .16s 3}
+.almirah.in .plate{transform:scale(5);opacity:0;transition:transform .65s cubic-bezier(.6,0,.4,1),opacity .25s .4s}
+@keyframes rattle{25%{translate:-2px 0}75%{translate:2px 0}}
+
 @media (prefers-reduced-motion:reduce){
   :root{transition:none}
   .pop .l{opacity:1;transform:none;transition:none}
