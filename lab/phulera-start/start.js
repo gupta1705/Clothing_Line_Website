@@ -201,23 +201,13 @@
   addEventListener('resize', function () { layoutRing(); layoutCar(); want() });
   $('.hero').addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') return; mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; want() });
 
-  /* ---------- STORE: the almirah opens as the store loads ----------
+  /* ---------- STORE: Sachiv ji approves your application as the store loads ----------
      Click fetches the store page and every file it needs at first paint into the browser cache.
-     The doors open in step with that progress, are fully open exactly when it is all in, then we step inside
-     and the store paints straight from cache. */
-  // the opening is a real video (Veo, from the closed almirah) cut into 30 frames on one 6x5 sprite
-  var alm = $('.almirah'), SPRITE = 'assets/img/almirah/alm-open.webp', FR = 30, COLS = 6, ROWS = 5, almReady = null, plate = null;
-  function frame(n) { plate.style.backgroundPosition = (n % COLS) * 100 / (COLS - 1) + '% ' + Math.floor(n / COLS) * 100 / (ROWS - 1) + '%' }
-  function buildAlmirah() {   // built shortly after load (or on first click) so the page's own first load stays light
-    if (almReady) return almReady;
-    alm.innerHTML = '<div class="plate"></div>'; plate = $('.plate', alm); frame(0);
-    var im = new Image(); im.src = SPRITE;
-    var dec = (im.decode ? im.decode() : Promise.resolve()).catch(function () {});
-    almReady = Promise.race([dec, new Promise(function (r) { setTimeout(r, 1500) })])   // a slow decode never holds the click up
-      .then(function () { plate.style.backgroundImage = 'url(' + SPRITE + ')' });
-    return almReady;
-  }
-  addEventListener('load', function () { setTimeout(buildAlmirah, 1500) });
+     The application fills in line by line in step with that progress; the stamp lands exactly when it is all in,
+     then the sheet is whisked away and the store paints straight from cache. */
+  var tx = $('.tx'), lines = $$('.ln', tx), today = new Date();
+  $('.dt', tx).textContent = today.toLocaleDateString('en-IN'); $('.yr', tx).textContent = today.getFullYear();
+  $('.sd', tx).textContent = today.toLocaleDateString('en-IN');
 
   function storeFiles(href) {   // the store's HTML, then its same-origin CSS, JS and eager images, with progress callbacks
     return fetch(href).then(function (r) { return r.text() }).then(function (html) {
@@ -235,7 +225,7 @@
   }
 
   var opening = false;
-  $('[data-almirah]').addEventListener('click', function (e) {
+  $('[data-stamp]').addEventListener('click', function (e) {
     if (reduce || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;   // new-tab clicks and reduced motion go straight through
     e.preventDefault(); if (opening) return; opening = true;
     var href = this.href, total = 1, done = 0, target = 0, shown = 0, last = 0;
@@ -244,23 +234,22 @@
       total = urls.length + 1; tick();   // the HTML itself counts as the first piece
       urls.forEach(function (u) { fetch(u).then(tick, tick) });
     }, function () { target = 1 });
-    setTimeout(function () { target = 1 }, 10000);   // slow network: never trap anyone in the almirah
+    setTimeout(function () { target = 1 }, 10000);   // slow network: never keep anyone waiting at the desk
     setTimeout(function () { location.href = href }, 13000);   // and if anything stalls, still reach the store
-    buildAlmirah().then(function () {
-      frame(0); alm.classList.add('on');
-      setTimeout(function () { requestAnimationFrame(swing) }, 450);
-      function swing(now) {   // the clip's own motion carries the easing; we only decide how far into it we are
-        var dt = last ? Math.min(now - last, 250) : 16; last = now;   // real elapsed time, so slow phones play at the same speed
-        var want = Math.max(.12, target);   // the handle turns and the doors unlatch at once, then follow the loading
-        shown = Math.min(want, shown + dt / 1700);   // never faster than ~1.7 s for the whole opening
-        frame(Math.round(shown * (FR - 1)));
-        if (shown < .999) return requestAnimationFrame(swing);
-        alm.classList.add('in'); setTimeout(function () { location.href = href }, 600);
-      }
-    });
+    tx.classList.add('on');
+    setTimeout(function () { requestAnimationFrame(fill) }, 500);   // once the sheet has landed on the desk
+    function fill(now) {
+      var dt = last ? Math.min(now - last, 250) : 16; last = now;   // real elapsed time, so slow phones fill at the same pace
+      shown = Math.min(Math.max(.15, target), shown + dt / 1500);   // never faster than ~1.5 s for the whole letter
+      lines.forEach(function (l, k) { l.classList.toggle('in', shown >= (k + 1) / lines.length - .001) });
+      if (shown < .999) return requestAnimationFrame(fill);
+      tx.classList.add('stamped');   // स्वीकृत
+      setTimeout(function () { tx.classList.add('out') }, 950);
+      setTimeout(function () { location.href = href }, 1450);
+    }
   });
-  addEventListener('pageshow', function (e) {   // back button from the store shows the page, not open doors
-    if (!e.persisted) return; opening = false; alm.className = 'almirah'; if (plate) frame(0);
+  addEventListener('pageshow', function (e) {   // back button from the store shows the page, not the stamped letter
+    if (!e.persisted) return; opening = false; tx.className = 'tx'; lines.forEach(function (l) { l.classList.remove('in') });
   });
 
   /* ---------- go ---------- */

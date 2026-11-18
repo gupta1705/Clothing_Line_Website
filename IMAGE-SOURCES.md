@@ -50,7 +50,7 @@ Products are named after the characters' on-screen outfits and use the stills as
 
 The experimental 3D office (`lab/office-3d/`) uses licensed CC-BY garment models and CC0 Poly Haven materials; their credits are in `lab/office-3d/assets/models/README.models.md` and `lab/office-3d/assets/models/office-materials/README.md`.
 
-## Phulera Starter ring and almirah (`lab/phulera-start/`), 18 November 2026
+## Phulera Starter ring (`lab/phulera-start/`), 18 November 2026
 
 Generated with ChatGPT (image generation, signed in to the user's account) at the user's request, using the official stills already on the site as the reference images. Originals are kept outside the site in `Clothing - Website/chatgpt-images/`.
 
@@ -65,6 +65,5 @@ Generated with ChatGPT (image generation, signed in to the user's account) at th
 | `assets/img/ring/r07.webp` | `p-bike-shirt.webp` | Sachiv ji, bike-ride shirt with backpack |
 | `assets/img/ring/r08.webp` | `p-khadi-kurta.webp` | Prahlad Cha, khadi kurta and gamchha |
 | `assets/img/ring/r09.webp` | `p-nehru-jacket.webp` | Shaadi look, Nehru jacket, garland |
-| `assets/img/almirah/alm-open.webp` | ChatGPT closed almirah (from `op/1a-w.webp`) | An 8 s Veo 3.1 Fast clip made in Google Flow from that closed almirah as the first frame: its doors swing open onto an empty interior. 30 frames from 1.3 s to 4.6 s, packed on one 6x5 sprite by `chatgpt-images/build-almirah-frames.py` |
 
-Backgrounds were made transparent by `chatgpt-images/cutout.py` (flood fill from the border, no AI). The almirah clip keeps its white studio, which the page blends into its cream background. The bill in the ring still shows the official stills.
+Backgrounds were made transparent by `chatgpt-images/cutout.py` (flood fill from the border, no AI). The bill in the ring still shows the official stills.
