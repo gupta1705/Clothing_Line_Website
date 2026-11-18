@@ -120,23 +120,14 @@ svg{display:block}
   .center{top:12vh}
   .frow{text-align:center;justify-content:center}
 }
-/* STORE opens the Panchayat office almirah (generated from the official still: closed body, its two doors cut out, the empty inside of the open version):
-   it rattles, then the doors open in step with the store loading (start.js), fully open when it is loaded; we step into the dark */
+/* STORE opens the Panchayat office almirah: a real clip of its doors opening (Veo, from the closed almirah), 30 frames on one
+   6x5 sprite. start.js steps through the frames in step with the store loading, fully open when it is loaded; then we step in.
+   multiply turns the clip's white studio into the cream page and keeps its real floor shadows */
 .almirah{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--paper);visibility:hidden;opacity:0;transition:opacity .25s,visibility 0s .25s}
 .almirah.on{visibility:visible;opacity:1;transition:opacity .25s}
-.plate{position:relative;width:min(92vw,86vh*658/1104);aspect-ratio:658/1104;transform:scale(.94);transition:transform .5s var(--out);will-change:transform}
+.plate{width:min(94vw,80vh*632/480);aspect-ratio:632/480;background:no-repeat 0 0/600% 500%;mix-blend-mode:multiply;-webkit-mask:linear-gradient(90deg,#0000,#000 3% 97%,#0000),linear-gradient(#000 90%,#0000);-webkit-mask-composite:source-in;mask:linear-gradient(90deg,#0000,#000 3% 97%,#0000),linear-gradient(#000 90%,#0000);mask-composite:intersect;transform:scale(.96);transform-origin:50% 56%;transition:transform .5s var(--out);will-change:transform}
 .almirah.on .plate{transform:none}
-.plate>img{position:absolute;inset:0;width:100%;height:100%}
-.plate{transform-origin:42% 48.8%}
-.plate>.inside{position:absolute;inset:auto;left:3.951%;top:11.504%;width:78.116%;height:74.547%}
-.doors{position:absolute;left:3.951%;top:11.504%;width:78.116%;height:74.547%;perspective:1500px}
-.doors .d{position:absolute;top:0;height:100%;transform-style:preserve-3d;will-change:transform}
-.doors .d img,.doors .d i{position:absolute;inset:0;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.doors .d i{background:linear-gradient(90deg,#55574a,#76786a 55%,#626456);box-shadow:inset 0 0 0 10px rgba(0,0,0,.08),inset 0 0 0 12px rgba(0,0,0,.3),inset 2px 2px 0 13px rgba(255,255,255,.12);transform:rotateY(180deg)}
-.doors .l{left:0;width:48.638%;transform-origin:0 50%}.doors .r{right:0;width:51.362%;transform-origin:100% 50%}
-.almirah.rattle .doors{animation:rattle .16s 3}
-.almirah.in .plate{transform:scale(5);opacity:0;transition:transform .65s cubic-bezier(.6,0,.4,1),opacity .25s .4s}
-@keyframes rattle{25%{translate:-2px 0}75%{translate:2px 0}}
+.almirah.in .plate{transform:scale(3.2);opacity:0;transition:transform .6s cubic-bezier(.6,0,.4,1),opacity .25s .35s}
 
 @media (prefers-reduced-motion:reduce){
   :root{transition:none}

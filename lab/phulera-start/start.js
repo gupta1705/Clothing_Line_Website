@@ -205,12 +205,16 @@
      Click fetches the store page and every file it needs at first paint into the browser cache.
      The doors open in step with that progress, are fully open exactly when it is all in, then we step inside
      and the store paints straight from cache. */
-  var alm = $('.almirah'), AL = 'assets/img/almirah/alm-', almReady = null;
+  // the opening is a real video (Veo, from the closed almirah) cut into 30 frames on one 6x5 sprite
+  var alm = $('.almirah'), SPRITE = 'assets/img/almirah/alm-open.webp', FR = 30, COLS = 6, ROWS = 5, almReady = null, plate = null;
+  function frame(n) { plate.style.backgroundPosition = (n % COLS) * 100 / (COLS - 1) + '% ' + Math.floor(n / COLS) * 100 / (ROWS - 1) + '%' }
   function buildAlmirah() {   // built shortly after load (or on first click) so the page's own first load stays light
     if (almReady) return almReady;
-    alm.innerHTML = '<div class="plate"><img src="' + AL + 'body.webp" alt=""><img class="inside" src="' + AL + 'inside.webp" alt="">' +
-      '<div class="doors"><div class="d l"><img src="' + AL + 'door-l.webp" alt=""><i></i></div><div class="d r"><img src="' + AL + 'door-r.webp" alt=""><i></i></div></div></div>';
-    almReady = Promise.all($$('img', alm).map(function (im) { return im.decode ? im.decode().catch(function () {}) : Promise.resolve() }));
+    alm.innerHTML = '<div class="plate"></div>'; plate = $('.plate', alm); frame(0);
+    var im = new Image(); im.src = SPRITE;
+    var dec = (im.decode ? im.decode() : Promise.resolve()).catch(function () {});
+    almReady = Promise.race([dec, new Promise(function (r) { setTimeout(r, 1500) })])   // a slow decode never holds the click up
+      .then(function () { plate.style.backgroundImage = 'url(' + SPRITE + ')' });
     return almReady;
   }
   addEventListener('load', function () { setTimeout(buildAlmirah, 1500) });
@@ -234,31 +238,29 @@
   $('[data-almirah]').addEventListener('click', function (e) {
     if (reduce || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;   // new-tab clicks and reduced motion go straight through
     e.preventDefault(); if (opening) return; opening = true;
-    var href = this.href, total = 1, done = 0, target = 0, shown = 0, started = 0, last = 0, ease = function (t) { return 1 - Math.pow(1 - t, 3) };
+    var href = this.href, total = 1, done = 0, target = 0, shown = 0, last = 0;
     var tick = function () { done++; target = Math.max(target, done / total) };
     storeFiles(href).then(function (urls) {
       total = urls.length + 1; tick();   // the HTML itself counts as the first piece
       urls.forEach(function (u) { fetch(u).then(tick, tick) });
     }, function () { target = 1 });
     setTimeout(function () { target = 1 }, 10000);   // slow network: never trap anyone in the almirah
+    setTimeout(function () { location.href = href }, 13000);   // and if anything stalls, still reach the store
     buildAlmirah().then(function () {
-      var dl = $('.doors .l', alm), dr = $('.doors .r', alm);
-      alm.classList.add('on');
-      setTimeout(function () { alm.classList.add('rattle') }, 400);
-      setTimeout(function () { started = 1; requestAnimationFrame(swing) }, 900);
-      function swing(now) {
-        var dt = last ? Math.min(now - last, 250) : 16; last = now;   // real elapsed time, so slow phones swing at the same speed
-        var want = Math.max(.07, target);   // they unlatch and crack open at once, then follow the loading
-        shown = Math.min(want, shown + Math.max(0, (want - shown) * .12) * dt / 16, shown + dt / 1100);   // eased, and never faster than ~1.1 s for the full swing
-        var a = ease(shown);
-        dl.style.transform = 'rotateY(' + (-116 * a).toFixed(2) + 'deg)'; dr.style.transform = 'rotateY(' + (130 * a).toFixed(2) + 'deg)';
+      frame(0); alm.classList.add('on');
+      setTimeout(function () { requestAnimationFrame(swing) }, 450);
+      function swing(now) {   // the clip's own motion carries the easing; we only decide how far into it we are
+        var dt = last ? Math.min(now - last, 250) : 16; last = now;   // real elapsed time, so slow phones play at the same speed
+        var want = Math.max(.12, target);   // the handle turns and the doors unlatch at once, then follow the loading
+        shown = Math.min(want, shown + dt / 1700);   // never faster than ~1.7 s for the whole opening
+        frame(Math.round(shown * (FR - 1)));
         if (shown < .999) return requestAnimationFrame(swing);
-        alm.classList.add('in'); setTimeout(function () { location.href = href }, 650);
+        alm.classList.add('in'); setTimeout(function () { location.href = href }, 600);
       }
     });
   });
   addEventListener('pageshow', function (e) {   // back button from the store shows the page, not open doors
-    if (!e.persisted) return; opening = false; alm.className = 'almirah'; $$('.doors .d', alm).forEach(function (d) { d.style.transform = '' });
+    if (!e.persisted) return; opening = false; alm.className = 'almirah'; if (plate) frame(0);
   });
 
   /* ---------- go ---------- */
