@@ -41,19 +41,19 @@
   var seen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { pop(e.target); seen.unobserve(e.target) } }) }, { threshold: .35 });
 
   /* ---------- hero: a ring of Phulera looks ----------
-     Each look lists only catalogue pieces you can see in its still; [id, x, y] puts that piece's dot on the photo (shares of 600x800). */
+     Each look's bill lists only catalogue pieces you can see in its still. */
   var LOOKS = [
-    { who: 'Pradhan ji', t: 'Office', img: 'p-half-sweater', tone: '#f0c14b', items: [['pradhan-half-sweater', .6, .6]] },
-    { who: 'Sachiv ji', t: 'Checks', img: 'p-check-shirt', tone: '#9cc3e3', items: [['sachiv-check-shirt', .3, .6]] },
-    { who: 'Prahlad Cha', t: 'Everyday', img: 'p-cotton-kurta', tone: '#c3cd8a', items: [['prahlad-cotton-kurta', .58, .74]] },
-    { who: 'Vikas', t: 'Weekend', img: 'p-vikas-tee', tone: '#f3a58c', items: [['vikas-everyday-tee', .42, .8]] },
-    { who: 'Pradhan ji', t: 'Linen', img: 'p-linen-shirt', tone: '#e7d9b5', items: [['pradhan-linen-shirt', .3, .84]] },
-    { who: 'Sachiv ji', t: 'Winter', img: 'p-sachiv-sweater', tone: '#d99a8c', items: [['sachiv-maroon-half-sweater', .45, .9]] },
-    { who: 'Sachiv ji', t: 'Bike ride', img: 'p-bike-shirt', tone: '#e98aa6', items: [['sachiv-bike-ride-shirt', .3, .4]] },
-    { who: 'Prahlad Cha', t: 'Mela', img: 'p-khadi-kurta', tone: '#9fc7b8', items: [['handloom-khadi-kurta', .5, .62], ['phulera-gamchha-stole', .74, .4]] },
-    { who: 'Pradhan ji', t: 'Shaadi', img: 'p-nehru-jacket', tone: '#c8a36a', items: [['olive-nehru-jacket', .42, .6]] }
+    { who: 'Pradhan ji', t: 'Office', img: 'p-half-sweater', tone: '#f0c14b', items: ['pradhan-half-sweater'] },
+    { who: 'Sachiv ji', t: 'Checks', img: 'p-check-shirt', tone: '#9cc3e3', items: ['sachiv-check-shirt'] },
+    { who: 'Prahlad Cha', t: 'Everyday', img: 'p-cotton-kurta', tone: '#c3cd8a', items: ['prahlad-cotton-kurta'] },
+    { who: 'Vikas', t: 'Weekend', img: 'p-vikas-tee', tone: '#f3a58c', items: ['vikas-everyday-tee'] },
+    { who: 'Pradhan ji', t: 'Linen', img: 'p-linen-shirt', tone: '#e7d9b5', items: ['pradhan-linen-shirt'] },
+    { who: 'Sachiv ji', t: 'Winter', img: 'p-sachiv-sweater', tone: '#d99a8c', items: ['sachiv-maroon-half-sweater'] },
+    { who: 'Sachiv ji', t: 'Bike ride', img: 'p-bike-shirt', tone: '#e98aa6', items: ['sachiv-bike-ride-shirt'] },
+    { who: 'Prahlad Cha', t: 'Mela', img: 'p-khadi-kurta', tone: '#9fc7b8', items: ['handloom-khadi-kurta', 'phulera-gamchha-stole'] },
+    { who: 'Pradhan ji', t: 'Shaadi', img: 'p-nehru-jacket', tone: '#c8a36a', items: ['olive-nehru-jacket'] }
   ];
-  var N = LOOKS.length, word = $('.word'), car = $('.carousel'), cnt = $('.cnt'), ttl = $('.ttl'), playB = $('.play');
+  var N = LOOKS.length, word = $('.word'), car = $('.carousel'), ttl = $('.ttl');
   car.innerHTML = LOOKS.map(function (L, i) {
     return '<button type="button" class="lk" data-i="' + i + '" aria-label="Look ' + pad(i + 1) + ': ' + L.who + ', ' + L.t + '"><img src="assets/img/ring/r' + pad(i + 1) + '.webp" alt="" draggable="false"></button>';   // ring figure; the bill keeps the official still
   }).join('');
@@ -65,7 +65,7 @@
   function setCur(n) {
     cur = n; var L = LOOKS[n];
     root.style.setProperty('--tone', L.tone);
-    cnt.textContent = pad(n + 1) + ' / ' + pad(N); ttl.textContent = L.who + ' · ' + L.t;
+    ttl.textContent = L.who + ' · ' + L.t;
     if (word.getAttribute('aria-label') !== L.who) { split(word, L.who); fitWord(); if (live) pop(word) }
   }
   function place() {   // a ring seen from above: the front card is big, the far ones small, higher and faded
@@ -92,14 +92,12 @@
   function front() { return ((Math.round(tgt) % N) + N) % N }
   function pick(i) {   // tap the front look for its bill; tap another to turn it to the front
     var k = ((i - front()) % N + N) % N; if (k > N / 2) k -= N;
-    if (k === 0) openBill(i); else { go(Math.round(tgt) + k); restartAuto() }
+    stopAuto(); if (k === 0) openBill(i); else go(Math.round(tgt) + k);
   }
 
   var auto = !reduce, autoT, heroOn = true, billOn = false;
   function restartAuto() { clearTimeout(autoT); if (auto) autoT = setTimeout(function () { if (heroOn && !billOn && !drag && !document.hidden) go(Math.round(tgt) + 1); restartAuto() }, 3600) }
-  function setAuto(on) { auto = on; playB.setAttribute('aria-pressed', on); playB.setAttribute('aria-label', on ? 'Pause the ring' : 'Play the ring'); restartAuto() }
-  playB.addEventListener('click', function () { setAuto(!auto) });
-  if (reduce) setAuto(false);
+  function stopAuto() { auto = false; clearTimeout(autoT) }   // the ring turns on its own until someone clicks a look
 
   car.addEventListener('pointerdown', function (e) {
     if (e.button) return;
@@ -130,12 +128,11 @@
   var bill = $('.bill'), cats = {}, lastFocus = null, others = $$('header, main, footer, .lab-badge');
   (P ? P.categories : []).forEach(function (c) { cats[c.id] = c.name });
   function openBill(i) {
-    var L = LOOKS[i], rows = L.items.map(function (it) { return { d: byId(it[0]), x: it[1], y: it[2] } }).filter(function (o) { return o.d });
+    var L = LOOKS[i], rows = L.items.map(function (id) { return { d: byId(id) } }).filter(function (o) { return o.d });
     $('.bill-t', bill).innerHTML = '<span>' + pad(i + 1) + '.</span> ' + esc(L.who) + ' · ' + esc(L.t);
     var im = $('.bill-fig img', bill); im.src = 'assets/img/' + L.img + '.webp'; im.alt = L.who + ', ' + L.t;
-    $('.dots', bill).innerHTML = rows.map(function (o, k) { return '<a class="dot" data-k="' + k + '" href="product.html?id=' + o.d.id + '" style="left:' + o.x * 100 + '%;top:' + o.y * 100 + '%;--k:' + k + '" aria-label="' + pad(k + 1) + ': ' + esc(o.d.name) + '">' + pad(k + 1) + '</a>' }).join('');
-    $('.rc-rows', bill).innerHTML = rows.map(function (o, k) {
-      return '<li data-k="' + k + '"><span class="n">' + pad(k + 1) + '</span><span class="nm"><b>' + esc(o.d.name) + '</b><small>' + esc(cats[o.d.cat] || '') + '</small></span><span class="pr">' + inr(o.d.price) + '</span><a class="add" href="product.html?id=' + o.d.id + '">Shop</a></li>';
+    $('.rc-rows', bill).innerHTML = rows.map(function (o) {
+      return '<li><span class="nm"><b>' + esc(o.d.name) + '</b><small>' + esc(cats[o.d.cat] || '') + '</small></span><span class="pr">' + inr(o.d.price) + '</span><a class="add" href="product.html?id=' + o.d.id + '">Shop</a></li>';
     }).join('');
     $('.rc-no', bill).textContent = 'Bill no. ' + pad(i + 1) + '/' + new Date().getFullYear() + ' · ' + new Date().toLocaleDateString('en-IN');
     $('.rc-total b', bill).textContent = inr(rows.reduce(function (a, o) { return a + o.d.price }, 0));
@@ -152,10 +149,6 @@
   }
   $('.x', bill).addEventListener('click', closeBill);
   addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBill() });
-  bill.addEventListener('pointerover', function (e) {   // a line on the bill and its dot light up together
-    var k = e.target.closest('[data-k]'); k = k ? k.dataset.k : null;
-    $$('[data-k]', bill).forEach(function (el) { el.classList.toggle('hi', el.dataset.k === k) });
-  });
 
   /* ---------- the office: a wheel of every piece ---------- */
   var ring = $('.ring'), office = $('.office'), pcs = P ? P.products : [];

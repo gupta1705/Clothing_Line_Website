@@ -47,14 +47,10 @@ svg{display:block}
 .lk img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;pointer-events:none}
 .lk:focus-visible{outline-offset:6px}
 .hud{position:absolute;left:var(--pad);bottom:22px;z-index:3;display:grid;gap:6px}
-.hud .row{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.12em;font-variant-numeric:tabular-nums}
-.play{width:32px;height:32px;border:2px solid var(--ink);display:grid;place-items:center;background:var(--paper)}
-.play svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linejoin:round}
-.play .i-play,.play[aria-pressed="false"] .i-pause{display:none}.play[aria-pressed="false"] .i-play{display:inline}
 .ttl{font-size:clamp(18px,2vw,26px);font-weight:300;text-transform:uppercase;letter-spacing:.02em}
 .hint{position:absolute;left:50%;bottom:28px;z-index:3;transform:translateX(-50%);white-space:nowrap;opacity:.65}
 
-/* the bill: a Gram Panchayat receipt prints out, numbered dots pop onto each piece */
+/* the bill: a Gram Panchayat receipt prints out beside the look */
 .bill-on{overflow:hidden}
 .bill{position:fixed;inset:0;z-index:90;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,440px);grid-template-rows:auto 1fr;gap:16px clamp(24px,4vw,64px);padding:22px var(--pad) 40px;background:var(--paper);overflow:auto;overscroll-behavior:contain;opacity:0;transition:opacity .3s}
 .bill.on{opacity:1}
@@ -68,9 +64,6 @@ svg{display:block}
 .bill-fig{position:relative;justify-self:end;align-self:center;height:min(76vh,780px);aspect-ratio:3/4;border:2px solid var(--ink);box-shadow:10px 10px 0 var(--ink);background:var(--paper-2);transform:scale(.94);transition:transform .55s var(--out)}
 .bill.on .bill-fig{transform:none}
 .bill-fig img{display:block;width:100%;height:100%;object-fit:cover}
-.dot{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper);border:2px solid var(--paper);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;transform:scale(0);transition:transform .7s var(--elastic) calc(.45s + var(--k)*.14s),background .2s}
-.bill.on .dot{transform:none}
-.dot:hover,.dot.hi{background:var(--brick)}
 .receipt{position:relative;align-self:center;max-width:440px;background:#fffdf6;padding:24px 24px 28px;font-variant-numeric:tabular-nums;box-shadow:0 18px 30px -18px rgba(58,38,24,.5);clip-path:inset(-20px -20px 100% -20px);transition:clip-path 1s steps(16,end) .15s}
 .bill.on .receipt{clip-path:inset(-20px)}
 .receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:9px;background:radial-gradient(circle at 7px var(--cy),#fffdf6 6.5px,transparent 7px) 0 0/14px 9px repeat-x}
@@ -80,13 +73,11 @@ svg{display:block}
 .rc-head b{font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
 .rc-head span{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
 .rc-rows{list-style:none;padding:0}
-.rc-rows li{display:grid;grid-template-columns:28px 1fr auto;gap:8px 10px;padding:14px 0;border-bottom:1.5px dashed rgba(58,38,24,.45);align-items:start;transition:background .2s}
-.rc-rows li.hi{background:rgba(240,193,75,.25)}
-.rc-rows .n{font-size:12px;font-weight:700;padding-top:2px}
+.rc-rows li{display:grid;grid-template-columns:1fr auto;gap:8px 10px;padding:14px 0;border-bottom:1.5px dashed rgba(58,38,24,.45);align-items:start;transition:background .2s}
 .rc-rows .nm b{display:block;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.2}
 .rc-rows .nm small{display:block;margin-top:4px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6}
 .rc-rows .pr{font-size:15px;font-weight:700;text-align:right}
-.rc-rows .add{grid-column:3;justify-self:end;padding:5px 10px;border:1.5px dashed var(--ink);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
+.rc-rows .add{grid-column:2;justify-self:end;padding:5px 10px;border:1.5px dashed var(--ink);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:background .2s}
 .rc-rows .add:hover{background:var(--haldi);border-style:solid}
 .rc-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 0 18px}
 .rc-total span{font-size:clamp(24px,2.4vw,32px);font-weight:300;text-transform:uppercase}
@@ -125,7 +116,6 @@ svg{display:block}
   .word{top:110px}
   .lk{bottom:17%}   /* clear of the counter and title below */
 
-  .dot{width:36px;height:36px;margin:-18px 0 0 -18px;font-size:12px}
   .office{height:280vh}
   .center{top:12vh}
   .frow{text-align:center;justify-content:center}
