@@ -90,9 +90,9 @@
   }
   function go(t) { tgt = t; if (!spinRaf) spinRaf = requestAnimationFrame(spin) }
   function front() { return ((Math.round(tgt) % N) + N) % N }
-  function pick(i) {   // tap the front look for its bill; tap another to turn it to the front
+  function pick(i) {   // tap any look: it enlarges into its bill, and the ring turns it to the front underneath
     var k = ((i - front()) % N + N) % N; if (k > N / 2) k -= N;
-    stopAuto(); if (k === 0) openBill(i); else go(Math.round(tgt) + k);
+    stopAuto(); if (k) go(Math.round(tgt) + k); openBill(i, cards[i]);
   }
 
   var auto = !reduce, autoT, heroOn = true, billOn = false;
@@ -127,10 +127,11 @@
   /* ---------- the bill ---------- */
   var bill = $('.bill'), cats = {}, lastFocus = null, others = $$('header, main, footer, .lab-badge');
   (P ? P.categories : []).forEach(function (c) { cats[c.id] = c.name });
-  function openBill(i) {
+  function openBill(i, from) {
     var L = LOOKS[i], rows = L.items.map(function (id) { return { d: byId(id) } }).filter(function (o) { return o.d });
     $('.bill-t', bill).innerHTML = '<span>' + pad(i + 1) + '.</span> ' + esc(L.who) + ' · ' + esc(L.t);
-    var im = $('.bill-fig img', bill); im.src = 'assets/img/' + L.img + '.webp'; im.alt = L.who + ', ' + L.t;
+    var im = $('.bill-fig img', bill); im.src = 'assets/img/ring/r' + pad(i + 1) + '.webp'; im.alt = L.who + ', ' + L.t;
+    root.style.setProperty('--tone', L.tone);
     $('.rc-rows', bill).innerHTML = rows.map(function (o) {
       return '<li><span class="nm"><b>' + esc(o.d.name) + '</b><small>' + esc(cats[o.d.cat] || '') + '</small></span><span class="pr">' + inr(o.d.price) + '</span><a class="add" href="product.html?id=' + o.d.id + '">Shop</a></li>';
     }).join('');
@@ -140,6 +141,17 @@
     billOn = true; lastFocus = document.activeElement; bill.hidden = false; root.classList.add('bill-on');
     others.forEach(function (el) { el.inert = true });
     void bill.offsetWidth; bill.classList.add('on'); bill.scrollTop = 0; $('.x', bill).focus();
+    if (from && !reduce) fly(from, im);
+  }
+  function fly(card, im) {   // the figure grows from where it stood in the ring to its place on the bill
+    var src = $('img', card), a = card.getBoundingClientRect(), r = src.naturalWidth / src.naturalHeight;
+    var aw = Math.min(a.width, a.height * r), ah = aw / r, ax = a.left + (a.width - aw) / 2, ay = a.bottom - ah;   // the drawn figure inside its contain box
+    var b = im.getBoundingClientRect(); if (!b.width) return;
+    var f = new Image(); f.src = src.src; f.alt = ''; f.className = 'fly';
+    f.style.cssText = 'left:' + b.left + 'px;top:' + b.top + 'px;width:' + b.width + 'px;height:' + b.height + 'px';
+    document.body.appendChild(f); im.classList.add('flying'); card.style.visibility = 'hidden';
+    var anim = f.animate([{ transform: 'translate(' + (ax - b.left) + 'px,' + (ay - b.top) + 'px) scale(' + (aw / b.width) + ')' }, { transform: 'none' }], { duration: 750, easing: 'cubic-bezier(.22,.8,.24,1)' });
+    anim.onfinish = anim.oncancel = function () { im.classList.remove('flying'); f.remove(); card.style.visibility = '' };
   }
   function closeBill() {
     if (!billOn) return; billOn = false; bill.classList.remove('on'); root.classList.remove('bill-on');
